@@ -1,0 +1,21 @@
+using System;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+[Serializable]
+public class #SCRIPTNAME# : IDisposable
+{
+
+    #NOTRIM#
+    public #SCRIPTNAME#()
+    {
+
+    }
+
+    public void Dispose()
+    {
+        // Debug.Log("Dispose called.");
+        // perform cleanup here
+    }
+}
+#ROOTNAMESPACEEND#

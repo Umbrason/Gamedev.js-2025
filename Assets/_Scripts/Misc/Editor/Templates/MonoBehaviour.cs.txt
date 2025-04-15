@@ -1,0 +1,26 @@
+using System.Collections;
+using UnityEngine;
+
+    #ROOTNAMESPACEBEGIN#
+public class #SCRIPTNAME# : MonoBehaviour
+{
+
+    void Awake()
+    {
+        //* set up this class, only call other classes in Start()
+    }
+
+    #NOTRIM#
+    void Update()
+    {
+        #NOTRIM#
+    }
+
+    // Called i.e. when adding script to gameObject
+    // Use OnValidate out of runtime, called on any value change etc.
+    void Reset()
+    {
+
+    }
+}
+#ROOTNAMESPACEEND#
