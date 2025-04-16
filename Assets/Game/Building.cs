@@ -1,4 +1,4 @@
 public enum Building
 {
-    None,
+    None, Mine, Farm
 }

@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 16
+  orthographic size: 26.6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
-  m_LocalPosition: {x: 0, y: 10, z: 10.04}
+  m_LocalPosition: {x: 0, y: 36.7, z: 36.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapQuantities: {x: 8, y: 5}
-  distance: {x: 8, y: 8}
+  distance: {x: 13, y: 12}
   mapSize: 4
   Generators:
   - {fileID: 11400000, guid: e816d510b6f60da4f8812e9584a55dbb, type: 2}
@@ -294,6 +294,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0be59b68ee7cc8044b2c5ca44f471e7e, type: 2}
   - {fileID: 11400000, guid: fd17d73e09abe6e439a628311500ca17, type: 2}
   - {fileID: 11400000, guid: 5c6f711cbee9c4f48b083b7507d4f37c, type: 2}
+  IslandViewPrefab: {fileID: 7933140947317215412, guid: a86521b702c38994297c423712d8db71, type: 3}
 --- !u!4 &1134461229
 Transform:
   m_ObjectHideFlags: 0

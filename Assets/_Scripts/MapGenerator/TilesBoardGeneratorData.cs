@@ -14,56 +14,58 @@ namespace MapGenerator
         const float SPACING_HORIZONTAL = 1;
         const float SPACING_VERTICAL = 0.866025403784f;
 
+        /// <param name="size">The number of hexagons on each side of the map</param>
+        public PlayerIsland Generate(int size = 4, Transform parent = null) => Generate(new HexPosition(0, 0), size, parent);
 
         /// <param name="size">The number of hexagons on each side of the map</param>
-        public HashSet<GameObject> Generate(Vector3 center, int size = 4, Transform parent = null)
+        public PlayerIsland Generate(HexPosition center, int size = 4, Transform parent = null)
         {
-            HashSet<GameObject> instances = new();
 
             int nTiles = GetBoardNumberOfTiles(size);
 
-            HashSet<Vector3> emptyPositions = GetTilesPositions().ToHashSet();
+            HashSet<HexPosition> emptyPositions = GetTilesPositions().ToHashSet();
             int[] tilesTypesQuantities = PickTilesQuantities();
 
+
+            Dictionary<HexPosition, Tile> Tiles = new();
 
             for (int i = 0; i < TilesFrequencies.Length; i++)
             {
                 var possiblePositions = emptyPositions.ToArray();
                 int[] positionsIndices = TilesFrequencies[i].Layout.PickPositions(possiblePositions, tilesTypesQuantities[i]);
 
-                GameObject prefab = TilesFrequencies[i].Prefab;
+                Tile tile = TilesFrequencies[i].Tile;
 
                 foreach (int index in positionsIndices)
                 {
-                    Vector3 pos = possiblePositions[index];
+                    HexPosition pos = possiblePositions[index];
 
                     emptyPositions.Remove(pos);
 
-                    if(prefab!=null)
-                        instances.Add(Instantiate(prefab, pos, prefab.transform.rotation, parent));
+                    Tiles.Add(pos, tile);
                 }
             }
 
-            return instances;
+            return new PlayerIsland(Tiles);
 
-            Vector3[] GetTilesPositions()
+            HexPosition[] GetTilesPositions()
             {
-                Vector3[] positions = new Vector3[nTiles];
+                HexPosition[] positions = new HexPosition[nTiles];
 
                 int i = 0;
 
                 positions[i++] = center;
 
-                Vector3[] radialDirections = {
-                    new Vector3(0.5f * SPACING_HORIZONTAL,0f,SPACING_VERTICAL),
-                    new Vector3(SPACING_HORIZONTAL,0f,0f),
-                    new Vector3(0.5f*SPACING_HORIZONTAL,0f,-SPACING_VERTICAL),
-                    new Vector3(-0.5f*SPACING_HORIZONTAL,0f,-SPACING_VERTICAL),
-                    new Vector3(-SPACING_HORIZONTAL,0f,0f),
-                    new Vector3(-0.5f * SPACING_HORIZONTAL,0f,SPACING_VERTICAL),
+                HexPosition[] radialDirections = {
+                    new HexPosition(1,-1,0),
+                    new HexPosition(1,0,-1),
+                    new HexPosition(0,1,-1),
+                    new HexPosition(-1,1,0),
+                    new HexPosition(-1,0,1),
+                    new HexPosition(0,-1,1)
                 };
 
-                Vector3[] orbitalDirections = new Vector3[6];
+                HexPosition[] orbitalDirections = new HexPosition[6];
                 for (int d = 0; d <= 5; d++)
                     orbitalDirections[d] = radialDirections[(d + 1) % 6] - radialDirections[d];
 
@@ -153,7 +155,7 @@ namespace MapGenerator
         [System.Serializable]
         public struct TileFrequency
         {
-            public GameObject Prefab;
+            public Tile Tile;
             public float MinFrequency;
             public float MaxFrequency;
             public TilesLayout Layout;

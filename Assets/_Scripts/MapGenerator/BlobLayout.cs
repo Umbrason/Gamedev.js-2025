@@ -10,12 +10,12 @@ namespace MapGenerator
         [SerializeField] float noiseForce = 0f;
 
         Vector3 _perlinOffset;
-        public override int[] PickPositions(Vector3[] emptyPositions, int n)
+        public override int[] PickPositions(HexPosition[] emptyPositions, int n)
         {
             _perlinOffset = new Vector3(Random.value * 10000f, 0f, Random.value * 10000f);
 
             return Enumerable.Range(0, emptyPositions.Length)
-                .OrderBy(i => EvaluateScalarField(emptyPositions[i]))
+                .OrderBy(i => EvaluateScalarField(emptyPositions[i].WorldPositionCenter))
                 .Take(n)
                 .ToArray();
         }

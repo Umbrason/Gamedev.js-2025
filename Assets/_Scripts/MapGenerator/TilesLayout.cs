@@ -5,6 +5,6 @@ namespace MapGenerator
 {
     public abstract class TilesLayout : ScriptableObject
     {
-        public abstract int[] PickPositions(Vector3[] emptyPositions, int n);
+        public abstract int[] PickPositions(HexPosition[] emptyPositions, int n);
     }
 }

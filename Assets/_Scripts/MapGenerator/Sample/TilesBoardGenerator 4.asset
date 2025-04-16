@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: TilesBoardGenerator 4
   m_EditorClassIdentifier: 
   TilesFrequencies:
-  - Prefab: {fileID: 2342572894568158351, guid: 4ca4ee3505d6e1e448fe8a9b1d4c6897, type: 3}
+  - Tile: 4
     MinFrequency: 8
     MaxFrequency: 12
     Layout: {fileID: 11400000, guid: b1e262d418b817548a98a94987437651, type: 2}
-  - Prefab: {fileID: 2342572894568158351, guid: 591baddaa34d0a9419644dbd79328ffc, type: 3}
+  - Tile: 2
     MinFrequency: 4
     MaxFrequency: 8
     Layout: {fileID: 11400000, guid: bcab10f4104508c42bf1b7772f889c9c, type: 2}
-  - Prefab: {fileID: 2342572894568158351, guid: 9d95d7b7ef4817d4f9dc0c41e5f43de2, type: 3}
+  - Tile: 1
     MinFrequency: 4
     MaxFrequency: 7
     Layout: {fileID: 11400000, guid: da56a67ada8f27c43851239bdddbeb3c, type: 2}
-  - Prefab: {fileID: 2342572894568158351, guid: 4f2be4da8601cf24f982c6f2557f40a4, type: 3}
+  - Tile: 3
     MinFrequency: 25
     MaxFrequency: 40
     Layout: {fileID: 11400000, guid: 7defeec11c479f24c80e833ec2c75c2c, type: 2}

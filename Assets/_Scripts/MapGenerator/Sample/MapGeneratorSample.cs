@@ -1,5 +1,8 @@
+using DataView;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MapGenerator
 {
@@ -10,6 +13,7 @@ namespace MapGenerator
         [SerializeField] int mapSize = 4;
 
         [SerializeField] TilesBoardGeneratorData[] Generators;
+        [SerializeField] IslandView IslandViewPrefab;
 
         private void Start()
         {
@@ -18,7 +22,7 @@ namespace MapGenerator
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space)) Generate();
+            if (Keyboard.current[Key.Space].wasPressedThisFrame) Generate();
         }
 
         private void Generate()
@@ -36,7 +40,23 @@ namespace MapGenerator
                     float x = (X - 0.5f * (mapQuantities.x - 1f)) * distance.x;
                     float z = (Z - 0.5f * (mapQuantities.y - 1f)) * distance.y;
 
-                    Generators[i++ % Generators.Length].Generate(new Vector3(x, 0f, z), mapSize, transform);
+                    Vector3 pos = new Vector3(x, 0f, z);
+                    // PlayerIsland island = Generators[i++ % Generators.Length].Generate(HexOrientation.Active * pos, mapSize, transform);
+
+                    var IslandInstance = Instantiate(IslandViewPrefab, pos, Quaternion.identity, transform);
+
+                    var playerIsland = Generators[i++ % Generators.Length].Generate(mapSize, IslandInstance.transform);
+
+                    HashSet<HexPosition> hexPositions = playerIsland.Tiles.Keys.ToHashSet();
+                    Dictionary<HexPosition, Building> buildings = new();
+                    foreach(HexPosition p in hexPositions)
+                    {
+                        if(Random.value > 0.95f) buildings[p] = Building.Mine;
+                    }
+
+                    playerIsland.Buildings = buildings;
+
+                    IslandInstance.Data = playerIsland;
                 }
             }
         }
