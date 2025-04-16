@@ -18,13 +18,13 @@ namespace DataView
             {
                 if (_instance == null)
                 {
-                    var objects = Resources.FindObjectsOfTypeAll<PrefabsSettings>();
-                    if (objects.Length == 0)
+                    PrefabsSettings settings = Resources.Load("PrefabsSettings") as PrefabsSettings;
+                    if (settings == null)
                     {
-                        Debug.LogError("Didn't find a PrefabsSettings asset in Resources");
+                        Debug.LogError("Didn't find a PrefabsSettings.asset file in the Resources folder");
                         return null;
                     }
-                    _instance = objects[0];
+                    _instance = settings;
                 }
                 return _instance;
             }
