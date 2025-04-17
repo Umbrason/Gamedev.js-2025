@@ -1,4 +1,4 @@
-public enum PlayerFaction
+public enum PlayerFactions
 {
     None,
     A,
