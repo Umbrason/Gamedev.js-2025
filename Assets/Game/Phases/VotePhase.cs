@@ -46,8 +46,8 @@ public class VotePhase : IGamePhase
         yield return null;
     }
 
-
     const string SubmitVoteHeader = "SubmitPetitionVote";
+    [PlayerAction]
     public void SubmitVote(int vote)
     {
         CurrentVotes[Game.ClientID] = vote;

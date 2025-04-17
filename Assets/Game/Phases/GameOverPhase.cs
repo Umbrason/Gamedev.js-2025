@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Linq;
 
+
+//TODO: Implement a restart/exit for this
 public class GameOverPhase : IGamePhase
 {
-    const bool BalancedTeamHasPriority = false;
     public GameInstance Game { private get; set; }
-    public PlayerRole WinnerRole => BalancedTeamHasPriority ?
-                                    (Game.BalancedFactionGoals.All(goal => goal.Complete) ? PlayerRole.Balanced : PlayerRole.Selfish) :
-                                    (Game.SelfishFactionGoals.All(goal => goal.Complete) ? PlayerRole.Selfish : PlayerRole.Balanced);
+    public PlayerRole WinnerRole;
+
+    public GameOverPhase(PlayerRole winnerRole)
+    {
+        WinnerRole = winnerRole;
+    }
+
     public IEnumerator OnEnter()
     {
         yield return null;

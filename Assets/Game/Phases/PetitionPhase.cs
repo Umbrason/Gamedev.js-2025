@@ -23,7 +23,8 @@ public class PetitionPhase : IGamePhase
         yield return null;
     }
 
-    void SubmitPetition(BuildingPetition petition)
+    [PlayerAction]
+    public void SubmitPetition(BuildingPetition petition)
     {
         Petitions.ContainsKey(Game.ClientID);
         Game.NetworkChannel.BroadcastMessage(SubmitPetitionHeader, petition);

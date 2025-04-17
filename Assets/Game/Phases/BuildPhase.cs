@@ -6,7 +6,6 @@ using UnityEngine;
 public class BuildPhase : IGamePhase
 {
     public GameInstance Game { private get; set; }
-    public INetworkChannel NetworkChannel { private get; set; }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
     const float BuildPhaseDurationSeconds = 30;
     private float startTime;
@@ -65,7 +64,7 @@ public class BuildPhase : IGamePhase
     }
 
     const string UpdateResourcesHeader = "UpdateResources";
-    void HarvestResources()
+    private void HarvestResources()
     {
         foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value))
         {
@@ -91,6 +90,8 @@ public class BuildPhase : IGamePhase
            CanAffordBuilding(building); //enough resources?
 
     const string UpdateIslandHeader = "UpdateIslandHeader";
+
+    [PlayerAction]
     public void PlaceBuilding(HexPosition position, Building building)
     {
         if (skipping) return;
@@ -98,11 +99,13 @@ public class BuildPhase : IGamePhase
         Game.ClientPlayerData.Island = Game.ClientPlayerData.Island.WithBuildings((position, building));
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
     }
+
+    [PlayerAction]
     public void Skip() => skipping = true;
 
 
-    //negative values can "withdraw" a pledge
-    public void PledgeResource(SharedGoalID targetGoalID, Resource resource, int amount)
+    [PlayerAction]
+    public void PledgeResource(SharedGoalID targetGoalID, Resource resource, int amount) //negative values can "withdraw" a pledge
     {
         if (!PledgedResources.TryGetValue(Game.ClientID, out var clientPledgedResources))
             clientPledgedResources = PledgedResources[Game.ClientID] = new();
