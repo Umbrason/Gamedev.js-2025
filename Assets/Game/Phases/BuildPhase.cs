@@ -21,6 +21,10 @@ public class BuildPhase : IGamePhase
         void OnUpdatePlayerIsland(NetworkMessage message)
         => Game.PlayerData[message.sender].Island = (PlayerIsland)message.content;
         Game.NetworkChannel.StartListening(UpdateIslandHeader, OnUpdatePlayerIsland);
+
+        void OnUpdatePlayerResources(NetworkMessage message)
+        => Game.PlayerData[message.sender].Resources = (Dictionary<Resource, int>)message.content;
+        Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
         yield return null;
     }
 
@@ -38,6 +42,7 @@ public class BuildPhase : IGamePhase
     public IEnumerator OnExit()
     {
         Game.NetworkChannel.StopListening(UpdateIslandHeader);
+        Game.NetworkChannel.StopListening(UpdateResourcesHeader);
 
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
         yield return new WaitUntil(() => PledgedResources.Count >= 6);
@@ -57,10 +62,9 @@ public class BuildPhase : IGamePhase
         }
 
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase, Game.ClientID));
-        yield return null;
     }
 
-
+    const string UpdateResourcesHeader = "UpdateResources";
     void HarvestResources()
     {
         foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value))
@@ -77,6 +81,7 @@ public class BuildPhase : IGamePhase
             var resourceYieldType = building.ResourceYieldType();
             Game.ClientPlayerData.Resources[resourceYieldType]++;
         }
+        Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
     }
 
     public bool CanAffordBuilding(Building building) => Game.ClientPlayerData.HasResources(building.ConstructionCosts());
