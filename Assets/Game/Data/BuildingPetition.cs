@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 public class BuildingPetition
 {
-    PlayerID PlayerID;
-    HexPosition Position;
-    Building Building;
-    Dictionary<PlayerID, Dictionary<Resource, int>> ResourceSources;
+    public PlayerID PlayerID;
+    public HexPosition Position;
+    public Building Building;
+    public Dictionary<PlayerID, Dictionary<Resource, int>> ResourceSources;
 }

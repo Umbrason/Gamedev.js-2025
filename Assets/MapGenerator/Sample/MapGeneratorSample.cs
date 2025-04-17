@@ -8,8 +8,8 @@ namespace MapGenerator
 {
     public class MapGeneratorSample : MonoBehaviour
     {
-        [SerializeField] Vector2Int mapQuantities = new Vector2Int(8,5);
-        [SerializeField] Vector2 distance = new Vector2(8,8);
+        [SerializeField] Vector2Int mapQuantities = new Vector2Int(8, 5);
+        [SerializeField] Vector2 distance = new Vector2(8, 8);
         [SerializeField] int mapSize = 4;
 
         [SerializeField] TilesBoardGeneratorData[] Generators;
@@ -27,13 +27,13 @@ namespace MapGenerator
 
         private void Generate()
         {
-            foreach(Transform child in transform)
+            foreach (Transform child in transform)
             {
                 Destroy(child.gameObject);
             }
 
             int i = 0;
-            for(int X = 0; X < mapQuantities.x; X++)
+            for (int X = 0; X < mapQuantities.x; X++)
             {
                 for (int Z = 0; Z < mapQuantities.y; Z++)
                 {
@@ -48,13 +48,13 @@ namespace MapGenerator
                     var playerIsland = Generators[i++ % Generators.Length].Generate(mapSize, IslandInstance.transform);
 
                     HashSet<HexPosition> hexPositions = playerIsland.Tiles.Keys.ToHashSet();
-                    Dictionary<HexPosition, Building> buildings = new();
-                    foreach(HexPosition p in hexPositions)
+                    List<(HexPosition, Building)> buildings = new();
+                    foreach (HexPosition p in hexPositions)
                     {
-                        if(Random.value > 0.95f) buildings[p] = Building.Mine;
+                        if (Random.value > 0.95f) buildings.Add((p, Building.Mine));
                     }
 
-                    playerIsland.Buildings = buildings;
+                    playerIsland = playerIsland.WithBuildings(buildings.ToArray());
 
                     IslandInstance.Data = playerIsland;
                 }

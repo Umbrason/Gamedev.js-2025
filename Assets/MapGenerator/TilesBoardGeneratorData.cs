@@ -46,7 +46,7 @@ namespace MapGenerator
                 }
             }
 
-            return new PlayerIsland(Tiles);
+            return new PlayerIsland(Tiles, new Dictionary<HexPosition, Building>());
 
             HexPosition[] GetTilesPositions()
             {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public enum Building
 {
-    None,
+    None, Mine, Farm
 }
 
 public static class BuildingExtensions
