@@ -19,7 +19,11 @@ public struct HexPosition
     public static HexPosition operator -(HexPosition a)
         => new(-a.Q, -a.R);
     public static HexPosition operator +(HexPosition a, HexPosition b)
-        => new(a.Q - b.Q, a.R - b.R);
+        => new(a.Q + b.Q, a.R + b.R);
+    public static HexPosition operator -(HexPosition a, HexPosition b)
+    => a + (-b);
     public static HexPosition operator *(HexPosition a, int skalar)
         => new(a.Q * skalar, a.R * skalar);
+    public static HexPosition operator *(int skalar, HexPosition a)
+    => new(a.Q * skalar, a.R * skalar);
 }

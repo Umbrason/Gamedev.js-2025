@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da08f7c8c19d2b428eacda24fa55c4b, type: 3}
+  m_Name: TilesBoardGenerator 3
+  m_EditorClassIdentifier: 
+  TilesFrequencies:
+  - Tile: 4
+    MinFrequency: 5
+    MaxFrequency: 10
+    Layout: {fileID: 11400000, guid: b1e262d418b817548a98a94987437651, type: 2}
+  - Tile: 2
+    MinFrequency: 8
+    MaxFrequency: 15
+    Layout: {fileID: 11400000, guid: bcab10f4104508c42bf1b7772f889c9c, type: 2}
+  - Tile: 1
+    MinFrequency: 25
+    MaxFrequency: 40
+    Layout: {fileID: 11400000, guid: da56a67ada8f27c43851239bdddbeb3c, type: 2}
+  - Tile: 3
+    MinFrequency: 10
+    MaxFrequency: 20
+    Layout: {fileID: 11400000, guid: 7defeec11c479f24c80e833ec2c75c2c, type: 2}
