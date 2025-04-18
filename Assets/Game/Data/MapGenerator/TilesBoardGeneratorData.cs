@@ -8,17 +8,13 @@ namespace MapGenerator
     [CreateAssetMenu(fileName = "TilesBoardGenerator", menuName = "Scriptable Objects/MapGenerator/TilesBoardGenerator")]
     public class TilesBoardGeneratorData : ScriptableObject
     {
-
         [SerializeField] private TileFrequency[] TilesFrequencies;
 
-        const float SPACING_HORIZONTAL = 1;
-        const float SPACING_VERTICAL = 0.866025403784f;
+        /// <param name="size">The number of hexagons on each side of the map</param>
+        public PlayerIsland Generate(int size = 4) => Generate(new HexPosition(0, 0), size);
 
         /// <param name="size">The number of hexagons on each side of the map</param>
-        public PlayerIsland Generate(int size = 4, Transform parent = null) => Generate(new HexPosition(0, 0), size, parent);
-
-        /// <param name="size">The number of hexagons on each side of the map</param>
-        public PlayerIsland Generate(HexPosition center, int size = 4, Transform parent = null)
+        public PlayerIsland Generate(HexPosition center, int size = 4)
         {
 
             int nTiles = GetBoardNumberOfTiles(size);
@@ -105,7 +101,6 @@ namespace MapGenerator
 
                 return AllocateWithLargestRemainder(frequencies, nTiles);
             }
-            
         }
 
         private static int GetBoardNumberOfTiles(int size)

@@ -37,6 +37,7 @@ public class VotePhase : IGamePhase
             Game.NetworkChannel.StopListening(SubmitVoteHeader);
             CurrentVotes.Clear();
             CurrentPetition = null;
+            //TODO: actually do something with the vote here
         }
         Game.TransitionPhase(new BuildPhase());
     }
