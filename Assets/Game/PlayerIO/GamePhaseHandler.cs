@@ -20,10 +20,10 @@ public abstract class GamePhaseHandler<T> : MonoBehaviour where T : IGamePhase
     private bool active = false;
     void OnGamePhaseChanged(IGamePhase phase)
     {
+        Phase = phase is T t ? t : default;
         if (!active && phase is T) OnPhaseEntered();
         else if (active) OnPhaseExited();
         active = phase is T;
-        Phase = active ? (T)phase : default;
     }
 
     public virtual void OnPhaseEntered() { }

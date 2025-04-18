@@ -3,9 +3,12 @@ using UnityEngine;
 public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 {
     [SerializeField] private PlayerIslandViewer viewer;
+    [SerializeField] private BuildingMenu buildingMenu;
     public override void OnPhaseEntered()
     {
         SetTargetPlayer(Game.ClientID);
+        buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
+        buildingMenu.OnPlaceBuilding += Phase.PlaceBuilding;
     }
 
     private bool visiting = false;
@@ -13,12 +16,13 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     public void SetTargetPlayer(PlayerID player)
     {
         visiting = player == Game.ClientID;
-        if (visiting) ; //disable UI
         viewer.TargetPlayer = player;
     }
 
     public override void OnPhaseExited()
     {
         SetTargetPlayer(PlayerID.None);
+        buildingMenu.CanBuildBuilding = null;
+        buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
     }
 }

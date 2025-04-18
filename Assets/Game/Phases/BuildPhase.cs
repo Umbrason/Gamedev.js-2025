@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class BuildPhase : IGamePhase
 {
-    public GameInstance Game { private get; set; }
+    public GameInstance Game
+    {
+        private get;
+        set;
+    }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
     const float BuildPhaseDurationSeconds = 30;
     private float startTime;
