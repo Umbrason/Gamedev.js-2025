@@ -28,6 +28,7 @@ public class BuildPhase : IGamePhase
         void OnUpdatePlayerResources(NetworkMessage message)
         => Game.PlayerData[message.sender].Resources = (Dictionary<Resource, int>)message.content;
         Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
+        PledgedResources[Game.ClientID] = null;
         yield return null;
     }
 

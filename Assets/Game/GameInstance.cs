@@ -9,7 +9,7 @@ using UnityEngine;
 public class GameInstance : MonoBehaviour
 {
     public PlayerID ClientID => NetworkChannel.PlayerID;
-    [field: SerializeField] public TilesBoardGeneratorData MapGenerator { get; private set;}
+    [field: SerializeField] public TilesBoardGeneratorData MapGenerator { get; private set; }
     public INetworkChannel NetworkChannel { get; set; } = new LocalDummyNetwork();
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
     public PlayerData ClientPlayerData { get => PlayerData[ClientID]; set => PlayerData[ClientID] = value; }
@@ -36,14 +36,14 @@ public class GameInstance : MonoBehaviour
                 yield return CurrentPhase?.OnExit();
                 RequestedTransition.Game = this;
                 CurrentPhase = RequestedTransition;
-                yield return CurrentPhase?.OnEnter();
-                OnPhaseChanged?.Invoke(RequestedTransition);
                 currentLoop = CurrentPhase.Loop();
+                OnPhaseChanged?.Invoke(RequestedTransition);
                 RequestedTransition = null;
+                yield return CurrentPhase?.OnEnter();
             }
+            yield return currentLoop.Current;
             if (!currentLoop?.MoveNext() ?? false)
                 currentLoop = null;
-            yield return null;
         }
     }
 
