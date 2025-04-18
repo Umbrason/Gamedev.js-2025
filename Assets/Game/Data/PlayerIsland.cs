@@ -18,7 +18,7 @@ public readonly struct PlayerIsland
     {
         if (((A.Tiles?.Count ?? -1) != (B.Tiles?.Count ?? -1)) || ((A.Buildings?.Count ?? -1) != (B.Buildings?.Count ?? -1))) return false;
         if (A.Buildings != null) foreach (var (pos, building) in A.Buildings) if (!B.Buildings.ContainsKey(pos) || B.Buildings[pos] != building) return false;
-        if (A.Tiles != null) foreach (var (pos, tile) in A.Tiles) if (!B.Tiles.ContainsKey(pos) || B.Tiles[pos] != tile) return false;
+        if (A.Tiles != null) foreach (var (pos, tile) in A.Tiles) if (!B.Tiles.ContainsKey(pos) || B.Tiles[pos] != tile)  return false;
         return true;
     }
     public static bool operator !=(PlayerIsland A, PlayerIsland B) => !(A == B);

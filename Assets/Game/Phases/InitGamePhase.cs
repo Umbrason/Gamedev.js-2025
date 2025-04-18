@@ -56,6 +56,8 @@ public class InitGamePhase : IGamePhase
         #region Roles
         var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
+        for (int i = 0; i < 6; i++) Game.PlayerData[(PlayerID)i] = new();
+
         foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
         foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
         #endregion
@@ -74,8 +76,7 @@ public class InitGamePhase : IGamePhase
         #region Player Island
         void OnIslandUpdateRecieved(NetworkMessage message) { Game.PlayerData[message.sender].Island = (PlayerIsland)message.content; }
         Game.NetworkChannel.StartListening(ShareIslandState, OnIslandUpdateRecieved);
-        //TODO: Generate Island Here
-        Game.PlayerData[Game.ClientID].Island = new();
+        Game.PlayerData[Game.ClientID].Island = Game.MapGenerator.Generate();
         Game.NetworkChannel.BroadcastMessage(ShareIslandState, Game.PlayerData[Game.ClientID].Island);
         #endregion
 

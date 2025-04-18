@@ -8,6 +8,7 @@ namespace DataView
     {
         [SerializeField] TileView tileViewPrefab;
         [SerializeField] BuildingView buildingViewPrefab;
+        [SerializeField] Transform root;
 
         private Dictionary<HexPosition, TileView> _tileViews = new();
         private Dictionary<HexPosition, BuildingView> _buildingViews = new();
@@ -34,7 +35,7 @@ namespace DataView
 
                 foreach (var pos in created)
                 {
-                    views[pos] = Instantiate(prefab, transform.position + pos.WorldPositionCenter, Quaternion.identity, transform);
+                    views[pos] = Instantiate(prefab, (root ?? transform).position + pos.WorldPositionCenter, Quaternion.identity, root ?? transform);
                 }
 
                 foreach (var pos in newPositions)

@@ -3,20 +3,22 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using MapGenerator;
 using UnityEngine;
 
 public class GameInstance : MonoBehaviour
 {
-    public PlayerID ClientID { get; set; }
-    public INetworkChannel NetworkChannel { get; set; }
+    public PlayerID ClientID => NetworkChannel.PlayerID;
+    [field: SerializeField] public TilesBoardGeneratorData MapGenerator { get; private set;}
+    public INetworkChannel NetworkChannel { get; set; } = new LocalDummyNetwork();
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
     public PlayerData ClientPlayerData { get => PlayerData[ClientID]; set => PlayerData[ClientID] = value; }
     public IReadOnlyList<SharedGoal> BalancedFactionGoals { get; set; }
     public IReadOnlyList<SharedGoal> SelfishFactionGoals { get; set; }
-    private IGamePhase CurrentPhase;
+    public IGamePhase CurrentPhase { get; private set; }
     public event Action<IGamePhase> OnPhaseChanged;
 
-    private IGamePhase RequestedTransition = new LobbyPhase();
+    private IGamePhase RequestedTransition = new InitGamePhase();//new LobbyPhase();
 
     public void Start()
     {

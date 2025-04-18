@@ -45,7 +45,7 @@ namespace MapGenerator
 
                     var IslandInstance = Instantiate(IslandViewPrefab, pos, Quaternion.identity, transform);
 
-                    var playerIsland = Generators[i++ % Generators.Length].Generate(mapSize, IslandInstance.transform);
+                    var playerIsland = Generators[i++ % Generators.Length].Generate(mapSize);
 
                     HashSet<HexPosition> hexPositions = playerIsland.Tiles.Keys.ToHashSet();
                     List<(HexPosition, Building)> buildings = new();
