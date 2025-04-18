@@ -20,9 +20,10 @@ public static class NetworkUtils
     }
 
 
-    private readonly static Dictionary<string, HashSet<PlayerID>> ActiveSignals = new();
+    private readonly static Dictionary<INetworkChannel, Dictionary<string, HashSet<PlayerID>>> ActiveSignals = new();
     public static bool WaitForAllPlayersSignal(this INetworkChannel networkChannel, string header, PlayerID ClientID)
     {
+        var ActiveSignals = NetworkUtils.ActiveSignals.GetValueOrDefault(networkChannel) ?? (NetworkUtils.ActiveSignals[networkChannel] = new());
         if (ActiveSignals.ContainsKey(header))
         {
             if (ActiveSignals[header].Count < 6)
