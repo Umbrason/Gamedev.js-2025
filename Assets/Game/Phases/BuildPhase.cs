@@ -34,7 +34,7 @@ public class BuildPhase : IGamePhase
 
     IEnumerator IGamePhase.Loop()
     {
-        yield return new WaitUntil(() => Time.unscaledTime - startTime > BuildPhaseDurationSeconds || skipping);
+        yield return new WaitUntil(() => (Time.unscaledTime - startTime > BuildPhaseDurationSeconds) || skipping);
         skipping = true;
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(FinishedBuildPhaseSignal, Game.ClientID));
         Game.TransitionPhase(new PledgeSummaryPhase());
