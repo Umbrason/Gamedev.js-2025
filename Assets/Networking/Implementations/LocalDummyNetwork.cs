@@ -8,7 +8,7 @@ public class LocalDummyNetwork : INetworkChannel
     public Dictionary<string, Queue<NetworkMessage>> MessageBacklog { get; } = new();
     public PlayerID PlayerID { get; }
 
-#if UNITY_EDITOR
+    #if UNITY_EDITOR
     [UnityEditor.InitializeOnLoadMethod]
     public static void RegisterClearCallback()
     {
@@ -18,7 +18,7 @@ public class LocalDummyNetwork : INetworkChannel
                 NetworkParticipants.Clear();
         };
     }
-#endif
+    #endif
 
     public LocalDummyNetwork()
     {

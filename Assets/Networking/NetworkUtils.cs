@@ -9,7 +9,8 @@ public static class NetworkUtils
         results = dict;
         void ResultCallback(NetworkMessage message)
         {
-            dict[message.sender] = (float)message.content;
+            //dict[message.sender] = (float)message.content;
+            dict[message.sender] = float.Parse(message.content.ToString());
             if (dict.Count >= 6) networkChannel.StopListening(header);
         }
         var value = UnityEngine.Random.value;
@@ -18,7 +19,6 @@ public static class NetworkUtils
         networkChannel.BroadcastMessage(header, value);
         return false;
     }
-
 
     private readonly static Dictionary<string, HashSet<PlayerID>> ActiveSignals = new();
     public static bool WaitForAllPlayersSignal(this INetworkChannel networkChannel, string header, PlayerID ClientID)

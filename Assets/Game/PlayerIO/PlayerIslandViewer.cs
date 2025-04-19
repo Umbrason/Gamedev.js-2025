@@ -20,7 +20,6 @@ public class PlayerIslandViewer : MonoBehaviour
         }
     }
 
-
     private PlayerID m_TargetPlayer;
     public PlayerID TargetPlayer
     {
