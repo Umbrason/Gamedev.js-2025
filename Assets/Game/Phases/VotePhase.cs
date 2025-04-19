@@ -50,7 +50,6 @@ public class VotePhase : IGamePhase
 
             CurrentVotes.Clear();
             CurrentPetition = null;
-            OnPetitionChanged?.Invoke();
         }
         Game.TransitionPhase(new BuildPhase());
     }
