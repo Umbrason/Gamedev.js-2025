@@ -51,7 +51,7 @@ namespace MapGenerator
                     List<(HexPosition, Building)> buildings = new();
                     foreach (HexPosition p in hexPositions)
                     {
-                        if (Random.value > 0.95f) buildings.Add((p, Building.Mine));
+                        if (Random.value > 0.95f) buildings.Add((p, Building.LeafCollector));
                     }
 
                     playerIsland = playerIsland.WithBuildings(buildings.ToArray());

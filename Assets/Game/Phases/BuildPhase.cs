@@ -5,7 +5,11 @@ using UnityEngine;
 
 public class BuildPhase : IGamePhase
 {
-    public GameInstance Game { private get; set; }
+    public GameInstance Game
+    {
+        private get;
+        set;
+    }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
     const float BuildPhaseDurationSeconds = 30;
     private float startTime;
@@ -24,12 +28,13 @@ public class BuildPhase : IGamePhase
         void OnUpdatePlayerResources(NetworkMessage message)
         => Game.PlayerData[message.sender].Resources = (Dictionary<Resource, int>)message.content;
         Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
+        PledgedResources[Game.ClientID] = null;
         yield return null;
     }
 
     IEnumerator IGamePhase.Loop()
     {
-        yield return new WaitUntil(() => Time.unscaledTime - startTime > BuildPhaseDurationSeconds || skipping);
+        yield return new WaitUntil(() => (Time.unscaledTime - startTime > BuildPhaseDurationSeconds) || skipping);
         skipping = true;
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(FinishedBuildPhaseSignal, Game.ClientID));
         Game.TransitionPhase(new PledgeSummaryPhase());

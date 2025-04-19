@@ -18,7 +18,19 @@ MonoBehaviour:
   - {fileID: 2342572894568158351, guid: 591baddaa34d0a9419644dbd79328ffc, type: 3}
   - {fileID: 2342572894568158351, guid: 4f2be4da8601cf24f982c6f2557f40a4, type: 3}
   - {fileID: 2342572894568158351, guid: 4ca4ee3505d6e1e448fe8a9b1d4c6897, type: 3}
+  - {fileID: 2342572894568158351, guid: 4ca4ee3505d6e1e448fe8a9b1d4c6897, type: 3}
+  - {fileID: 2342572894568158351, guid: 4ca4ee3505d6e1e448fe8a9b1d4c6897, type: 3}
   buildingsPrefabs:
   - {fileID: 0}
   - {fileID: 7765633971799529544, guid: bc620f9943009f84293024ddd6bd29d8, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}

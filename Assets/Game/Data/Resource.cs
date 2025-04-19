@@ -1,4 +1,20 @@
 public enum Resource
 {
-    A, B, C, D, E, F,
+    None,
+
+    //Basic
+    Dewdrops,
+    Leaves,
+    Earth,
+    Mana,
+    Wood,
+    Fireflies,
+
+    //Refined
+    Compost,
+    Ink,
+    Mushrooms,
+    FireflyLanterns,
+    ManaStones,
+    Wisps,
 }

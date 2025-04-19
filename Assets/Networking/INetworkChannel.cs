@@ -3,9 +3,13 @@ using System.Collections.Generic;
 
 public interface INetworkChannel
 {
+    #region To Implement
     PlayerID PlayerID { get; }
     void SendMessage(string header, object message, PlayerID playerID);
     void BroadcastMessage(string header, object message);
+    #endregion
+
+
     Dictionary<string, Action<NetworkMessage>> MessageListeners { get; }
     Dictionary<string, Queue<NetworkMessage>> MessageBacklog { get; }
     void Recieve(NetworkMessage message)
