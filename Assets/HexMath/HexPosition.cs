@@ -1,3 +1,5 @@
+
+using System.Collections.Generic;
 using UnityEngine;
 
 public struct HexPosition
@@ -16,6 +18,7 @@ public struct HexPosition
 
     public readonly Vector3 WorldPositionCenter => (HexOrientation.Active * this)._x0y();
 
+
     public static HexPosition operator -(HexPosition a)
         => new(-a.Q, -a.R);
     public static HexPosition operator +(HexPosition a, HexPosition b)
@@ -26,4 +29,19 @@ public struct HexPosition
         => new(a.Q * skalar, a.R * skalar);
     public static HexPosition operator *(int skalar, HexPosition a)
     => new(a.Q * skalar, a.R * skalar);
+}
+
+public static class HexPositionExtensions
+{
+    private static readonly HexPosition[] directions = new HexPosition[6]
+    {
+        new HexPosition(1, 0, -1), new HexPosition(1, -1, 0), new HexPosition(0, -1, 1),
+        new HexPosition(-1, 0, 1), new HexPosition(-1, 1, 0), new HexPosition(0, 1, -1),
+    };
+    public static List<HexPosition> GetSurrounding(this HexPosition origin)
+    {
+        List<HexPosition> list = new List<HexPosition>();
+        for (int i = 0; i < directions.Length; i++) list.Add(origin + directions[i]);
+        return list;
+    }
 }
