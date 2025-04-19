@@ -4,18 +4,21 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 {
     [SerializeField] private PlayerIslandViewer viewer;
     [SerializeField] private BuildingMenu buildingMenu;
+    [SerializeField] private Canvas VisitButtons;
     public override void OnPhaseEntered()
     {
         SetTargetPlayer(Game.ClientID);
         buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
         buildingMenu.OnPlaceBuilding += Phase.PlaceBuilding;
+        VisitButtons.gameObject.SetActive(true);
     }
 
     private bool visiting = false;
     public void UI_SetTargetPlayer(int id) => SetTargetPlayer((PlayerID)id);
     public void SetTargetPlayer(PlayerID player)
     {
-        visiting = player == Game.ClientID;
+        visiting = player != Game.ClientID;
+        buildingMenu.gameObject.SetActive(!visiting);
         viewer.TargetPlayer = player;
     }
 
@@ -24,5 +27,6 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         SetTargetPlayer(PlayerID.None);
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
+        VisitButtons.gameObject.SetActive(false);
     }
 }

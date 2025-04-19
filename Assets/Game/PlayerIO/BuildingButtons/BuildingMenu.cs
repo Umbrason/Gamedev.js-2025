@@ -12,6 +12,8 @@ public class BuildingMenu : MonoBehaviour
     public event Action<HexPosition, Building> OnPlaceBuilding;
     public Func<Building, bool> CanBuildBuilding;
 
+    [SerializeField] BuildingView BuildingPreview;
+
     void Start()
     {
         var buildings = (Building[])Enum.GetValues(typeof(Building));
@@ -20,7 +22,16 @@ public class BuildingMenu : MonoBehaviour
             var button = Instantiate(buttonTemplate, container ?? transform);
             button.Building = building;
             buttonInstances.Add(button);
-            button.OnDrop += (pos) => OnPlaceBuilding?.Invoke(pos, button.Building);
+
+            void OnDrop(HexPosition pos) => OnPlaceBuilding?.Invoke(pos, button.Building);
+            void OnStartDrag(Building b) => BuildingPreview.Data = b;
+            void OnStopDrag() => BuildingPreview.Data = Building.None;
+            void OnUpdateDrag(Vector3 p) => BuildingPreview.transform.position = p;
+            button.OnDrop += OnDrop;
+            button.OnStartDrag += OnStartDrag;
+            button.OnStopDrag += OnStopDrag;
+            button.OnUpdateDrag += OnUpdateDrag;
+
             button.Active = CanBuildBuilding?.Invoke(button.Building) ?? true;
         }
     }

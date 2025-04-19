@@ -6,7 +6,6 @@ public class PlayerIslandViewer : MonoBehaviour
 {
     [SerializeField] private GameInstance Game;
     private readonly Dictionary<PlayerID, IslandView> viewInstances = new();
-
     [SerializeField] List<IslandView> viewTemplates;
 
     private void Awake()
@@ -20,6 +19,7 @@ public class PlayerIslandViewer : MonoBehaviour
         }
     }
 
+    void UpdateIsland(PlayerIsland island) => viewInstances[m_TargetPlayer].Data = island;
 
     private PlayerID m_TargetPlayer;
     public PlayerID TargetPlayer
@@ -27,11 +27,14 @@ public class PlayerIslandViewer : MonoBehaviour
         get => m_TargetPlayer;
         set
         {
+            Game.PlayerData[m_TargetPlayer].OnIslandChanged -= UpdateIsland;
             m_TargetPlayer = value;
+            if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged += UpdateIsland;
             foreach (var (id, instance) in viewInstances)
             {
                 instance.gameObject.SetActive(id == value);
                 instance.Data = Game.PlayerData[id].Island;
+                //TODO: React to Updates. prob via event
             }
         }
     }

@@ -25,33 +25,33 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler
 
     public event Action<Building> OnStartDrag;
     public event Action<Vector3> OnUpdateDrag;
-    public event Action OnCancelDrag;
+    public event Action OnStopDrag;
     public event Action<HexPosition> OnDrop;
 
 
     private bool dragging;
     public void OnDrag(PointerEventData eventData)
     {
-        if(!Active) return;
+        if (!Active) return;
         if (!dragging && !EventSystem.current.IsPointerOverGameObject())
         {
             dragging = true;
             OnStartDrag?.Invoke(m_Building);
         }
         var worldPos = Camera.main.ScreenPointToXZIntersection(eventData.position);
-        if (dragging) OnUpdateDrag(worldPos);
+        if (dragging) OnUpdateDrag?.Invoke(worldPos);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!dragging && !EventSystem.current.IsPointerOverGameObject())
+        if (!dragging) return;
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
             var worldPos = Camera.main.ScreenPointToXZIntersection(eventData.position);
             var pos = HexOrientation.Active * worldPos;
             OnDrop?.Invoke(pos);
-            return;
         }
-        OnCancelDrag?.Invoke();
-
+        OnStopDrag?.Invoke();
+        dragging = false;
     }
 }
