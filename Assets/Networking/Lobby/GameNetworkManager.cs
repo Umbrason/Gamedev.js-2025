@@ -1,8 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameNetworkManager : Singleton<GameNetworkManager>
+public class GameNetworkManager : MonoBehaviour
 {
+    public static GameNetworkManager Instance;
+    void Awake() => DontDestroyOnLoad(gameObject);
+    void OnEnable() => Instance = Instance != null ? Instance : this;
+    void OnDisable() => Instance = this == Instance ? null : Instance;
+
     private string username;
     private string currentRoomCode;
     private int playerId;
@@ -49,8 +54,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         while (true)
         {
-            if(Instances.Instance != null)
-            Instances.Instance?.AllGameInstances[(int)myPlayerID].NetworkChannel.PullMessages();
+            if (Instances.Instance != null)
+                Instances.Instance?.AllGameInstances[(int)myPlayerID].NetworkChannel.PullMessages();
             yield return new WaitForSeconds(pollingInterval);
         }
     }
