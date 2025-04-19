@@ -4,6 +4,7 @@ using System.Collections;
 public class GameNetworkManager : MonoBehaviour
 {
     public static GameNetworkManager Instance;
+    void Awake() => DontDestroyOnLoad(gameObject);
     void OnEnable() => Instance = Instance != null ? Instance : this;
     void OnDisable() => Instance = this == Instance ? null : Instance;
 
