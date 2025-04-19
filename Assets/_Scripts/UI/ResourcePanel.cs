@@ -22,12 +22,12 @@ public class ResourcePanel : MonoBehaviour
 
         testingData.Resources = new Dictionary<Resource, int>
         {
-            { Resource.A, 2 },
-            { Resource.B, 1 },
-            { Resource.C, 5 },
-            { Resource.D, 0 },
-            { Resource.E, 0 },
-            { Resource.F, 7 }
+            { Resource.Dewdrops, 2 },
+            { Resource.Leaves, 1 },
+            { Resource.Earth, 5 },
+            { Resource.Mana, 0 },
+            { Resource.Wood, 0 },
+            { Resource.Fireflies, 7 }
         };
 
         UpdateResources();

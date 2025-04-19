@@ -22,6 +22,10 @@ public class GameInstance : MonoBehaviour
 
     public void Start()
     {
+        if(GameNetworkManager.Instance != null)
+        {
+            NetworkChannel = new ProductionNetwork();
+        }
         StartCoroutine(Loop());
     }
 

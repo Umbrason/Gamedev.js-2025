@@ -18,7 +18,7 @@ public readonly struct PlayerIsland
     {
         if (((A.Tiles?.Count ?? -1) != (B.Tiles?.Count ?? -1)) || ((A.Buildings?.Count ?? -1) != (B.Buildings?.Count ?? -1))) return false;
         if (A.Buildings != null) foreach (var (pos, building) in A.Buildings) if (!B.Buildings.ContainsKey(pos) || B.Buildings[pos] != building) return false;
-        if (A.Tiles != null) foreach (var (pos, tile) in A.Tiles) if (!B.Tiles.ContainsKey(pos) || B.Tiles[pos] != tile)  return false;
+        if (A.Tiles != null) foreach (var (pos, tile) in A.Tiles) if (!B.Tiles.ContainsKey(pos) || B.Tiles[pos] != tile) return false;
         return true;
     }
     public static bool operator !=(PlayerIsland A, PlayerIsland B) => !(A == B);
@@ -37,7 +37,9 @@ public readonly struct PlayerIsland
     private PlayerIsland Copy()
     {
         var TilesCopy = new Dictionary<HexPosition, Tile>();
+        foreach (var (k, v) in Tiles) TilesCopy.Add(k, v);
         var BuildingsCopy = new Dictionary<HexPosition, Building>();
+        foreach (var (k, v) in Buildings) BuildingsCopy.Add(k, v);
         return new(TilesCopy, BuildingsCopy);
     }
 
@@ -45,7 +47,10 @@ public readonly struct PlayerIsland
     {
         var cpy = Copy();
         foreach (var (pos, tile) in tiles)
-            ((Dictionary<HexPosition, Tile>)cpy.Tiles)[pos] = tile;
+        {
+            if (tile == Tile.None) ((Dictionary<HexPosition, Tile>)cpy.Tiles).Remove(pos);
+            else ((Dictionary<HexPosition, Tile>)cpy.Tiles)[pos] = tile;
+        }
         return cpy;
     }
 
@@ -53,7 +58,10 @@ public readonly struct PlayerIsland
     {
         var cpy = Copy();
         foreach (var (pos, building) in buildings)
-            ((Dictionary<HexPosition, Building>)cpy.Buildings)[pos] = building;
+        {
+            if (building == Building.None) ((Dictionary<HexPosition, Building>)cpy.Buildings).Remove(pos);
+            else ((Dictionary<HexPosition, Building>)cpy.Buildings)[pos] = building;
+        }
         return cpy;
     }
 }
