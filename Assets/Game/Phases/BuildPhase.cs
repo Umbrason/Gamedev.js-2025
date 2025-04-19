@@ -47,10 +47,12 @@ public class BuildPhase : IGamePhase
     {
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
+        void OnPledgeResources(NetworkMessage message) { PledgedResources[message.sender] = (ResourcePledge)message.content; }
+        Game.NetworkChannel.StartListening(ShareResourcePledge, OnPledgeResources);
         yield return new WaitUntil(() => PledgedResources.Count >= 6);
-
         Game.NetworkChannel.StopListening(UpdateIslandHeader);
         Game.NetworkChannel.StopListening(UpdateResourcesHeader);
+        Game.NetworkChannel.StopListening(ShareResourcePledge);
 
 
         var pledgeWithdrawalOrderPrio = new Dictionary<PlayerID, float>();
