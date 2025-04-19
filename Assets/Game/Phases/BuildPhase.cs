@@ -71,7 +71,7 @@ public class BuildPhase : IGamePhase
     const string UpdateResourcesHeader = "UpdateResources";
     private void HarvestResources()
     {
-        foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value))
+        foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value + ((int)_.Value >= 7 ? 1 : 0)))
         {
             var yieldChance = building.YieldChanceAt(Game.ClientPlayerData.Island, position);
             if (UnityEngine.Random.value > yieldChance) continue;
