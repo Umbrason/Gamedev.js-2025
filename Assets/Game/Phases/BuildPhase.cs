@@ -54,11 +54,12 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
         yield return new WaitUntil(() => PledgedResources.Count >= 6);
 
-        var pledgeWithdrawalOrderPrio = new Dictionary<PlayerID, float>();
+        var pledgeWithdrawalOrderPrio = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
         var pledgeWithdrawalOrder = pledgeWithdrawalOrderPrio.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         foreach (var playerID in pledgeWithdrawalOrder)
         {
+            if (PledgedResources[playerID] == null) continue;
             var pledges = PledgedResources[playerID].goalPledges;
             foreach (var (goalID, resources) in pledges)
             {

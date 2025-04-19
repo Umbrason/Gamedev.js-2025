@@ -15,6 +15,6 @@ public enum Resource
     Ink,
     Mushrooms,
     FireflyLanterns,
-    ManaStones,
     Wisps,
+    ManaStones,
 }

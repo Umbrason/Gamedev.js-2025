@@ -37,8 +37,8 @@ public readonly struct PlayerIsland
     private PlayerIsland Copy()
     {
         var TilesCopy = new Dictionary<HexPosition, Tile>();
-        foreach (var (k, v) in Tiles) TilesCopy.Add(k, v);
         var BuildingsCopy = new Dictionary<HexPosition, Building>();
+        foreach (var (k, v) in Tiles) TilesCopy.Add(k, v);
         foreach (var (k, v) in Buildings) BuildingsCopy.Add(k, v);
         return new(TilesCopy, BuildingsCopy);
     }
