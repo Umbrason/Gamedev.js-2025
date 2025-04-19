@@ -18,7 +18,8 @@ public class ResourcePanel : MonoBehaviour
 
     private void Start()
     {
-        if(!gameInstance) gameInstance = gameObject.GetComponent<GameInstance>();
+        if (!gameInstance) gameInstance = gameObject.GetComponent<GameInstance>();
+
 
         testingData.Resources = new Dictionary<Resource, int>
         {
@@ -39,6 +40,7 @@ public class ResourcePanel : MonoBehaviour
 
         PlayerData playerData = testing ? testingData : gameInstance.ClientPlayerData;
 
+        if(resourceParent.childCount > 0) resourceParent.DeleteChildren();
 
         foreach (var (resource, amount) in playerData.Resources)
         {
