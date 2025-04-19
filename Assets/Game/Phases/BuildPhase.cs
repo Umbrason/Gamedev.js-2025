@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BuildPhase : IGamePhase
+public class BuildPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game
     {
@@ -16,6 +16,9 @@ public class BuildPhase : IGamePhase
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
 
     public readonly Dictionary<PlayerID, ResourcePledge> PledgedResources = new();
+
+    public float TimeRemaining => startTime - Time.unscaledTime + BuildPhaseDurationSeconds;
+    public float Duration => BuildPhaseDurationSeconds;
 
     public IEnumerator OnEnter()
     {
