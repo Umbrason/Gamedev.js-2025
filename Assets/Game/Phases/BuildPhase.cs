@@ -45,11 +45,13 @@ public class BuildPhase : IGamePhase
     const string EndBuildPhase = "EndBuildPhase";
     public IEnumerator OnExit()
     {
+        Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
+        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
+        yield return new WaitUntil(() => PledgedResources.Count >= 6);
+
         Game.NetworkChannel.StopListening(UpdateIslandHeader);
         Game.NetworkChannel.StopListening(UpdateResourcesHeader);
 
-        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
-        yield return new WaitUntil(() => PledgedResources.Count >= 6);
 
         var pledgeWithdrawalOrderPrio = new Dictionary<PlayerID, float>();
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
