@@ -48,17 +48,22 @@ public class BuildPhase : IGamePhase, ITimedPhase
     const string EndBuildPhase = "EndBuildPhase";
     public IEnumerator OnExit()
     {
+        Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
+        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
+        void OnPledgeResources(NetworkMessage message) { PledgedResources[message.sender] = (ResourcePledge)message.content; }
+        Game.NetworkChannel.StartListening(ShareResourcePledge, OnPledgeResources);
+        yield return new WaitUntil(() => PledgedResources.Count >= 6);
         Game.NetworkChannel.StopListening(UpdateIslandHeader);
         Game.NetworkChannel.StopListening(UpdateResourcesHeader);
+        Game.NetworkChannel.StopListening(ShareResourcePledge);
 
-        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
-        yield return new WaitUntil(() => PledgedResources.Count >= 6);
 
-        var pledgeWithdrawalOrderPrio = new Dictionary<PlayerID, float>();
+        var pledgeWithdrawalOrderPrio = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
         var pledgeWithdrawalOrder = pledgeWithdrawalOrderPrio.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         foreach (var playerID in pledgeWithdrawalOrder)
         {
+            if (PledgedResources[playerID] == null) continue;
             var pledges = PledgedResources[playerID].goalPledges;
             foreach (var (goalID, resources) in pledges)
             {
@@ -74,7 +79,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
     const string UpdateResourcesHeader = "UpdateResources";
     private void HarvestResources()
     {
-        foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value))
+        foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value + ((int)_.Value >= 7 ? 1 : 0)))
         {
             var yieldChance = building.YieldChanceAt(Game.ClientPlayerData.Island, position);
             if (UnityEngine.Random.value > yieldChance) continue;

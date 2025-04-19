@@ -4,12 +4,11 @@ public static class NetworkUtils
 {
     public static bool DistributedRandomDecision(this INetworkChannel networkChannel, PlayerID ClientID, string header, ref Dictionary<PlayerID, float> results)
     {
-        if (results != null) return results.Count >= 6;
-        var dict = new Dictionary<PlayerID, float>();
-        results = dict;
+        if (results?.Count > 0) return results.Count >= 6;
+        results ??= new Dictionary<PlayerID, float>();
+        var dict = results;
         void ResultCallback(NetworkMessage message)
         {
-            //dict[message.sender] = (float)message.content;
             dict[message.sender] = float.Parse(message.content.ToString());
             if (dict.Count >= 6) networkChannel.StopListening(header);
         }

@@ -17,7 +17,7 @@ public class PlayerData
     public bool HasResources(Dictionary<Resource, int> required)
     {
         foreach (var (resource, amount) in required)
-            if (!(Resources.GetValueOrDefault(resource) >= amount)) return false;
+            if (!((Resources?.GetValueOrDefault(resource) ?? 0) >= amount)) return false;
         return true;
     }
 

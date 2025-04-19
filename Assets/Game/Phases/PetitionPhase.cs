@@ -5,12 +5,15 @@ using UnityEngine;
 public class PetitionPhase : IGamePhase
 {
     public GameInstance Game { private get; set; }
-    public Dictionary<PlayerID, BuildingPetition> Petitions;
+    public readonly Dictionary<PlayerID, BuildingPetition> Petitions = new();
     const string SubmitPetitionHeader = "SubmitPetition";
     public IEnumerator OnEnter()
     {
+        Game.NetworkChannel.StartListening(SubmitPetitionHeader, OnPetitionRecieved);
         yield return null;
     }
+
+    public void OnPetitionRecieved(NetworkMessage message) => Petitions[message.sender] = (BuildingPetition)message.content;
 
     public IEnumerator Loop()
     {
@@ -20,6 +23,7 @@ public class PetitionPhase : IGamePhase
 
     public IEnumerator OnExit()
     {
+        Game.NetworkChannel.StopListening(SubmitPetitionHeader);
         yield return null;
     }
 
