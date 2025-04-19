@@ -11,26 +11,22 @@ public class ProductionNetwork : INetworkChannel
     public string RoomCode { get; private set; }
     public int ServerPlayerID { get; private set; }
 
-    private static readonly Dictionary<PlayerID, INetworkChannel> NetworkParticipants = new();
     public Dictionary<string, Action<NetworkMessage>> MessageListeners { get; } = new();
     public Dictionary<string, Queue<NetworkMessage>> MessageBacklog { get; } = new();
 
-    public PlayerID PlayerID { get; set; }
+    public PlayerID PlayerID => GameNetworkManager.Instance.MyPlayerID;
 
     private const string BaseUrl = "https://jamapi.heggie.dev/";
 
     public ProductionNetwork()
     {
-        PlayerID = (PlayerID)NetworkParticipants.Count;
-        NetworkParticipants.Add(PlayerID, this);
-
         RoomCode = GameNetworkManager.Instance.CurrentRoomCode;
         ServerPlayerID = GameNetworkManager.Instance.PlayerId;
     }
 
     public void BroadcastMessage(string header, object message)
     {
-        UnityEngine.Debug.Log($"Player {Enum.GetName(typeof(PlayerID), PlayerID)} Broadcasts: {message} on channel '{header}'");
+        UnityEngine.Debug.Log($"Player {Enum.GetName(typeof(PlayerID), GameNetworkManager.Instance.MyPlayerID)} Broadcasts: {message} on channel '{header}'");
         SendToServer("broadcastMessage.php", header, message, null);
     }
 
@@ -43,7 +39,8 @@ public class ProductionNetwork : INetworkChannel
     {
         WWWForm form = new();
         form.AddField("room_code", RoomCode);
-        form.AddField("sender_id", ServerPlayerID);
+        form.AddField("sender_id", GameNetworkManager.Instance.PlayerId);
+        form.AddField("sender_game_id", (int)GameNetworkManager.Instance.MyPlayerID);
         form.AddField("header", header);
 
         string messageString;
@@ -72,7 +69,7 @@ public class ProductionNetwork : INetworkChannel
         };
     }
 
-    public void PollMessages()
+    public void PullMessages()
     {
         UnityWebRequest www = UnityWebRequest.Get($"{BaseUrl}getMessages.php?room_code={RoomCode}&player_id={ServerPlayerID}");
         www.SendWebRequest().completed += _ =>
@@ -91,10 +88,7 @@ public class ProductionNetwork : INetworkChannel
 
                 foreach (var msg in messages)
                 {
-                    if (NetworkParticipants.TryGetValue(PlayerID, out var networkChannel))
-                    {
-                        networkChannel.Recieve(new NetworkMessage(msg.Header, msg.Message, PlayerID.Zero));
-                    }
+                    Recieve(new NetworkMessage(msg.Header, msg.Message, (PlayerID)int.Parse(msg.Sender.ToString())));
                 }
             }
             catch (Exception ex)
@@ -102,6 +96,22 @@ public class ProductionNetwork : INetworkChannel
                 Debug.LogError("JSON Deserialization Error: " + ex.Message);
             }
         };
+    }
+
+    public void Recieve(NetworkMessage message)
+    {
+        Debug.Log($"Received Message {message.header}, {message.content}, From: {message.sender}");
+
+        if (MessageListeners.ContainsKey(message.header))
+        {
+            MessageListeners[message.header].Invoke(message);
+            return;
+        }
+
+        if (!MessageBacklog.ContainsKey(message.header))
+            MessageBacklog[message.header] = new Queue<NetworkMessage>();
+
+        MessageBacklog[message.header].Enqueue(message);
     }
 
     public bool TryGetNextBacklogMessage(string header, out NetworkMessage message)

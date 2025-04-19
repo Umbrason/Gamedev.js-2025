@@ -235,10 +235,8 @@ public class LobbyManager : Singleton<LobbyManager>
     void LoadGameScene()
     {
         Debug.Log(myPlayerID);
-
-        GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
-
         SceneManager.LoadScene("PlayerGame_Net");
+        GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
 
     }
 

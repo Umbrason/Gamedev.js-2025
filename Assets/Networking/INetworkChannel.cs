@@ -33,5 +33,5 @@ public interface INetworkChannel
     {
         MessageListeners.Remove(header);
     }
-    virtual void PollMessages() { }
+    virtual void PullMessages() { }
 }

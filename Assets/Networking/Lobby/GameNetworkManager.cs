@@ -27,16 +27,16 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         this.myPlayerID = playerID;
 
         Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {playerId}, Host: {isHost}, GamePlayerID: {playerID}");
-        StartPolling();
+        StartPulling();
     }
 
-    public void StartPolling()
+    public void StartPulling()
     {
         if (pollingCoroutine == null)
-            pollingCoroutine = StartCoroutine(PollMessagesLoop());
+            pollingCoroutine = StartCoroutine(PullMessagesLoop());
     }
 
-    public void StopPolling()
+    public void StopPulling()
     {
         if (pollingCoroutine != null)
         {
@@ -45,12 +45,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         }
     }
 
-    private IEnumerator PollMessagesLoop()
+    private IEnumerator PullMessagesLoop()
     {
         while (true)
         {
             if(Instances.Instance != null)
-            Instances.Instance?.AllGameInstances[(int)myPlayerID].NetworkChannel.PollMessages();
+            Instances.Instance?.AllGameInstances[(int)myPlayerID].NetworkChannel.PullMessages();
             yield return new WaitForSeconds(pollingInterval);
         }
     }
