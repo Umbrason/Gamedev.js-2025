@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PlayerGame.unity
     guid: 08a411cc948aab04882858935ce6628f
+  - enabled: 1
+    path: Assets/Scenes/PlayerGame_Net.unity
+    guid: 2812969c61054479e81450b984464dee
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
