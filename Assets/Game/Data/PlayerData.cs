@@ -22,5 +22,5 @@ public class PlayerData
     }
 
     public Dictionary<Building, int> CountBuildings(params Building[] buildings) => buildings.Select((building) => (building, Island.Buildings.Values.Count((b) => b == building))).ToDictionary(pair => pair.building, pair => pair.Item2);
-
+    public int CountBuilding(Building building) => Island.Buildings.Values.Count(v => v == building);
 }

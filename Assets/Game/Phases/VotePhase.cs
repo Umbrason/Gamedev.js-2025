@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static VotePhase;
 
 public class VotePhase : IGamePhase
 {
@@ -16,6 +17,11 @@ public class VotePhase : IGamePhase
     private List<PlayerID> PetitionOrder;
     public BuildingPetition CurrentPetition { get; private set; }
     private Dictionary<PlayerID, int> CurrentVotes = new();
+
+    public delegate void PetitionChanged();
+    public delegate void PetitionDecided(bool success);
+    public event PetitionChanged OnPetitionChanged;
+    public event PetitionDecided OnPetitionDecided;
 
     public IEnumerator OnEnter()
     {
@@ -32,12 +38,18 @@ public class VotePhase : IGamePhase
             if (petition == null) continue;
 
             CurrentPetition = petition;
+            OnPetitionChanged?.Invoke();
+
             Game.NetworkChannel.StartListening(SubmitVoteHeader, (message) => CurrentVotes[message.sender] = (int)message.content);
             yield return new WaitUntil(() => CurrentVotes.Count >= 6);
             Game.NetworkChannel.StopListening(SubmitVoteHeader);
+
+            //TODO: actually do something with the vote here
+            OnPetitionDecided?.Invoke(CurrentVotes.Sum(v => v.Value) > 0);
+
+
             CurrentVotes.Clear();
             CurrentPetition = null;
-            //TODO: actually do something with the vote here
         }
         Game.TransitionPhase(new BuildPhase());
     }
