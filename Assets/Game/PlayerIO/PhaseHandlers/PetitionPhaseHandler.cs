@@ -8,41 +8,47 @@ public class PetitionPhaseHandler : GamePhaseHandler<PetitionPhase>
     public override void OnPhaseEntered()
     {
         SetTargetPlayer(Game.ClientID);
-        /* buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
-        buildingMenu.OnPlaceBuilding += ; */
+        buildingMenu.OnPlaceBuilding += CreatePetition;
+        buildingMenu.CanBuildBuilding += _ => Phase.ClientPetitionSubmitted;
         VisitButtons.gameObject.SetActive(true);
     }
 
-    private bool visiting = false;
     public void UI_SetTargetPlayer(int id) => SetTargetPlayer((PlayerID)id);
     public void SetTargetPlayer(PlayerID player)
     {
-        visiting = player != Game.ClientID;
-        buildingMenu.gameObject.SetActive(!visiting);
         viewer.TargetPlayer = player;
-    }   
+    }
 
-    void CreatePetition(HexPosition island, Building building)
+    private BuildingPetition ActivePetition;
+    void CreatePetition(HexPosition position, Building building)
     {
         PlayerID targetPlayer = viewer.TargetPlayer;
-        /* var petition = new BuildingPetition(); */
+        ActivePetition = new BuildingPetition(targetPlayer, position, building, new());
     }
 
-    void CancelPetition()
+    public void CancelPetition()
     {
-
+        ActivePetition = null;
     }
 
-    void SubmitPetition()
+    public void SubmitPetition()
     {
+        if (ActivePetition == null) return;
+        Phase.SubmitPetition(ActivePetition);
+        ActivePetition = null;
+    }
 
+    public void SkipPhase()
+    {
+        Phase.SubmitPetition(null);
+        ActivePetition = null;
     }
 
     public override void OnPhaseExited()
     {
         SetTargetPlayer(PlayerID.None);
+        buildingMenu.OnPlaceBuilding -= CreatePetition;
         buildingMenu.CanBuildBuilding = null;
-        /* buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding; */
         VisitButtons.gameObject.SetActive(false);
     }
 }

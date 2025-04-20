@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,7 +26,7 @@ public class GameInstance : MonoBehaviour
         }
         else
         {
-            NetworkChannel = new LocalDummyNetwork();
+            NetworkChannel = LocalDummyNetwork.availableDummyNetworks.Dequeue();
             Debug.LogWarning("Using Dummy Network");
         }
         StartCoroutine(Loop());

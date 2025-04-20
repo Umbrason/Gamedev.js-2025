@@ -27,6 +27,7 @@ public class PetitionPhase : IGamePhase
         yield return null;
     }
 
+    public bool ClientPetitionSubmitted => Petitions.ContainsKey(Game.ClientID);
     [PlayerAction]
     public void SubmitPetition(BuildingPetition petition)
     {

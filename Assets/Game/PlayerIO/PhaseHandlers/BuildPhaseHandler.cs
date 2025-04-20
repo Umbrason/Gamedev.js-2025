@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static LobbyManager;
 
 public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 {
@@ -45,7 +43,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     }
 
 
-    #region Spectation
+    #region Spectating
     private void OnSpectatingMsgReceived(NetworkMessage message)
     {
         if((bool)message.content) spectatingPlayers.Add(message.sender);
@@ -58,14 +56,13 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         if(spectationSpotsDict.Count <= 0)  // populate dict if empty
             for (int i = 0; i < spectationSpots.Count; i++)
                 spectationSpotsDict.Add(spectationSpots[i], PlayerID.None);
-        
+
         for (int i = 0; i < spectatingPlayers.Count; i++)
         {
             PlayerID spectatorID = spectatingPlayers[i];
             if (spectationSpotsDict.ContainsValue(spectatorID)) continue;
 
             // pick an available spot to spawn
-
             foreach (var spectationDisplay in spectationSpotsDict.Keys)
             {
                 if (spectationSpotsDict[spectationDisplay] == PlayerID.None)

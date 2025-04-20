@@ -27,7 +27,7 @@ public class PlayerIslandViewer : MonoBehaviour
         get => m_TargetPlayer;
         set
         {
-            Game.PlayerData[m_TargetPlayer].OnIslandChanged -= UpdateIsland;
+            if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged -= UpdateIsland;
             m_TargetPlayer = value;
             if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged += UpdateIsland;
             foreach (var (id, instance) in viewInstances)

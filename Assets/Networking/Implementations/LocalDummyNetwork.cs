@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class LocalDummyNetwork : INetworkChannel
 {
+    public static readonly Queue<LocalDummyNetwork> availableDummyNetworks = new();
     private static readonly Dictionary<PlayerID, INetworkChannel> NetworkParticipants = new();
     public Dictionary<string, Action<NetworkMessage>> MessageListeners { get; } = new();
     public Dictionary<string, Queue<NetworkMessage>> MessageBacklog { get; } = new();
@@ -14,8 +15,11 @@ public class LocalDummyNetwork : INetworkChannel
     {
         UnityEditor.EditorApplication.playModeStateChanged += (state) =>
         {
-            if (state == UnityEditor.PlayModeStateChange.ExitingEditMode) 
-                NetworkParticipants.Clear();
+            if (state != UnityEditor.PlayModeStateChange.ExitingEditMode) return;
+            NetworkParticipants.Clear();
+            availableDummyNetworks.Clear();
+            for (int i = 0; i < 6; i++)
+                availableDummyNetworks.Enqueue(new LocalDummyNetwork());
         };
     }
 #endif
