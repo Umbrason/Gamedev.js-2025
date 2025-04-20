@@ -6,7 +6,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 {
     private string username;
     private string currentRoomCode;
-    private int playerId;
+    private int serverPlayerId;
     private bool isHost = false;
     private PlayerID myPlayerID = PlayerID.None;
 
@@ -15,7 +15,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     public string Username { get => username; }
     public string CurrentRoomCode { get => currentRoomCode; }
-    public int PlayerId { get => playerId; }
+    public int ServerPlayerId { get => serverPlayerId; }
     public bool IsHost { get => isHost; }
     public PlayerID MyPlayerID { get => myPlayerID; }
 
@@ -28,11 +28,11 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         return channels[playerID];
     }
 
-    public void Initialize(string username, string roomCode, int playerId, bool isHost, PlayerID playerID)
+    public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
     {
         this.username = username;
         this.currentRoomCode = roomCode;
-        this.playerId = playerId;
+        this.serverPlayerId = serverPlayerId;
         this.isHost = isHost;
         this.myPlayerID = playerID;
 
@@ -40,7 +40,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
         availableChannels.Enqueue(channels[playerID]);
 
-        Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {playerId}, Host: {isHost}, GamePlayerID: {playerID}");
+        Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
         StartPulling();
     }
 

@@ -23,7 +23,7 @@ public class ProductionNetwork : INetworkChannel
     public ProductionNetwork(PlayerID playerID)
     {
         RoomCode = GameNetworkManager.Instance.CurrentRoomCode;
-        ServerPlayerID = GameNetworkManager.Instance.PlayerId;
+        ServerPlayerID = GameNetworkManager.Instance.ServerPlayerId;
 
         PlayerID = playerID;
     }
@@ -57,8 +57,10 @@ public class ProductionNetwork : INetworkChannel
     {
         WWWForm form = new();
         form.AddField("room_code", RoomCode);
-        form.AddField("sender_id", GameNetworkManager.Instance.PlayerId);
-        form.AddField("sender_game_id", (int)GameNetworkManager.Instance.MyPlayerID);
+        //form.AddField("sender_id", GameNetworkManager.Instance.ServerPlayerId);
+        form.AddField("sender_id", ServerPlayerID);
+        //form.AddField("sender_game_id", (int)GameNetworkManager.Instance.MyPlayerID);
+        form.AddField("sender_game_id", (int)PlayerID);
         form.AddField("header", header);
         //form.AddField("message", JsonConvert.SerializeObject(message));
 
@@ -91,7 +93,7 @@ public class ProductionNetwork : INetworkChannel
             if (www.result != UnityWebRequest.Result.Success)
                 Debug.LogError("Network Error: " + www.error);
             else
-                Debug.Log("Sending: " + message.GetType().AssemblyQualifiedName + dataToSend);
+                Debug.Log("Sending: " + message.GetType().AssemblyQualifiedName + dataToSend + " as " + PlayerID);
                 //Debug.Log($"Sending: {JsonConvert.SerializeObject(message)} type: {message.GetType().AssemblyQualifiedName}");
                 //Debug.Log("Message sent: " + www.downloadHandler.text);
         };
