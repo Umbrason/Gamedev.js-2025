@@ -69,6 +69,7 @@ public class InitGamePhase : IGamePhase
         var faction = 0;
         var playerIDsByFactionIndex = RandomFactionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         foreach (var player in playerIDsByFactionIndex) Game.PlayerData[player].Faction = (PlayerFactions)(++faction);
+        var clientFaction = Game.ClientPlayerData.Faction;
         #endregion
 
         #region Secret Individual Goal
@@ -77,9 +78,21 @@ public class InitGamePhase : IGamePhase
         #endregion
 
         #region Player Island
+        FactionData factionData = null;
+        foreach(FactionData data in Game.Factions)
+        {
+            if (data.Faction != clientFaction) continue;
+            factionData = data;
+            break;
+        }
+        if (factionData == null) Debug.LogError(clientFaction+"not found in GameInstance.Factions");
+
         void OnIslandUpdateRecieved(NetworkMessage message) { Game.PlayerData[message.sender].Island = (PlayerIsland)message.content; }
         Game.NetworkChannel.StartListening(ShareIslandState, OnIslandUpdateRecieved);
-        Game.PlayerData[Game.ClientID].Island = Game.MapGenerator.Generate();
+
+        Game.PlayerData[Game.ClientID].Island = factionData.GenerateIsland(size: 5);
+        Game.PlayerData[Game.ClientID].Resources = factionData.StartingResouces;
+
         Game.NetworkChannel.BroadcastMessage(ShareIslandState, Game.PlayerData[Game.ClientID].Island);
         #endregion
 

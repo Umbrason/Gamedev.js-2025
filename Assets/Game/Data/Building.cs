@@ -61,7 +61,33 @@ public static class BuildingExtensions
         if ((int)building > 6) return .8f; //yield chance for
         float percentage = 0f;
         foreach (HexPosition pos in position.GetSurrounding())
-            if (island.Tiles[pos] == (Tile)building) percentage += percentagePerTile;
+            if (island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) percentage += percentagePerTile;
         return percentage;
+    }
+
+   public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float yieldChance)
+    {
+        yieldChance = -1f;
+        HexPosition bestPosition = default;
+
+        foreach (HexPosition pos in island.Tiles.Keys)
+        {
+            if (island.Buildings.GetValueOrDefault(pos) != Building.None) continue;
+
+            float yield = YieldChanceAt(building, island, pos);
+
+            foreach(HexPosition adj in pos.GetSurrounding())
+            {
+                if (island.Buildings.GetValueOrDefault(adj) != Building.None)
+                    yield -= percentagePerTile;//Takes into account the loss of yield of other buildings
+            }
+
+            if (yield <= yieldChance) continue;
+
+            yieldChance = yield;
+            bestPosition = pos;
+        }
+
+        return bestPosition;
     }
 }

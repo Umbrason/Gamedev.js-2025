@@ -181,7 +181,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 26.6
+  orthographic size: 37
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -285,16 +285,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abdd24906ecada04d9188234fcef8d21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapQuantities: {x: 8, y: 5}
-  distance: {x: 13, y: 12}
-  mapSize: 4
+  mapQuantities: {x: 7, y: 6}
+  distance: {x: 16, y: 15}
+  mapSize: 5
   Generators:
-  - {fileID: 11400000, guid: e816d510b6f60da4f8812e9584a55dbb, type: 2}
-  - {fileID: 11400000, guid: b894ce45e8103f34eac63fe722135580, type: 2}
-  - {fileID: 11400000, guid: 0be59b68ee7cc8044b2c5ca44f471e7e, type: 2}
-  - {fileID: 11400000, guid: fd17d73e09abe6e439a628311500ca17, type: 2}
-  - {fileID: 11400000, guid: 5c6f711cbee9c4f48b083b7507d4f37c, type: 2}
+  - {fileID: 11400000, guid: da20ddc52cd068f47aa95ffd1e621abe, type: 2}
+  - {fileID: 11400000, guid: 69b6a25766711ca47af246d6d6732ffc, type: 2}
+  - {fileID: 11400000, guid: 905eb69b4808c34479af6640a036c76b, type: 2}
+  - {fileID: 11400000, guid: 0775f1433eaeee9478a33bfca59d920e, type: 2}
+  - {fileID: 11400000, guid: 3e5e5936c0cf1c143aed21073c1efb8d, type: 2}
+  - {fileID: 11400000, guid: 0ae1ecb099197e2458a3df6b4555ba0c, type: 2}
   IslandViewPrefab: {fileID: 7933140947317215412, guid: a86521b702c38994297c423712d8db71, type: 3}
+  buildingProb: 0
 --- !u!4 &1134461229
 Transform:
   m_ObjectHideFlags: 0
