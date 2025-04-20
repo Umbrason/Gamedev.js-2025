@@ -19,8 +19,8 @@ public class DynamicGridLayout : LayoutGroup
     public bool IsVertical { get { return layoutDirection == LayoutDirection.Vertical; } }
     public bool IsHorizontal { get { return layoutDirection == LayoutDirection.Horizontal; } }
 
-    public int Columns { get { return Mathf.Max(1, IsVertical ? Mathf.FloorToInt(width / (itemSize.x + spacingMin)) : Mathf.CeilToInt(rectChildren.Count / (float)Rows)); } }
-    public int Rows { get { return Mathf.Max(1, IsHorizontal ? Mathf.FloorToInt(height / (itemSize.y + spacingMin)) : Mathf.CeilToInt(rectChildren.Count / (float)Columns)); } }
+    public int Columns { get { return Mathf.Max(1, IsHorizontal ? Mathf.FloorToInt(width / (itemSize.x + spacingMin)) : Mathf.CeilToInt(rectChildren.Count / (float)Rows)); } }
+    public int Rows { get { return Mathf.Max(1, IsVertical ? Mathf.FloorToInt(height / (itemSize.y + spacingMin)) : Mathf.CeilToInt(rectChildren.Count / (float)Columns)); } }
 
     public Vector2 itemSize = Vector2.one * 100f;
     public float spacingMin = 5f;
@@ -36,27 +36,26 @@ public class DynamicGridLayout : LayoutGroup
     {
         get
         {
-            var spacingX = Expand && IsVertical ? ((width / Columns) - itemSize.x) / (Columns - 1) * Columns : spacingMin;
-            var spacingY = Expand && IsHorizontal ? ((height / Rows) - itemSize.y) / (Rows - 1) * Rows : spacingMin;
+            var spacingX = Expand && IsHorizontal ? ((width / Columns) - itemSize.x) / (Columns - 1) * Columns : spacingMin;
+            var spacingY = Expand && IsVertical ? ((height / Rows) - itemSize.y) / (Rows - 1) * Rows : spacingMin;
             return new Vector2(spacingX, spacingY);
         }
     }
     public override void CalculateLayoutInputHorizontal()
     {
-        //stopped here: override existing code to create grid layout with fixed row or column count and aspectRatio
         base.CalculateLayoutInputHorizontal();
         if (rectChildren.Count == 0) return;
         var spacing = Spacing;
         var columns = Columns;
         var rows = Rows;
-
-        var xOffset = padding.left + (width - columns * itemSize.x - (columns - 1) * spacing.x) / 2f;
-        var yOffset = padding.top + (height - rows * itemSize.y - (rows - 1) * spacing.y) / 2f;
+        var pivot = Text.GetTextAnchorPivot(childAlignment);
+        var xOffset = padding.left + (width - columns * itemSize.x - (columns - 1) * spacing.x) * (1 - pivot.x);
+        var yOffset = padding.top + (height - rows * itemSize.y - (rows - 1) * spacing.y) * (1 - pivot.y);
         for (var i = 0; i < rectChildren.Count; i++)
         {
             var item = rectChildren[i];
-            var xIndex = layoutDirection == LayoutDirection.Vertical ? (i % columns) : Mathf.Floor(i / rows);
-            var yIndex = layoutDirection == LayoutDirection.Vertical ? Mathf.Floor(i / columns) : (i % rows);
+            var xIndex = layoutDirection == LayoutDirection.Horizontal ? (i % columns) : Mathf.Floor(i / rows);
+            var yIndex = layoutDirection == LayoutDirection.Horizontal ? Mathf.Floor(i / columns) : (i % rows);
             var xPos = xIndex * (itemSize.x + spacing.x);
             var yPos = yIndex * (itemSize.y + spacing.y);
             SetChildAlongAxis(item, 0, xPos + xOffset, itemSize.x);
