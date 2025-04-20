@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct HexPosition
+public struct HexPosition : ISerializable<HexPosition>
 {
     public HexPosition(int q, int r) : this(q, r, -q - r) { }
     public HexPosition(int q, int r, int s)

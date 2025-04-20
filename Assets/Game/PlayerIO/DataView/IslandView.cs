@@ -12,6 +12,7 @@ namespace DataView
 
         private Dictionary<HexPosition, TileView> _tileViews = new();
         private Dictionary<HexPosition, BuildingView> _buildingViews = new();
+
         protected override void Refresh(PlayerIsland oldData, PlayerIsland newData)
         {
             RefreshAtPositions<Tile, TileView>(newData.Tiles, tileViewPrefab, _tileViews);
@@ -20,27 +21,35 @@ namespace DataView
             void RefreshAtPositions<T, TView>(IReadOnlyDictionary<HexPosition, T> newValues, TView prefab, Dictionary<HexPosition, TView> views)
                 where TView : View<T>
             {
-                HashSet<HexPosition> newPositions = newValues?.Keys.ToHashSet();
-                HashSet<HexPosition> oldPositions = views.Keys?.ToHashSet();
+                // null-safe initialisierung (für den Fall, dass newValues intern null ist)
+                HashSet<HexPosition> newPositions = newValues?.Keys.ToHashSet() ?? new();
+                HashSet<HexPosition> oldPositions = views?.Keys.ToHashSet() ?? new();
 
-                var deleted = oldPositions?.Except(newPositions);
-                var created = newPositions?.Except(oldPositions);
-                var updated = newPositions?.Union(newPositions);
+                var deleted = oldPositions.Except(newPositions);
+                var created = newPositions.Except(oldPositions);
+                var updated = newPositions;
 
                 foreach (var pos in deleted)
                 {
-                    Destroy(_tileViews[pos].gameObject);
-                    views.Remove(pos);
+                    if (views.TryGetValue(pos, out var view))
+                    {
+                        Destroy(view.gameObject);
+                        views.Remove(pos);
+                    }
                 }
 
                 foreach (var pos in created)
                 {
-                    views[pos] = Instantiate(prefab, (root ?? transform).position + pos.WorldPositionCenter, Quaternion.identity, root ?? transform);
+                    var instance = Instantiate(prefab, (root ?? transform).position + pos.WorldPositionCenter, Quaternion.identity, root ?? transform);
+                    views[pos] = instance;
                 }
 
-                foreach (var pos in newPositions)
+                foreach (var pos in updated)
                 {
-                    views[pos].Data = newValues[pos];
+                    if (views.TryGetValue(pos, out var view) && newValues.TryGetValue(pos, out var value))
+                    {
+                        view.Data = value;
+                    }
                 }
             }
         }

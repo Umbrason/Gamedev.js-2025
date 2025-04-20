@@ -10,7 +10,7 @@ public class GameInstance : MonoBehaviour
 {
     public PlayerID ClientID => NetworkChannel.PlayerID;
     [field: SerializeField] public TilesBoardGeneratorData MapGenerator { get; private set; }
-    public INetworkChannel NetworkChannel { get; set; } = new LocalDummyNetwork();
+    public INetworkChannel NetworkChannel { get; set; }
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
     public PlayerData ClientPlayerData { get => PlayerData[ClientID]; set => PlayerData[ClientID] = value; }
     public IReadOnlyList<SharedGoal> BalancedFactionGoals { get; set; }
@@ -22,10 +22,7 @@ public class GameInstance : MonoBehaviour
 
     public void Start()
     {
-        if(GameNetworkManager.Instance != null)
-        {
-            NetworkChannel = new ProductionNetwork();
-        }
+        NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
         StartCoroutine(Loop());
     }
 

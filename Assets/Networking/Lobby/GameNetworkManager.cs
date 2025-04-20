@@ -1,12 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class GameNetworkManager : MonoBehaviour
+public class GameNetworkManager : Singleton<GameNetworkManager>
 {
-    public static GameNetworkManager Instance;
-    void Awake() => DontDestroyOnLoad(gameObject);
-    void OnEnable() => Instance = Instance != null ? Instance : this;
-    void OnDisable() => Instance = this == Instance ? null : Instance;
+    public bool useDummyNetwork;
 
     private string username;
     private string currentRoomCode;
@@ -23,6 +21,15 @@ public class GameNetworkManager : MonoBehaviour
     public bool IsHost { get => isHost; }
     public PlayerID MyPlayerID { get => myPlayerID; }
 
+    public readonly Queue<INetworkChannel> availableChannels = new(); 
+
+    private Dictionary<PlayerID, INetworkChannel> channels = new();
+
+    public INetworkChannel Channels(PlayerID playerID)
+    {
+        return channels[playerID];
+    }
+
     public void Initialize(string username, string roomCode, int playerId, bool isHost, PlayerID playerID)
     {
         this.username = username;
@@ -30,6 +37,10 @@ public class GameNetworkManager : MonoBehaviour
         this.playerId = playerId;
         this.isHost = isHost;
         this.myPlayerID = playerID;
+
+        channels[playerID] = useDummyNetwork ? new LocalDummyNetwork() : new ProductionNetwork(playerID);
+
+        availableChannels.Enqueue(channels[playerID]);
 
         Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {playerId}, Host: {isHost}, GamePlayerID: {playerID}");
         StartPulling();
@@ -54,8 +65,13 @@ public class GameNetworkManager : MonoBehaviour
     {
         while (true)
         {
-            if (Instances.Instance != null)
-                Instances.Instance?.AllGameInstances[(int)myPlayerID].NetworkChannel.PullMessages();
+            foreach(var channel in channels.Values)
+            {
+                if(channel is ProductionNetwork network)
+                {
+                    network.PullMessages();
+                }
+            }
             yield return new WaitForSeconds(pollingInterval);
         }
     }

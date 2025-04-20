@@ -22,6 +22,8 @@ public class InitGamePhase : IGamePhase
         var RandomRoleIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomFactionIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomSecretGoalIndexResults = (Dictionary<PlayerID, float>)null;
+
+
         yield return new WaitUntil(() =>
             Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomRoleIndexHeader, ref RandomRoleIndexResults) &&
             Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults) &&
@@ -35,6 +37,11 @@ public class InitGamePhase : IGamePhase
         {
             var RandomGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults));
+            //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults);
+            foreach(var prn in RandomGoalResults)
+            {
+                Debug.Log($"{prn.Key} : {prn.Value}");
+            }
             var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * RandomGoalResults.Values.Sum() / 6f);
             BalanceFactionGoals.Add(GoalTemplates.BalanceFaction[SharedGoalIndex]);
         }
@@ -47,6 +54,7 @@ public class InitGamePhase : IGamePhase
         {
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults));
+            //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults);
             var EvilGoalIndex = Mathf.FloorToInt(GoalTemplates.SelfishFaction.Count * RandomEvilGoalResults.Values.Sum() / 6);
             SelfishFactionGoals.Add(GoalTemplates.SelfishFaction[EvilGoalIndex]);
         }
@@ -81,7 +89,10 @@ public class InitGamePhase : IGamePhase
         #endregion
 
         yield return new WaitUntil(() => Game.PlayerData.Values.All(data => data.Island != PlayerIsland.Empty));
+        //Game.PlayerData.Values.All(data => data.Island != PlayerIsland.Empty);
         Game.TransitionPhase(new BuildPhase());
+
+        //yield return new();
     }
 
     public IEnumerator OnExit()
