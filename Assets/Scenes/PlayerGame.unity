@@ -931,6 +931,7 @@ MonoBehaviour:
   viewer: {fileID: 74597047}
   buildingMenu: {fileID: 832231891}
   VisitButtons: {fileID: 873713591}
+  spectationSpots: []
 --- !u!1 &633265558
 GameObject:
   m_ObjectHideFlags: 0
@@ -3215,12 +3216,12 @@ GameObject:
   m_Component:
   - component: {fileID: 2043923620}
   m_Layer: 0
-  m_Name: ========DEBUGGING/TEST STUFF========
+  m_Name: ========DEBUGGING/TEST STUFF ENABLE TO ADD 5 CPUs========
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2043923620
 Transform:
   m_ObjectHideFlags: 0

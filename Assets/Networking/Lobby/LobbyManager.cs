@@ -237,7 +237,7 @@ public class LobbyManager : Singleton<LobbyManager>
         Debug.Log(myPlayerID);
         GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
 
-        AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame_Net", LoadSceneMode.Additive);
+        AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
 
         ao.completed += _ => { SceneManager.UnloadSceneAsync(gameObject.scene); };
     }
