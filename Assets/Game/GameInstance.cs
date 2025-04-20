@@ -22,7 +22,15 @@ public class GameInstance : MonoBehaviour
 
     public void Start()
     {
-        NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
+        if(GameNetworkManager.Instance.availableChannels.Count >= 1)
+        {
+            NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
+        }
+        else
+        {
+            NetworkChannel = new LocalDummyNetwork();
+            Debug.LogWarning("Using Dummy Network");
+        }
         StartCoroutine(Loop());
     }
 

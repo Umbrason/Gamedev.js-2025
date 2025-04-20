@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
-    public bool useDummyNetwork;
-
     private string username;
     private string currentRoomCode;
     private int playerId;
@@ -38,7 +36,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         this.isHost = isHost;
         this.myPlayerID = playerID;
 
-        channels[playerID] = useDummyNetwork ? new LocalDummyNetwork() : new ProductionNetwork(playerID);
+        channels[playerID] = new ProductionNetwork(playerID);
 
         availableChannels.Enqueue(channels[playerID]);
 

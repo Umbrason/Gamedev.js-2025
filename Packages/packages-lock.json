@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "360e6c61e6d8aa097d3a62e80dfe135b1d72196b"
+      "hash": "a919d3e55e25e7465427988f160ba88819071291"
     },
     "com.umbrason.umbrasonsutils": {
       "version": "https://github.com/Umbrason/UmbrasonsUtils.git",
