@@ -10,7 +10,7 @@ public class PlayerIslandViewer : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < NetworkUtils.playerCount; i++)
         {
             var slot = (PlayerID)i;
             var instance = Instantiate(viewTemplates[i], transform);

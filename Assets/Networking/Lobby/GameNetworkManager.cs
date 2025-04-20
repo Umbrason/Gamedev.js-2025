@@ -11,7 +11,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     private PlayerID myPlayerID = PlayerID.None;
 
     private Coroutine pollingCoroutine;
-    private float pollingInterval = 1.0f;
+    private float pullingInterval = .25f;
 
     public string Username { get => username; }
     public string CurrentRoomCode { get => currentRoomCode; }
@@ -70,7 +70,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     network.PullMessages();
                 }
             }
-            yield return new WaitForSeconds(pollingInterval);
+            yield return new WaitForSeconds(pullingInterval);
         }
+    }
+
+    public void RunCoroutine(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
     }
 }

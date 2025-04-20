@@ -52,7 +52,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
         void OnPledgeResources(NetworkMessage message) { PledgedResources[message.sender] = (ResourcePledge)message.content; }
         Game.NetworkChannel.StartListening(ShareResourcePledge, OnPledgeResources);
-        yield return new WaitUntil(() => PledgedResources.Count >= 6);
+        yield return new WaitUntil(() => PledgedResources.Count >= NetworkUtils.playerCount);
         Game.NetworkChannel.StopListening(UpdateIslandHeader);
         Game.NetworkChannel.StopListening(UpdateResourcesHeader);
         Game.NetworkChannel.StopListening(ShareResourcePledge);

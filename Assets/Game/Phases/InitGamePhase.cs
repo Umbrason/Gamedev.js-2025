@@ -37,7 +37,7 @@ public class InitGamePhase : IGamePhase
         {
             var RandomGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults));
-            var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * RandomGoalResults.Values.Sum() / 6f);
+            var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * RandomGoalResults.Values.Sum() / (float)NetworkUtils.playerCount);
             BalanceFactionGoals.Add(GoalTemplates.BalanceFaction[SharedGoalIndex]);
         }
         Game.BalancedFactionGoals = BalanceFactionGoals;
@@ -50,7 +50,7 @@ public class InitGamePhase : IGamePhase
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults));
             //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults);
-            var EvilGoalIndex = Mathf.FloorToInt(GoalTemplates.SelfishFaction.Count * RandomEvilGoalResults.Values.Sum() / 6);
+            var EvilGoalIndex = Mathf.FloorToInt(GoalTemplates.SelfishFaction.Count * RandomEvilGoalResults.Values.Sum() / (float)NetworkUtils.playerCount);
             SelfishFactionGoals.Add(GoalTemplates.SelfishFaction[EvilGoalIndex]);
         }
         Game.SelfishFactionGoals = SelfishFactionGoals;
@@ -59,7 +59,7 @@ public class InitGamePhase : IGamePhase
         #region Roles
         var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
-        for (int i = 0; i < 6; i++) Game.PlayerData[(PlayerID)i] = new();
+        for (int i = 0; i < NetworkUtils.playerCount; i++) Game.PlayerData[(PlayerID)i] = new();
 
         foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
         foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;

@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using static System.Net.Mime.MediaTypeNames;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
@@ -18,6 +19,7 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField] private Button buttonConfirmJoin;
     [SerializeField] private GameObject panelLobby;
     [SerializeField] private TMP_Text textRoomCode;
+    [SerializeField] private TMP_InputField roomCodeAsCopyableIF;
     [SerializeField] private Transform playerListContainer;
     [SerializeField] private GameObject playerEntryPrefab;
     [SerializeField] private Button buttonLeave;
@@ -45,6 +47,8 @@ public class LobbyManager : Singleton<LobbyManager>
 
         panelLobby.SetActive(false);
         panelJoinRoom.SetActive(false);
+
+        inputUsername.text = "_default";
     }
 
     void OnCreateClicked()
@@ -117,6 +121,7 @@ public class LobbyManager : Singleton<LobbyManager>
         panelJoinRoom.SetActive(false);
         panelLobby.SetActive(true);
         textRoomCode.text = "Room Code: " + currentRoomCode;
+        roomCodeAsCopyableIF.text = currentRoomCode.ToString();
         buttonStartGame.gameObject.SetActive(isHost);
 
         StartCoroutine(UpdatePlayerListLoop());
@@ -132,7 +137,7 @@ public class LobbyManager : Singleton<LobbyManager>
         }
     }
 
-    IEnumerator SendHeartbeat()
+    public IEnumerator SendHeartbeat()
     {
         WWWForm form = new WWWForm();
         form.AddField("player_id", playerId);

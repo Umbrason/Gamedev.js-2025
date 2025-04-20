@@ -17,7 +17,7 @@ public class PetitionPhase : IGamePhase
 
     public IEnumerator Loop()
     {
-        yield return new WaitUntil(() => Petitions.Count >= 6);
+        yield return new WaitUntil(() => Petitions.Count >= NetworkUtils.playerCount);
         Game.TransitionPhase(new VotePhase(Petitions));
     }
 

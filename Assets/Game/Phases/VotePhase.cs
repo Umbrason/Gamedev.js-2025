@@ -41,7 +41,7 @@ public class VotePhase : IGamePhase
             OnPetitionChanged?.Invoke();
 
             Game.NetworkChannel.StartListening(SubmitVoteHeader, (message) => CurrentVotes[message.sender] = (int)message.content);
-            yield return new WaitUntil(() => CurrentVotes.Count >= 6);
+            yield return new WaitUntil(() => CurrentVotes.Count >= NetworkUtils.playerCount);
             Game.NetworkChannel.StopListening(SubmitVoteHeader);
 
             //TODO: actually do something with the vote here

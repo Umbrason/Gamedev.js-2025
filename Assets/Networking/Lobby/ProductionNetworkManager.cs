@@ -30,26 +30,11 @@ public class ProductionNetwork : INetworkChannel
 
     public void SendMessage(string header, object message, PlayerID receiver)
     {
-        throw new NotImplementedException();
-        /*UnityEngine.Debug.Log($"Player {Enum.GetName(typeof(PlayerID), GameNetworkManager.Instance.MyPlayerID)} Sends: {message} on channel '{header} to player {receiver}'");
-        SendToServer("sendMessage.php", header, message, receiver.ToString());*/
+        SendToServer("sendMessage.php", header, message, receiver.ToString());
     }
 
     public void BroadcastMessage(string header, object message)
     {
-        string dataToSend;
-
-        /*
-        if (message is PlayerIsland playerIsland)
-        {
-            dataToSend = Newtonsoft.Json.JsonConvert.SerializeObject(playerIsland);
-        }
-        else
-        {
-            dataToSend = message.ToString();
-            UnityEngine.Debug.Log($"Player {Enum.GetName(typeof(PlayerID), GameNetworkManager.Instance.MyPlayerID)} Broadcasts: {message} on channel '{header}'");
-        }*/
-
         SendToServer("broadcastMessage.php", header, message, null);
     }
 
@@ -57,46 +42,76 @@ public class ProductionNetwork : INetworkChannel
     {
         WWWForm form = new();
         form.AddField("room_code", RoomCode);
-        //form.AddField("sender_id", GameNetworkManager.Instance.ServerPlayerId);
         form.AddField("sender_id", ServerPlayerID);
-        //form.AddField("sender_game_id", (int)GameNetworkManager.Instance.MyPlayerID);
         form.AddField("sender_game_id", (int)PlayerID);
         form.AddField("header", header);
-        //form.AddField("message", JsonConvert.SerializeObject(message));
 
-
-        MemoryStream ms = new MemoryStream();
-
-        StreamWriter sw = new StreamWriter(ms);
-
-        YAMLSerializer yAMLSerializer = new YAMLSerializer(sw);
-
+        MemoryStream ms = new();
+        StreamWriter sw = new(ms);
+        YAMLSerializer yAMLSerializer = new(sw);
         ReflectionSerializer.SerializeField(message.GetType(), "", message, yAMLSerializer);
-
         sw.Flush();
         ms.Position = 0;
-
-        StreamReader sr = new StreamReader(ms);
-
+        StreamReader sr = new(ms);
         string dataToSend = sr.ReadToEnd();
 
         form.AddField("message", dataToSend);
         form.AddField("message_type", message.GetType().AssemblyQualifiedName);
 
-
         if (receiver != null)
             form.AddField("receiver_id", receiver);
 
-        UnityWebRequest www = UnityWebRequest.Post(BaseUrl + endpoint, form);
-        www.SendWebRequest().completed += _ =>
+
+        Debug.Log("Sending: " + header + ", " + dataToSend);
+
+        SendRequestWithRetry(BaseUrl + endpoint, form, 3f); 
+    }
+
+    private void SendRequestWithRetry(string url, WWWForm form, float retryDelay)
+    {
+        IEnumerator RetryCoroutine()
         {
-            if (www.result != UnityWebRequest.Result.Success)
-                Debug.LogError("Network Error: " + www.error);
-            else
-                Debug.Log("Sending: " + message.GetType().AssemblyQualifiedName + dataToSend + " as " + PlayerID);
-                //Debug.Log($"Sending: {JsonConvert.SerializeObject(message)} type: {message.GetType().AssemblyQualifiedName}");
-                //Debug.Log("Message sent: " + www.downloadHandler.text);
-        };
+            bool success = false;
+            while (!success)
+            {
+                using UnityWebRequest www = UnityWebRequest.Post(url, form);
+                yield return www.SendWebRequest();
+
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.LogWarning("Netzwerkfehler: " + www.error);
+                }
+                else
+                {
+                    try
+                    {
+                        string json = www.downloadHandler.text;
+                        var result = JsonUtility.FromJson<ServerResponse>(json);
+                        if (result != null && result.success)
+                        {
+                            success = true;
+                            Debug.Log("Nachricht erfolgreich gesendet:");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Serverantwort ohne Erfolg: " + json);
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogWarning("Fehler beim Parsen der Serverantwort: " + e.Message);
+                    }
+                }
+
+                if (!success)
+                {
+                    Debug.Log("Wiederhole in " + retryDelay + " Sekunden...");
+                    yield return new WaitForSeconds(retryDelay);
+                }
+            }
+        }
+
+        GameNetworkManager.Instance.RunCoroutine(RetryCoroutine());
     }
 
     public void PullMessages()
@@ -118,7 +133,6 @@ public class ProductionNetwork : INetworkChannel
 
                 foreach (var msg in messages)
                 {
-                    Debug.Log("Received Message:" + msg.Message);
                     Type? type = Type.GetType(msg.MessageType);
                     if (type == null)
                     {
@@ -186,6 +200,14 @@ public class ProductionNetwork : INetworkChannel
         message = new NetworkMessage();
         return false;
     }
+}
+
+[Serializable]
+public class ServerResponse
+{
+    public bool success;
+    public string message;
+    public string error;
 }
 
 [Serializable]
