@@ -37,11 +37,6 @@ public class InitGamePhase : IGamePhase
         {
             var RandomGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults));
-            //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults);
-            foreach(var prn in RandomGoalResults)
-            {
-                Debug.Log($"{prn.Key} : {prn.Value}");
-            }
             var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * RandomGoalResults.Values.Sum() / 6f);
             BalanceFactionGoals.Add(GoalTemplates.BalanceFaction[SharedGoalIndex]);
         }

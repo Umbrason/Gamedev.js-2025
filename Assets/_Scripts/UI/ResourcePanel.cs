@@ -1,8 +1,5 @@
-using NUnit.Framework;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ResourcePanel : MonoBehaviour
 {
@@ -11,43 +8,28 @@ public class ResourcePanel : MonoBehaviour
     [SerializeField] private Transform resourceParent;
     [SerializeField] private ResourceItem resourceItem;
 
-
-    PlayerData testingData = new PlayerData();
-
-    public bool testing;
+    private readonly Dictionary<Resource, ResourceItem> Instances = new();
 
     private void Start()
     {
         if (!gameInstance) gameInstance = gameObject.GetComponent<GameInstance>();
-
-
-        testingData.Resources = new Dictionary<Resource, int>
+        SpawnResourceItems();
+    }
+    void SpawnResourceItems()
+    {
+        foreach (var resource in (Resource[])System.Enum.GetValues(typeof(Resource)))
         {
-            { Resource.Dewdrops, 2 },
-            { Resource.Leaves, 1 },
-            { Resource.Earth, 5 },
-            { Resource.Mana, 0 },
-            { Resource.Wood, 0 },
-            { Resource.Fireflies, 7 }
-        };
-
-        UpdateResources();
+            if (resource == Resource.None) continue;
+            Instances[resource] = Instantiate(resourceItem, resourceParent);
+            Instances[resource].Resource = resource;
+            Instances[resource].Amount = 0;
+        }
     }
 
-    private void UpdateResources()
+    private void Update()
     {
-        if (resourceParent == null) return;
-
-        PlayerData playerData = testing ? testingData : gameInstance.ClientPlayerData;
-
-        if(resourceParent.childCount > 0) resourceParent.DeleteChildren();
-
-        foreach (var (resource, amount) in playerData.Resources)
-        {
-            // spawn resourceItem
-            ResourceItem item = Instantiate(resourceItem, resourceParent);
-            item.Init(resource, amount);
-            item.UpdateUI();
-        }
+        if (gameInstance?.ClientPlayerData?.Resources == null) return;
+        foreach (var (resource, amount) in gameInstance.ClientPlayerData.Resources)
+            Instances[resource].Amount = amount;
     }
 }

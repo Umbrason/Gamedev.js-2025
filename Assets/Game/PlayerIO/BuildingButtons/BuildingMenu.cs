@@ -19,6 +19,7 @@ public class BuildingMenu : MonoBehaviour
         var buildings = (Building[])Enum.GetValues(typeof(Building));
         foreach (var building in buildings)
         {
+            if (building == Building.None) continue;
             var button = Instantiate(buttonTemplate, container ?? transform);
             button.Building = building;
             buttonInstances.Add(button);

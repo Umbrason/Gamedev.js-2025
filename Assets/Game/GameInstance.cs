@@ -12,7 +12,7 @@ public class GameInstance : MonoBehaviour
     [field: SerializeField] public TilesBoardGeneratorData MapGenerator { get; private set; }
     public INetworkChannel NetworkChannel { get; set; }
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
-    public PlayerData ClientPlayerData { get => PlayerData[ClientID]; set => PlayerData[ClientID] = value; }
+    public PlayerData ClientPlayerData { get => PlayerData?.GetValueOrDefault(ClientID); }
     public IReadOnlyList<SharedGoal> BalancedFactionGoals { get; set; }
     public IReadOnlyList<SharedGoal> SelfishFactionGoals { get; set; }
     public IGamePhase CurrentPhase { get; private set; }

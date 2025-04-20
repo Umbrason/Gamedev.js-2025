@@ -1850,7 +1850,7 @@ GameObject:
   - component: {fileID: 1050003244}
   - component: {fileID: 1050003243}
   - component: {fileID: 1050003242}
-  - component: {fileID: 1050003241}
+  - component: {fileID: 1050003245}
   m_Layer: 5
   m_Name: Resource Panel
   m_TagString: Untagged
@@ -1858,32 +1858,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1050003241
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050003240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 5
-    m_Bottom: 5
-  m_ChildAlignment: 0
-  m_Spacing: 5
-  m_ChildForceExpandWidth: 0
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &1050003242
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1941,6 +1915,30 @@ RectTransform:
   m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1050003245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1050003240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9958a1c3606cf8329a06af776407cdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
+  m_ChildAlignment: 0
+  fitType: 1
+  columns: 2
+  rows: 0
+  spacing: {x: 0, y: 0}
+  freeAspect: 1
+  aspectRatio: {x: 1, y: 1}
 --- !u!1 &1056301231
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2340,6 @@ MonoBehaviour:
   gameInstance: {fileID: 633265560}
   resourceParent: {fileID: 1050003244}
   resourceItem: {fileID: 3806589049383354208, guid: c1d61f60f2fd92b4fba8bb7cf91c1eb4, type: 3}
-  testing: 0
 --- !u!1 &1227648569
 GameObject:
   m_ObjectHideFlags: 0

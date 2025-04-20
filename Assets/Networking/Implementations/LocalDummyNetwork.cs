@@ -28,7 +28,6 @@ public class LocalDummyNetwork : INetworkChannel
 
     public void BroadcastMessage(string header, object message)
     {
-        UnityEngine.Debug.Log($"Player {Enum.GetName(typeof(PlayerID), PlayerID)} Broadcasts: {message} on channel '{header}'");
         foreach (var (addr, networkChannel) in NetworkParticipants)
         {
             if (addr == PlayerID) continue;

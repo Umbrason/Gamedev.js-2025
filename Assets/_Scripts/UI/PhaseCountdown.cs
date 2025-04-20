@@ -26,7 +26,6 @@ public class PhaseCountdown : MonoBehaviour
     private void OnPhaseChanged(IGamePhase phase)
     {
         _phase = phase as ITimedPhase;
-
         IsActive?.Invoke(_phase != null);
     }
 

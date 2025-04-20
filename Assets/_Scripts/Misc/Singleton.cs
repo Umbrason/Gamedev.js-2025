@@ -36,7 +36,6 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Debug.Log($"I Exist in Scene {gameObject.scene.name} on GameObject {gameObject.name}!");
         if (_instance == null) _instance = gameObject.GetComponent<T>();
         else if (_instance.GetInstanceID() != GetInstanceID())
         {
