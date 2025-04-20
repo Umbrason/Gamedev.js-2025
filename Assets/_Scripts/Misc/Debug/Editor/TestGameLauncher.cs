@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public static class TestGameLauncher
 {
     private const string ScenePath = "Assets/Scenes/PlayerGame.unity"; // Adjust this path as needed
-    private const string DebugObjectName = "========DEBUGGING/TEST STUFF ENABLE TO ADD 5 CPUs========";
+    private const string DebugObjectName = "========DEBUGGING_TEST STUFF ENABLE TO ADD 5 CPUs========";
 
     private static bool shouldEnableDebugObject = false;
 
