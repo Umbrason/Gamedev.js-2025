@@ -65,12 +65,16 @@ public class GameInstance : MonoBehaviour
     {
         PlayerData p = ClientPlayerData;
 
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine(p.Nickname);
-        stringBuilder.AppendLine(p.Faction.ToString());
-        stringBuilder.AppendLine(p.Role.ToString());
-        stringBuilder.AppendLine(p.SecretGoal.ToString());
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("PlayerData: ");
+        sb.Append("Nickname: ");
+        sb.AppendLine(p.Nickname);
+        sb.Append("Faction: ");
+        sb.AppendLine(p.Faction.ToString());
+        sb.Append("Role: ");
+        sb.AppendLine(p.Role.ToString());
+        //stringBuilder.AppendLine(p.SecretGoal.ToString());
 
-        Debug.Log(stringBuilder.ToString());
+        Debug.Log(sb.ToString());
     }
 }
