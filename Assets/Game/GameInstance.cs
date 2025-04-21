@@ -8,7 +8,7 @@ using UnityEngine;
 public class GameInstance : MonoBehaviour
 {
     public PlayerID ClientID => NetworkChannel.PlayerID;
-    [field: SerializeField] public TilesBoardGeneratorData MapGenerator { get; private set; }
+    [field: SerializeField] public FactionData[] Factions { get; private set; }
     public INetworkChannel NetworkChannel { get; set; }
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
     public PlayerData ClientPlayerData { get => PlayerData?.GetValueOrDefault(ClientID); }
