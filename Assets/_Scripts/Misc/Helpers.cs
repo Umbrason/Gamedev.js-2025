@@ -13,7 +13,7 @@ public static class Helpers
     /// <typeparam name="T"></typeparam>
     /// <param name="list"></param>
     /// <returns></returns>
-    public static T GetRandom<T>(this List<T> list)
+    public static T GetRandom<T>(this IList<T> list)
     {
         int roll = Random.Range(0, list.Count);
         return list[roll];
