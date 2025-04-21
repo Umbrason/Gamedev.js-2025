@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8249473614994552732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3980291884079529406}
+  - component: {fileID: 6819629561929655659}
+  m_Layer: 0
+  m_Name: PlayerIslandViewer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3980291884079529406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8249473614994552732}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6819629561929655659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8249473614994552732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5efa9fb26ca687d3d9c9958c7cc49958, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Game: {fileID: 0}
+  viewTemplates:
+  - {fileID: 8075472061353785388, guid: 1021ed88355ef2f7fba80e68133eba00, type: 3}
+  - {fileID: 8075472061353785388, guid: f44fedb2fc558c2a2af3b6184fdf352f, type: 3}
+  - {fileID: 8075472061353785388, guid: ba1de638d941bd2669c30c275de7b930, type: 3}
+  - {fileID: 8075472061353785388, guid: 328ba55589c65f518b2f68213c81e283, type: 3}
+  - {fileID: 8075472061353785388, guid: 4348d00e564d3c9c28ed022a455a5210, type: 3}
+  - {fileID: 8075472061353785388, guid: daa26d4ff2aeb2e80b57e10f6e83bad5, type: 3}
