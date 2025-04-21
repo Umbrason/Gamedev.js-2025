@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerIDButtons : MonoBehaviour
+{
+    [SerializeField] private GameInstance game;
+    [SerializeField] private PlayerIDButton playerIDButtonTemplate;
+    private readonly List<PlayerIDButton> buttonInstances = new();
+    [SerializeField] private Transform container;
+    public Action<PlayerID> OnClick;
+
+    public void Refresh()
+    {
+        Clear();
+        for (PlayerID id = 0; (int)id < 6; id++)
+        {
+            var instance = Instantiate(playerIDButtonTemplate, container);
+            instance.onClick += OnClickButton;
+            instance.PlayerID = id;
+            instance.Faction = game?.PlayerData?.GetValueOrDefault(id)?.Faction ?? PlayerFactions.None;
+            instance.Nickname = game?.PlayerData?.GetValueOrDefault(id)?.Nickname ?? instance.Faction.ToString();
+            buttonInstances.Add(instance);
+        }
+    }
+    private void OnClickButton(PlayerID id) => OnClick?.Invoke(id);
+
+    public void Clear()
+    {
+        foreach (var instance in buttonInstances)
+            Destroy(instance.gameObject);
+        buttonInstances.Clear();
+    }
+
+    void OnEnable() => Refresh();
+    void OnDisable() => Clear();
+}

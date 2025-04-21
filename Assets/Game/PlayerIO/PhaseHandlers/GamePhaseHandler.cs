@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class GamePhaseHandler<T> : MonoBehaviour where T : IGamePhase
 {
-    [field: SerializeField] protected GameInstance Game { get; private set; }
+    [field: SerializeField] public GameInstance Game { get; private set; }
     protected T Phase { get; private set; }
 
 
