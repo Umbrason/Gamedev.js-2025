@@ -15,7 +15,7 @@ public class PlayerIDButton : MonoBehaviour
         {
             if (m_faction == value) return;
             m_faction = value;
-            icon.sprite = factionSprites[value];
+            if(factionSprites != null) icon.sprite = factionSprites[value];
         }
     }
     private string m_Nickname;
