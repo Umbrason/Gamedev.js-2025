@@ -6,6 +6,7 @@ public class SpectatingPlayerDisplay : MonoBehaviour
     [Tooltip("Make sure to assign in correct order! (see PlayerFactions enum)")]
     [SerializeField] private GameObject[] factionAnim;
     private PlayerFactions currentSpectator = PlayerFactions.None;
+    public PlayerFactions Visitor { get => currentSpectator; }
 
     public void Setup(PlayerFactions faction)
     {
