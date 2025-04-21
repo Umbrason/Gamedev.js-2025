@@ -2,10 +2,10 @@ using DataView;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PledgeView : MonoBehaviour
+public class OfferingView : MonoBehaviour
 {
     [SerializeField] ResourceItem[] resourcesItems;
-    public ResourcePledge Pledge
+    public Dictionary<Resource, int> OfferedResources
     {
         set
         {
@@ -15,17 +15,10 @@ public class PledgeView : MonoBehaviour
                 return;
             }
 
-            Dictionary<Resource, int> Pledge = new();
-
-            foreach ((SharedGoalID goal, Dictionary<Resource, int> resources) in value.goalPledges)
-            {
-                if (goal.TargetRole == PlayerRole.Balanced) Pledge = resources;
-            }
-
             int i = 0;
             
             bool gaveSomething = false;
-            foreach ((Resource res, int quantity) in Pledge)
+            foreach ((Resource res, int quantity) in value)
             {
                 if (quantity <= 0) continue;
                 if (i >= resourcesItems.Length)

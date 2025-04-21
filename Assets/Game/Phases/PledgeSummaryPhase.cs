@@ -7,7 +7,7 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game { private get; set; }
 
-    public Dictionary<PlayerID, ResourcePledge> Pledges;
+    public Dictionary<PlayerID, Dictionary<Resource, int>> OfferedResources;
 
     public float TimeRemaining => _startTime - Time.unscaledTime + Duration;
     public float Duration => 10f;
@@ -33,10 +33,5 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
     public IEnumerator OnExit()
     {
         yield return null;
-    }
-
-    public PledgeSummaryPhase(Dictionary<PlayerID, ResourcePledge> pledges)
-    {
-        Pledges = pledges;
     }
 }

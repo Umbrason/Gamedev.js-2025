@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25768d0b558d824fb40386ba76bc237, type: 3}
   m_Name: Random
   m_EditorClassIdentifier: 
-  minActionDelay: 0.5
-  maxActionDelay: 1.5
+  minActionDelay: 0.1
+  maxActionDelay: 0.2
   AIBuildPhase: {fileID: 11400000, guid: 636b56055b38f414cb1458c3587652c8, type: 2}
   AIPetitionPhase: {fileID: 11400000, guid: 17f823a068d045b4693c233d3e967dae, type: 2}
   AIVotePhase: {fileID: 11400000, guid: 7535a87f489c0d24e9dc48dba668892f, type: 2}

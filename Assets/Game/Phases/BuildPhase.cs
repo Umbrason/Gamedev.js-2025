@@ -11,14 +11,18 @@ public class BuildPhase : IGamePhase, ITimedPhase
         set;
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
-    const float BuildPhaseDurationSeconds = 30f;
+    const float BuildPhaseDurationSeconds = 3;
     private float startTime;
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
+    private PledgeSummaryPhase nextPhase;
+
 
     public readonly Dictionary<PlayerID, ResourcePledge> PledgedResources = new();
 
+
     public float TimeRemaining => startTime - Time.unscaledTime + BuildPhaseDurationSeconds;
     public float Duration => BuildPhaseDurationSeconds;
+
 
     public IEnumerator OnEnter()
     {
@@ -40,7 +44,9 @@ public class BuildPhase : IGamePhase, ITimedPhase
         yield return new WaitUntil(() => (Time.unscaledTime - startTime > BuildPhaseDurationSeconds) || skipping);
         skipping = true;
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(FinishedBuildPhaseSignal, Game.ClientID));
-        Game.TransitionPhase(new PledgeSummaryPhase(PledgedResources));
+
+        nextPhase = new PledgeSummaryPhase();
+        Game.TransitionPhase(nextPhase);
     }
 
     const string RandomPledgeOrderDecissionHeader = "RndPledgeOrder";
@@ -58,20 +64,31 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.StopListening(ShareResourcePledge);
 
 
+
         var pledgeWithdrawalOrderPrio = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
         var pledgeWithdrawalOrder = pledgeWithdrawalOrderPrio.OrderBy(pair => pair.Value).Select(pair => pair.Key);
+
+        Dictionary<PlayerID, Dictionary<Resource, int>> ResourcesOfferedToBalancedGoal = new();
+
         foreach (var playerID in pledgeWithdrawalOrder)
         {
             if (PledgedResources[playerID] == null) continue;
             var pledges = PledgedResources[playerID].goalPledges;
             foreach (var (goalID, resources) in pledges)
             {
-                goalID.GetGoal(Game).Collect(resources);
+                if (!ResourcesOfferedToBalancedGoal.ContainsKey(playerID)) ResourcesOfferedToBalancedGoal[playerID] = new();
+
+                var receipt = goalID.TargetRole == PlayerRole.Balanced ? ResourcesOfferedToBalancedGoal[playerID] : null;
+
+                goalID.GetGoal(Game).Collect(resources, receipt);
+
                 foreach (var (resource, amount) in resources) //add back remainder
                     Game.PlayerData[playerID].Resources[resource] += amount;
             }
         }
+
+        nextPhase.OfferedResources = ResourcesOfferedToBalancedGoal;
 
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase, Game.ClientID));
     }
@@ -122,6 +139,8 @@ public class BuildPhase : IGamePhase, ITimedPhase
     {
         if (!PledgedResources.TryGetValue(Game.ClientID, out var clientPledgedResources))
             clientPledgedResources = PledgedResources[Game.ClientID] = new();
+        clientPledgedResources ??= PledgedResources[Game.ClientID] = new();//if key exists but value is null
+
         amount = Mathf.Min(Game.ClientPlayerData.Resources[resource], amount); //cap to the max the player actually has
         if (targetGoalID.TargetRole > Game.ClientPlayerData.Role) return; //either has no role or is balanced and tried to pledge to selfish goal.
 

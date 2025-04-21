@@ -1,28 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using static LobbyManager;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PledgeSummaryHandler : GamePhaseHandler<PledgeSummaryPhase>
 {
-    [SerializeField] PledgeView[] pledgeViews;
+    [SerializeField] OfferingView[] offeredWiews;
     [SerializeField] GameObject parent;
 
     public override void OnPhaseEntered()
     {
-        foreach((PlayerID player, ResourcePledge pledge) in Phase.Pledges)
-        {
-            if ((int)player >= pledgeViews.Length || pledgeViews[(int)player] == null)
-            {
-                Debug.LogError("Missing pledge view");
-                continue;
-            }
+        StartCoroutine(ShowOfferings());
+    }
 
-            pledgeViews[(int)player].Pledge = pledge;
+    IEnumerator ShowOfferings()
+    {
+        parent.SetActive(true);
+        for (int i = 0; i < offeredWiews.Length; i++)
+        {
+            PlayerID id = (PlayerID)i;
+            offeredWiews[i].OfferedResources = null;//hides everything
         }
 
-        parent.SetActive(true);
+        for (int i = 0; i < offeredWiews.Length; i++)
+        {
+            yield return new WaitForSeconds(0.5f);
+            PlayerID id = (PlayerID)i;
+
+            Dictionary<Resource, int> R = new();
+            offeredWiews[i].OfferedResources = Phase.OfferedResources.GetValueOrDefault(id);
+        }
     }
 
     public override void OnPhaseExited()
     {
+        StopAllCoroutines();
         parent.SetActive(false);
     }
 }

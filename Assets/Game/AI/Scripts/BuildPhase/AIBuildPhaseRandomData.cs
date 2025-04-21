@@ -11,23 +11,53 @@ public class AIBuildPhaseRandomData : AIBuildPhaseData
     {
         yield return new WaitForSeconds(Config.ActionDelay);
 
+        //BUILDING
         for (int i = 0; i < maxBuildingPerTurn; i++)
         {
             List<Building> affordableBuildings = GetAffordableBuildings(Phase);
 
             if (affordableBuildings.Count == 0) break;
 
-            Building building = affordableBuildings[UnityEngine.Random.Range(0, affordableBuildings.Count)];
+            Building building = affordableBuildings.GetRandom();
 
-            List<HexPosition> positions = GetBuildablePositions(Phase, building, GameInstance);
-
-            HexPosition pos = positions[UnityEngine.Random.Range(0, positions.Count)];
+            HexPosition pos = building.FindBestPosition(GameInstance.ClientPlayerData.Island, out _);
 
             Phase.PlaceBuilding(pos, building);
 
             yield return new WaitForSeconds(Config.ActionDelay);
         }
 
+        //PLEDGING
+        if (GameInstance.ClientPlayerData.Role == PlayerRole.Selfish)
+        {
+            PledgeCommonGoals(PlayerRole.Selfish, Phase, GameInstance);
+        }
+        PledgeCommonGoals(PlayerRole.Balanced, Phase, GameInstance);
+        yield return new WaitForSeconds(Config.ActionDelay);
+
+
         Phase.Skip();
+    }
+
+    private void PledgeCommonGoals(PlayerRole role, BuildPhase Phase, GameInstance GameInstance)
+    {
+        if (role == PlayerRole.None) return;
+
+        var Goals = role == PlayerRole.Selfish ? GameInstance.SelfishFactionGoals : GameInstance.BalancedFactionGoals;
+
+        for (int i = 0; i < Goals.Count; i++)
+        {
+            SharedGoal goal = Goals[i];
+
+            foreach ((Resource res, int required) in goal.Required)
+            {
+                int stock = GameInstance.ClientPlayerData.Resources.GetValueOrDefault(res);
+                int pledge = UnityEngine.Random.Range(0, Mathf.Min(stock, required) + 1);
+
+                if (pledge == 0) continue;
+                
+                Phase.PledgeResource(new(role, i), res, pledge);
+            }
+        }
     }
 }

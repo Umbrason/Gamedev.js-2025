@@ -185,7 +185,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Game>k__BackingField: {fileID: 0}
-  pledgeViews:
+  offeredWiews:
   - {fileID: 4070334061595520975}
   - {fileID: 7257337337637848848}
   - {fileID: 486619457627331651}
