@@ -60,8 +60,14 @@ public class PetitionPhaseHandler : GamePhaseHandler<PetitionPhase>
             petitionBuildingPreviewCostDisplay.gameObject.SetActive(ActivePetition?.PlayerID == TargetPlayer);
         }
     }
+
+    public bool CanPlaceBuilding(HexPosition position, Building building)
+        => Game.PlayerData[TargetPlayer].Island.Tiles.ContainsKey(position) && //is there a tile to build on?
+          !Game.PlayerData[TargetPlayer].Island.Buildings.ContainsKey(position); //is the tile free?
+
     void CreatePetition(HexPosition position, Building building)
     {
+        if (!CanPlaceBuilding(position, building)) return;
         ActivePetition = new BuildingPetition(TargetPlayer, position, building, new());
     }
 
