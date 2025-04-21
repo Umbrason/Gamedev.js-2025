@@ -20,29 +20,28 @@ public class ProductionNetwork : INetworkChannel
 
     private const string BaseUrl = "https://jamapi.heggie.dev/";
 
-    public ProductionNetwork(PlayerID playerID)
+    public ProductionNetwork(PlayerID playerID, string roomCode, int serverPlayerID)
     {
-        RoomCode = GameNetworkManager.Instance.CurrentRoomCode;
-        ServerPlayerID = GameNetworkManager.Instance.ServerPlayerId;
+        RoomCode = roomCode;
+        ServerPlayerID = serverPlayerID;
 
         PlayerID = playerID;
     }
 
     public void SendMessage(string header, object message, PlayerID receiver)
     {
-        SendToServer("sendMessage.php", header, message, receiver.ToString());
+        //SendToServer("sendMessage.php", header, message, receiver.ToString());
     }
 
     public void BroadcastMessage(string header, object message)
     {
-        SendToServer("broadcastMessage.php", header, message, null);
+        SendToServer("broadcastMessage_v2.php", header, message, null);
     }
 
     private void SendToServer(string endpoint, string header, object message, string? receiver)
     {
         WWWForm form = new();
         form.AddField("room_code", RoomCode);
-        form.AddField("sender_id", ServerPlayerID);
         form.AddField("sender_game_id", (int)PlayerID);
         form.AddField("header", header);
 
@@ -61,8 +60,7 @@ public class ProductionNetwork : INetworkChannel
         if (receiver != null)
             form.AddField("receiver_id", receiver);
 
-
-        Debug.Log("Sending: " + header + ", " + dataToSend);
+        Debug.Log($"Sending: {header}, {dataToSend}, as {PlayerID}");
 
         SendRequestWithRetry(BaseUrl + endpoint, form, 3f); 
     }
@@ -116,7 +114,7 @@ public class ProductionNetwork : INetworkChannel
 
     public void PullMessages()
     {
-        UnityWebRequest www = UnityWebRequest.Get($"{BaseUrl}getMessages.php?room_code={RoomCode}&player_id={ServerPlayerID}");
+        UnityWebRequest www = UnityWebRequest.Get($"{BaseUrl}getMessages_v2.php?room_code={RoomCode}&player_game_id={(int)PlayerID}");
         www.SendWebRequest().completed += _ =>
         {
             if (www.result != UnityWebRequest.Result.Success)

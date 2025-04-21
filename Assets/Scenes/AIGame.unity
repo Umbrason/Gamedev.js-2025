@@ -163,7 +163,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952bf73f31bf153da871f932707489a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MapGenerator>k__BackingField: {fileID: 0}
+  <Factions>k__BackingField:
+  - {fileID: 11400000, guid: e0cd918426cb5d24c9804b0f0a8c1fbe, type: 2}
+  - {fileID: 11400000, guid: 8ef7953f1072adc47a28c53accd68ce7, type: 2}
+  - {fileID: 11400000, guid: 4a98b61c70859c54ca5ca5b795be95f7, type: 2}
+  - {fileID: 11400000, guid: a717ce9a1a1581e4db30cdfdb86728b4, type: 2}
+  - {fileID: 11400000, guid: 20fc4ac5e853c894ea5e2a011d5ecb95, type: 2}
+  - {fileID: 11400000, guid: e8ea72223f4d85a448f9ef00320f3749, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

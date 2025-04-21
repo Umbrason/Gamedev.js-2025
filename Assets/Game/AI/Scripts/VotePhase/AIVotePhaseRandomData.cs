@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditorInternal;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "VotePhaseRandom", menuName = "Scriptable Objects/AI/Vote/Random")]

@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System;
 using static System.Net.Mime.MediaTypeNames;
+using static LobbyManager;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
@@ -25,13 +26,17 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField] private Button buttonLeave;
     [SerializeField] private Button buttonStartGame;
 
-    private string serverBaseURL = "https://jamapi.heggie.dev/";
+    public const string serverBaseURL = "https://jamapi.heggie.dev/";
 
     private string username;
     private string currentRoomCode;
     private int playerId;
     private bool isHost = false;
     private PlayerID myPlayerID = PlayerID.None;
+
+    PlayerListWrapper playerList;
+
+    bool gameLoaded;
 
     public string CurrentRoomCode { get => currentRoomCode; set => currentRoomCode = value; }
     public int PlayerId { get => playerId; set => playerId = value; }
@@ -156,10 +161,10 @@ public class LobbyManager : Singleton<LobbyManager>
 
             try
             {
-                PlayerListWrapper list = JsonUtility.FromJson<PlayerListWrapper>(json);
-                UpdatePlayerListUI(list.players);
+                playerList = JsonUtility.FromJson<PlayerListWrapper>(json);
+                UpdatePlayerListUI(playerList.players);
 
-                if (list.game_started)
+                if (playerList.game_started && !gameLoaded)
                 {
                     LoadGameScene();
                 }
@@ -218,7 +223,23 @@ public class LobbyManager : Singleton<LobbyManager>
     void OnStartGameClicked()
     {
         StartCoroutine(SetRoomStarted());
+        //StartCoroutine(OnGameStarteClicked_async());
     }
+
+    /*
+    IEnumerator OnGameStarteClicked_async()
+    {
+       
+        if (isHost)
+        {
+            for (int i = NetworkUtils.playerCount - playerList.players.Count; i < NetworkUtils.playerCount; i++)
+            {
+                yield return StartCoroutine(RegisterAiOnServer($"AI_{i}", currentRoomCode, (PlayerID)i));
+            }
+        }
+        
+        StartCoroutine(SetRoomStarted());
+    }*/
 
     IEnumerator SetRoomStarted()
     {
@@ -239,13 +260,55 @@ public class LobbyManager : Singleton<LobbyManager>
 
     void LoadGameScene()
     {
+        gameLoaded = true;
         Debug.Log(myPlayerID);
         GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
 
         AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
 
-        ao.completed += _ => { SceneManager.UnloadSceneAsync(gameObject.scene); };
+        
+
+        ao.completed += _ => {
+            if (isHost)
+            {
+                /*
+                for (int i = NetworkUtils.playerCount - playerList.players.Count; i > 0; i--)
+                {
+                    GameNetworkManager.Instance.availableChannels[(PlayerID)i] (new ProductionNetwork((PlayerID)i, currentRoomCode, -1));
+                }*/
+                GameNetworkManager.Instance.Add_AI(currentRoomCode, NetworkUtils.playerCount - playerList.players.Count);
+            }
+
+
+            SceneManager.UnloadSceneAsync(gameObject.scene);
+        };
+
     }
+
+     //TODO VALIDATE SUCCESS
+    /*public IEnumerator RegisterAiOnServer(string userName, string roomCode, PlayerID playerID)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("room_code", roomCode);
+        form.AddField("player_name", userName);
+
+        UnityWebRequest www = UnityWebRequest.Post(LobbyManager.serverBaseURL + "join_room.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success && !www.downloadHandler.text.Contains("error"))
+        {
+            RoomJoinResponse response = JsonUtility.FromJson<RoomJoinResponse>(www.downloadHandler.text);
+            int playerID_fromServer = response.player_id;
+
+            GameNetworkManager.Instance.availableAIChannels.Enqueue(new ProductionNetwork(playerID, roomCode, playerID_fromServer));
+
+            Debug.Log($"[AI NETWORK] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {playerID_fromServer}, Host: {isHost}, GamePlayerID: {playerID}");
+        }
+        else
+        {
+            Debug.LogError("Join Room Error: " + www.downloadHandler.text);
+        }
+    }*/
 
     [System.Serializable]
     public class RoomJoinResponse

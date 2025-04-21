@@ -1,23 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using static LobbyManager;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
+using System.Runtime.CompilerServices;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
-    private string username;
-    private string currentRoomCode;
-    private int serverPlayerId;
-    private bool isHost = false;
-    private PlayerID myPlayerID = PlayerID.None;
-
     private Coroutine pollingCoroutine;
-    private float pullingInterval = .25f;
-
-    public string Username { get => username; }
-    public string CurrentRoomCode { get => currentRoomCode; }
-    public int ServerPlayerId { get => serverPlayerId; }
-    public bool IsHost { get => isHost; }
-    public PlayerID MyPlayerID { get => myPlayerID; }
+    private float pullingInterval = .5f;
 
     public readonly Queue<INetworkChannel> availableChannels = new(); 
 
@@ -30,18 +23,22 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
     {
-        this.username = username;
-        this.currentRoomCode = roomCode;
-        this.serverPlayerId = serverPlayerId;
-        this.isHost = isHost;
-        this.myPlayerID = playerID;
-
-        channels[playerID] = new ProductionNetwork(playerID);
+        channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId);
 
         availableChannels.Enqueue(channels[playerID]);
 
         Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
         StartPulling();
+    }
+
+    public void Add_AI(string roomCode, int amount)
+    {
+        for(int i = NetworkUtils.playerCount - amount; i < NetworkUtils.playerCount; i++)
+        {
+            channels[(PlayerID)i] = new ProductionNetwork((PlayerID)i, roomCode, -1);
+            availableChannels.Enqueue(channels[(PlayerID)i]);
+            SceneManager.LoadSceneAsync("AIGame", LoadSceneMode.Additive);
+        }
     }
 
     public void StartPulling()
