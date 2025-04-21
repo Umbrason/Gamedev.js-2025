@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using MapGenerator;
 using UnityEngine;
 
 public class GameInstance : MonoBehaviour
