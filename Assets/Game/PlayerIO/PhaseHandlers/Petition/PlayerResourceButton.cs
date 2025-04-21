@@ -16,7 +16,7 @@ public class PlayerResourceButton : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             if (value == m_PlayerFaction) return;
             m_PlayerFaction = value;
-            PlayerIcon.sprite = playerIcons[value];
+            if(playerIcons != null) PlayerIcon.sprite = playerIcons[value];
         }
     }
 
