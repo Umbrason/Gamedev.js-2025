@@ -8,7 +8,7 @@ public class PlayerDisplayProvider : MonoBehaviour
 
 
     [SerializeField] private List<SpectatingPlayerDisplay> displayQueue = new List<SpectatingPlayerDisplay>();
-    private Dictionary<PlayerFactions, SpectatingPlayerDisplay> occupiedDisplays;
+    private readonly Dictionary<PlayerFactions, SpectatingPlayerDisplay> occupiedDisplays = new();
 
 
     public void SwitchDisplayOwner(PlayerFactions faction, bool occupying)
