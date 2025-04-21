@@ -4,51 +4,50 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 {
     [SerializeField] private PlayerIslandViewer viewer;
     [SerializeField] private BuildingMenu buildingMenu;
-    [SerializeField] private Canvas VisitButtons;
+    [SerializeField] private PlayerIDButtons VisitButtons;
 
     [Header("Visiting")]
     [SerializeField] private PlayerDisplayProvider playerDisplayProvider;
     private const string VisitingHeader = "Visiting";
-    private PlayerID currentlyVisiting = PlayerID.None;               // who we are spectating! Also reflected in viewer.TargetPlayer
+    private PlayerID targetPlayer = PlayerID.None;               // who we are spectating! Also reflected in viewer.TargetPlayer
     private bool visiting = false;
 
     public override void OnPhaseEntered()
     {
         Game.NetworkChannel.StartListening(VisitingHeader, OnVisitingMsgReceived);
-        StartVisiting(Game.ClientID);
+        SetTargetPlayer(Game.ClientID);
         buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
         buildingMenu.OnPlaceBuilding += Phase.PlaceBuilding;
+        buildingMenu.gameObject.SetActive(true);
+        VisitButtons.Refresh();
         VisitButtons.gameObject.SetActive(true);
+        VisitButtons.OnClick += SetTargetPlayer;
     }
 
     public override void OnPhaseExited()
     {
-        StartVisiting(PlayerID.None);
+        SetTargetPlayer(PlayerID.None);
         Game.NetworkChannel.StopListening(VisitingHeader);
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
-        VisitButtons.gameObject.SetActive(false);
+        VisitButtons.OnClick -= SetTargetPlayer;
     }
 
 
     #region Visiting
-    public void UI_SetTargetPlayer(int id) => StartVisiting((PlayerID)id);
-    public void StartVisiting(PlayerID playerID)
+    public void SetTargetPlayer(PlayerID playerID)
     {
-        if (currentlyVisiting == playerID) return;
-        if (visiting) ToggleVisiting(false);
-
-        Debug.Log("Visiting...");
-        visiting = playerID != Game.ClientID;
+        if (targetPlayer == playerID) return;
+        if (targetPlayer != PlayerID.None && targetPlayer != Game.ClientID)
+        {
+            Game.NetworkChannel.SendMessage(VisitingHeader, false, targetPlayer);
+            if (playerID != PlayerID.None && playerID != Game.ClientID)
+                Game.NetworkChannel.SendMessage(VisitingHeader, true, targetPlayer);
+        }
+        visiting = playerID != Game.ClientID && playerID != PlayerID.None;
         buildingMenu.gameObject.SetActive(!visiting);
         viewer.TargetPlayer = playerID;
-
-        if (!visiting) return;
-        currentlyVisiting = playerID;
-        ToggleVisiting(true);
-
-        void ToggleVisiting(bool spectating) =>
-            Game.NetworkChannel.SendMessage(VisitingHeader, spectating, currentlyVisiting);
+        targetPlayer = playerID;
     }
     private void OnVisitingMsgReceived(NetworkMessage message)
     {

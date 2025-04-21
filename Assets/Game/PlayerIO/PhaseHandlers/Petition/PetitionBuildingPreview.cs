@@ -11,8 +11,9 @@ public class PetitionBuildingPreview : MonoBehaviour
         {
             if (m_Petition == value) return;
             m_Petition = value;
-            buildingView.Data = m_Petition.Building;
-            transform.position = HexOrientation.Active * m_Petition.Position;
+            buildingView.Data = m_Petition?.Building ?? Building.None;
+            if (value == null) return;
+            transform.position = m_Petition.Position.WorldPositionCenter;
         }
     }
 }

@@ -14,9 +14,7 @@ public class ResourceCountInput : MonoBehaviour
         {
             mMin = Mathf.Min(value, Max);
             var newValue = Mathf.Max(Min, Value);
-            if (mValue == newValue) return;
             Value = newValue;
-            OnChanged?.Invoke(value);
         }
     }
 
@@ -28,22 +26,23 @@ public class ResourceCountInput : MonoBehaviour
         {
             mMax = Mathf.Max(value, Min);
             var newValue = Mathf.Min(Max, Value);
-            if (mValue == newValue) return;
             Value = newValue;
-            OnChanged?.Invoke(value);
         }
     }
 
-    private int mValue;
+    private int mValue = -1;
     public int Value
     {
         get => mValue;
         set
         {
-
             var newValue = Mathf.Clamp(value, Min, Max);
-            if (mValue == newValue) return;
-            OnChanged?.Invoke(value);
+            Increment.interactable = newValue < Max;
+            Decrement.interactable = newValue > Min;
+            inputField.SetTextWithoutNotify(newValue.ToString(CultureInfo.InvariantCulture));
+            if (newValue == mValue) return;
+            mValue = newValue;
+            OnChanged?.Invoke(mValue);
         }
     }
 
@@ -64,17 +63,27 @@ public class ResourceCountInput : MonoBehaviour
     [SerializeField] ResourceSpriteLib ResourceIcons;
     [SerializeField] TMP_InputField inputField;
     [SerializeField] Image resourceIcon;
+    [SerializeField] Button Increment;
+    [SerializeField] Button Decrement;
+
     void OnEnable()
     {
         inputField.contentType = TMP_InputField.ContentType.IntegerNumber;
-        inputField.onValueChanged.AddListener(OnInputFieldChanged);
+        inputField.onSubmit.AddListener(OnInputFieldChanged);
+        inputField.SetTextWithoutNotify(Value.ToString(CultureInfo.InvariantCulture));
+        Increment.onClick.AddListener(Incr);
+        Decrement.onClick.AddListener(Decr);
     }
-    void OnDisable() => inputField.onValueChanged.RemoveListener(OnInputFieldChanged);
+    void OnDisable()
+    {
+        inputField.onSubmit.RemoveListener(OnInputFieldChanged);
+        Increment.onClick.RemoveListener(Incr);
+        Decrement.onClick.RemoveListener(Decr);
+    }
 
     void OnInputFieldChanged(string number)
     {
         Value = int.Parse(number);
-        inputField.SetTextWithoutNotify(Value.ToString(CultureInfo.InvariantCulture));
     }
 
     public void Incr() => Value++;
