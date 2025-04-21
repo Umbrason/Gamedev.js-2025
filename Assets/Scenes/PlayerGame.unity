@@ -13470,10 +13470,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PetitionPhaseHandler
       objectReference: {fileID: 0}
-    - target: {fileID: 5515433882832515458, guid: f468a31c31f1315278b7b93aba296aec, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5526534702399482611, guid: f468a31c31f1315278b7b93aba296aec, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -17183,10 +17179,6 @@ PrefabInstance:
     - target: {fileID: 1995059428521191213, guid: 8b47a2a85f77f1cfa9152bfc83f30545, type: 3}
       propertyPath: m_Name
       value: VotePhaseHandler
-      objectReference: {fileID: 0}
-    - target: {fileID: 1995059428521191213, guid: 8b47a2a85f77f1cfa9152bfc83f30545, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
