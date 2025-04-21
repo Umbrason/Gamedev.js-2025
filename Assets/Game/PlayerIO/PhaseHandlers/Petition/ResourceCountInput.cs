@@ -6,39 +6,64 @@ using UnityEngine.UI;
 
 public class ResourceCountInput : MonoBehaviour
 {
-
-    public int mMin;
-    public int mMax;
-    private int mValue;
-
+    private int mMin;
     public int Min
     {
         get => mMin;
         set
         {
             mMin = Mathf.Min(value, Max);
-            Value = Mathf.Max(Min, Value);
+            var newValue = Mathf.Max(Min, Value);
+            if (mValue == newValue) return;
+            Value = newValue;
+            OnChanged?.Invoke(value);
         }
     }
+
+    private int mMax;
     public int Max
     {
         get => mMax;
         set
         {
             mMax = Mathf.Max(value, Min);
-            Value = Mathf.Min(Max, Value);
+            var newValue = Mathf.Min(Max, Value);
+            if (mValue == newValue) return;
+            Value = newValue;
+            OnChanged?.Invoke(value);
         }
     }
-    private int Value
+
+    private int mValue;
+    public int Value
     {
         get => mValue;
-        set => mValue = Mathf.Clamp(value, Min, Max);
+        set
+        {
+
+            var newValue = Mathf.Clamp(value, Min, Max);
+            if (mValue == newValue) return;
+            OnChanged?.Invoke(value);
+        }
     }
 
-
+    private Resource resource;
+    public Resource Resource
+    {
+        get => resource;
+        set
+        {
+            if (value == resource) return;
+            resourceIcon.sprite = ResourceIcons[value];
+            resource = value;
+        }
+    }
 
     public event Action<int> OnChanged;
+
+    [SerializeField] ResourceSpriteLib ResourceIcons;
     [SerializeField] TMP_InputField inputField;
+    [SerializeField] Image resourceIcon;
     void OnEnable()
     {
         inputField.contentType = TMP_InputField.ContentType.IntegerNumber;
