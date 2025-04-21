@@ -126,8 +126,11 @@ public class BuildPhase : IGamePhase, ITimedPhase
     {
         if (skipping) return;
         if (!CanPlaceBuilding(position, building)) return;
+        foreach (var (resource, cost) in building.ConstructionCosts())
+            Game.ClientPlayerData.Resources[resource] -= cost;
         Game.ClientPlayerData.Island = Game.ClientPlayerData.Island.WithBuildings((position, building));
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
+        Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
     }
 
     [PlayerAction]
@@ -156,12 +159,14 @@ public class BuildPhase : IGamePhase, ITimedPhase
         {
             amount = Mathf.Max(amount, -clientPledgedResources.goalPledges[targetGoalID].GetValueOrDefault(resource));
         }
-        else return;
+        else return; //doesnt have any resources pledged but tried to withdraw some
         Game.ClientPlayerData.Resources[resource] -= amount;
         if (!clientPledgedResources.goalPledges[targetGoalID].ContainsKey(resource))
             clientPledgedResources.goalPledges[targetGoalID][resource] = amount;
         else
             clientPledgedResources.goalPledges[targetGoalID][resource] += amount;
+        Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
+        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
     }
 
 }
