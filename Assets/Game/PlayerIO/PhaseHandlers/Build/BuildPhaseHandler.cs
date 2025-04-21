@@ -9,13 +9,13 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     [Header("Visiting")]
     [SerializeField] private PlayerDisplayProvider playerDisplayProvider;
     private const string VisitingHeader = "Visiting";
-    private PlayerID currentlyVisiting;               // who we are spectating! Also reflected in viewer.TargetPlayer
+    private PlayerID currentlyVisiting = PlayerID.None;               // who we are spectating! Also reflected in viewer.TargetPlayer
     private bool visiting = false;
 
     public override void OnPhaseEntered()
     {
-        StartVisiting(Game.ClientID);
         Game.NetworkChannel.StartListening(VisitingHeader, OnVisitingMsgReceived);
+        StartVisiting(Game.ClientID);
         buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
         buildingMenu.OnPlaceBuilding += Phase.PlaceBuilding;
         VisitButtons.gameObject.SetActive(true);
@@ -38,6 +38,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         if (currentlyVisiting == playerID) return;
         if (visiting) ToggleVisiting(false);
 
+        Debug.Log("Visiting...");
         visiting = playerID != Game.ClientID;
         buildingMenu.gameObject.SetActive(!visiting);
         viewer.TargetPlayer = playerID;

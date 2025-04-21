@@ -6,6 +6,7 @@ public abstract class SecretTask
 {
     public abstract string Description { get; protected set; }
     public abstract bool Evaluate(PlayerData data);
+    public override string ToString() => Description;
 }
 
 public class BuildingAmount : SecretTask

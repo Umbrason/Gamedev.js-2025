@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using MapGenerator;
 using UnityEngine;
 
@@ -57,5 +58,19 @@ public class GameInstance : MonoBehaviour
     public void TransitionPhase(IGamePhase newPhase)
     {
         RequestedTransition = newPhase;
+    }
+
+    [ContextMenu("Debug PlayerData")]
+    private void DebugPlayerData()
+    {
+        PlayerData p = ClientPlayerData;
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine(p.Nickname);
+        stringBuilder.AppendLine(p.Faction.ToString());
+        stringBuilder.AppendLine(p.Role.ToString());
+        stringBuilder.AppendLine(p.SecretGoal.ToString());
+
+        Debug.Log(stringBuilder.ToString());
     }
 }
