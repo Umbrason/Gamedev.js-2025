@@ -11,7 +11,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         set;
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
-    const float BuildPhaseDurationSeconds = 30;
+    const float BuildPhaseDurationSeconds = 30f;
     private float startTime;
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
 
@@ -40,7 +40,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         yield return new WaitUntil(() => (Time.unscaledTime - startTime > BuildPhaseDurationSeconds) || skipping);
         skipping = true;
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(FinishedBuildPhaseSignal, Game.ClientID));
-        Game.TransitionPhase(new PledgeSummaryPhase());
+        Game.TransitionPhase(new PledgeSummaryPhase(PledgedResources));
     }
 
     const string RandomPledgeOrderDecissionHeader = "RndPledgeOrder";

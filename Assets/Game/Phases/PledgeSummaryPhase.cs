@@ -1,10 +1,17 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PledgeSummaryPhase : IGamePhase
+public class PledgeSummaryPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game { private get; set; }
+
+    public Dictionary<PlayerID, ResourcePledge> Pledges;
+
+    public float TimeRemaining => _startTime - Time.unscaledTime + Duration;
+    public float Duration => 10f;
+    private float _startTime = -1000f;
 
     public IEnumerator OnEnter()
     {
@@ -14,7 +21,8 @@ public class PledgeSummaryPhase : IGamePhase
     const bool BalancedTeamHasPriority = false;
     public IEnumerator Loop()
     {
-        yield return new WaitForSecondsRealtime(1f);
+        _startTime = Time.unscaledTime;
+        yield return new WaitForSecondsRealtime(Duration);
         if (Game.BalancedFactionGoals.All(goal => goal.Complete) || Game.SelfishFactionGoals.All(goal => goal.Complete))
             Game.TransitionPhase(new GameOverPhase(BalancedTeamHasPriority ?
                                     (Game.BalancedFactionGoals.All(goal => goal.Complete) ? PlayerRole.Balanced : PlayerRole.Selfish) :
@@ -25,5 +33,10 @@ public class PledgeSummaryPhase : IGamePhase
     public IEnumerator OnExit()
     {
         yield return null;
+    }
+
+    public PledgeSummaryPhase(Dictionary<PlayerID, ResourcePledge> pledges)
+    {
+        Pledges = pledges;
     }
 }
