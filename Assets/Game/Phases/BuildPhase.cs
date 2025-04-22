@@ -97,8 +97,9 @@ public class BuildPhase : IGamePhase, ITimedPhase
     {
         foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value + ((int)_.Value >= 7 ? 1 : 0)))
         {
-            var yieldChance = building.YieldChanceAt(Game.ClientPlayerData.Island, position);
-            if (UnityEngine.Random.value > yieldChance) continue;
+            int maxYield = building.MaxYieldAt(Game.ClientPlayerData.Island, position);
+            int yield = Random.Range(0, maxYield);
+
             #region refined resources
             var opCosts = building.OperationCosts();
             if (!opCosts.Select(pair => (pair.Key, pair.Value)).All(((Resource resource, int amount) cost) => Game.ClientPlayerData[cost.resource] >= cost.amount))
@@ -107,7 +108,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
                 Game.ClientPlayerData[resource] -= amount;
             #endregion
             var resourceYieldType = building.ResourceYieldType();
-            Game.ClientPlayerData[resourceYieldType]++;
+            Game.ClientPlayerData[resourceYieldType] += yield;
         }
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
     }

@@ -12,8 +12,8 @@ public class InitGamePhase : IGamePhase
     const string RandomSecretGoalIndexHeader = "ScrtGoalIdx";
     const string ShareIslandState = "ShareIslandState";
 
-    const int BalanceFactionSubgoalCount = 4;
-    const int SelfishFactionSubgoalCount = 2;
+    const int BalanceFactionSubgoalCount = 1;
+    const int SelfishFactionSubgoalCount = 1;
     public GameInstance Game { private get; set; }
 
     public IEnumerator OnEnter()
