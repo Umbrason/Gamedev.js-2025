@@ -8,6 +8,7 @@ public class MissionsDisplay : MonoBehaviour
     [SerializeField] private GameObject Canvas;
     [SerializeField] private SharedGoalsDisplay balancedGoalDisplayTemplate;
     [SerializeField] private SharedGoalsDisplay selfishGoalDisplayTemplate;
+    [SerializeField] private SecretTaskDisplay secretTaskDisplay;
     public event Action<SharedGoalID> OnClickMission;
 
     public void Show()
@@ -19,6 +20,7 @@ public class MissionsDisplay : MonoBehaviour
         selfishGoalDisplayTemplate.Goals = selfishGoals;
         balancedGoalDisplayTemplate.OnClick = OnClick;
         selfishGoalDisplayTemplate.OnClick = OnClick;
+        secretTaskDisplay.SecretTask = Game.ClientPlayerData.SecretGoal;
     }
     public void Hide()
     {

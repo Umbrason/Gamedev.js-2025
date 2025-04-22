@@ -91,14 +91,15 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase, Game.ClientID));
     }
-
+    const int SecretTaskRewardResourceMultiplier = 2;
     const string UpdateResourcesHeader = "UpdateResources";
     private void HarvestResources()
     {
+        var multiplier = Game.ClientPlayerData.SecretGoal.Evaluate(Game.ClientPlayerData) ? SecretTaskRewardResourceMultiplier : 1;
         foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value + ((int)_.Value >= 7 ? 1 : 0)))
         {
             int maxYield = building.MaxYieldAt(Game.ClientPlayerData.Island, position);
-            int yield = Random.Range(0, maxYield);
+            int yield = Random.Range(0, maxYield) * multiplier;
 
             #region refined resources
             var opCosts = building.OperationCosts();
