@@ -276,7 +276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952bf73f31bf153da871f932707489a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Factions>k__BackingField: []
+  <MapGenerator>k__BackingField: {fileID: 11400000, guid: e816d510b6f60da4f8812e9584a55dbb, type: 2}
 --- !u!4 &79500236
 Transform:
   m_ObjectHideFlags: 0
@@ -308,8 +308,6 @@ MonoBehaviour:
   viewer: {fileID: 0}
   buildingMenu: {fileID: 0}
   VisitButtons: {fileID: 0}
-  pledgeScreen: {fileID: 0}
-  missionsDisplay: {fileID: 0}
   playerDisplayProvider: {fileID: 0}
 --- !u!114 &79500238
 MonoBehaviour:
@@ -2349,7 +2347,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 79500238}
+      - m_Target: {fileID: 79500237}
         m_TargetAssemblyTypeName: VotePhaseHandler, Assembly-CSharp
         m_MethodName: SubmitVote
         m_Mode: 3
@@ -4199,7 +4197,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clientDisplay: {fileID: 1951709065}
-  displaySlots: []
+  displayQueue:
+  - {fileID: 304321315}
+  - {fileID: 1245275776}
+  - {fileID: 1423002089}
+  - {fileID: 466090194}
+  - {fileID: 1322039030}
 --- !u!4 &1347548529
 Transform:
   m_ObjectHideFlags: 0
@@ -4498,7 +4501,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 79500238}
+      - m_Target: {fileID: 79500237}
         m_TargetAssemblyTypeName: VotePhaseHandler, Assembly-CSharp
         m_MethodName: SubmitVote
         m_Mode: 3
