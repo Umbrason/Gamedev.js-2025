@@ -22,6 +22,10 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         for (int i = 1; i < Enum.GetNames(typeof(PlayerFactions)).Length; i++)
         {
             // method checks for duplicates etc.
+            if(Game.ClientPlayerData.Faction == (PlayerFactions)i)
+            {
+                continue;
+            }
             playerDisplayProvider.Show((PlayerFactions)i);
         }
     }
