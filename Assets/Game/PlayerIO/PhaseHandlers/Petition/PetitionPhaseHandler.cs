@@ -10,6 +10,7 @@ public class PetitionPhaseHandler : GamePhaseHandler<PetitionPhase>
     [SerializeField] private PetitionBuildingPreview petitionBuildingPreview;
     [SerializeField] private PetitionBuildingPreviewCostDisplay petitionBuildingPreviewCostDisplay;
     [SerializeField] private Button SubmitButton;
+    [SerializeField] private MissionsDisplay missionsDisplay;
 
     //TODO: Some kind of "Waiting for other players" text after submitting
 
@@ -34,6 +35,7 @@ public class PetitionPhaseHandler : GamePhaseHandler<PetitionPhase>
         resourcePicker.Refresh();
         resourcePicker.OnResourceSourcesModified += petitionBuildingPreviewCostDisplay.Refresh;
         resourcePicker.OnResourceSourcesModified += UpdateSubmitButton;
+        missionsDisplay.Show();
         SubmitButton.onClick.AddListener(SubmitPetition);
     }
 
@@ -95,6 +97,7 @@ public class PetitionPhaseHandler : GamePhaseHandler<PetitionPhase>
     public override void OnPhaseExited()
     {
         SetTargetPlayer(PlayerID.None);
+        missionsDisplay.Hide();
         buildingMenu.OnPlaceBuilding -= CreatePetition;
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.gameObject.SetActive(false);
