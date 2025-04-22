@@ -11,7 +11,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         set;
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
-    const float BuildPhaseDurationSeconds = 6;
+    const float BuildPhaseDurationSeconds = 60;
     private float startTime;
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
     private PledgeSummaryPhase nextPhase;
