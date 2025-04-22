@@ -23,11 +23,6 @@ public class InitGamePhase : IGamePhase
         var RandomFactionIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomSecretGoalIndexResults = (Dictionary<PlayerID, float>)null;
 
-        yield return new WaitUntil(() =>
-            Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomRoleIndexHeader, ref RandomRoleIndexResults) &&
-            Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults) &&
-            Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults)
-        );
         bool roleDone = false, factionDone = false, secretGoalDone = false;
 
         IEnumerator WaitForRandomRoleIndex()
