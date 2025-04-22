@@ -26,18 +26,72 @@ public static class BuildingExtensions
     public static Dictionary<Resource, int> ConstructionCosts(this Building building)
     => building switch
     {
-        Building.DewCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.LeafCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.EarthCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.ManaCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.WoodCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.FireflyCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.Composter => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.InkGrinder => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.MushroomsFarm => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.LanternWeavingStation => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.WispNursery => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.ManaSolidifier => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
+        Building.DewCollector => new() { 
+            { Resource.Dewdrops, 2 }, 
+            { Resource.Earth, 2 }, 
+            { Resource.Fireflies, 2 } 
+        },
+        Building.WoodCollector => new() {
+            { Resource.Wood, 2 },
+            { Resource.Fireflies, 2 },
+            { Resource.Leaves, 2 }
+        },
+        Building.LeafCollector => new() {
+            { Resource.Leaves, 2 },
+            { Resource.Dewdrops, 2 },
+            { Resource.Mana, 2 }
+        },
+        Building.EarthCollector => new() {
+            { Resource.Earth, 2 },
+            { Resource.Mana, 2 },
+            { Resource.Wood, 2 }
+        },
+        Building.FireflyCollector => new() {
+            { Resource.Fireflies, 2 },
+            { Resource.Wood, 2 },
+            { Resource.Earth, 2 }
+        },
+        Building.ManaCollector => new() {
+            { Resource.Mana, 2 },
+            { Resource.Leaves, 2 },
+            { Resource.Dewdrops, 2 }
+        },
+        Building.Composter => new() {
+            { Resource.Earth, 7 },
+            { Resource.Leaves, 7 },         
+            { Resource.Fireflies, 3 },
+            { Resource.Mana, 3 }
+        },        
+        Building.WispNursery => new() {
+            { Resource.Fireflies, 7 },
+            { Resource.Mana, 7 },         
+            { Resource.Dewdrops, 3 },
+            { Resource.Wood, 3 }
+        },        
+        Building.ManaSolidifier => new() {
+            { Resource.Mana, 7 },
+            { Resource.Earth, 7 },         
+            { Resource.Leaves, 3 },
+            { Resource.Dewdrops, 3 }
+        },        
+        Building.MushroomsFarm => new() {
+            { Resource.Wood,7 },
+            { Resource.Dewdrops, 7 },         
+            { Resource.Fireflies, 3 },
+            { Resource.Leaves, 3 }
+        },        
+        Building.LanternWeavingStation => new() {
+            { Resource.Fireflies, 7 },
+            { Resource.Wood, 7 },         
+            { Resource.Mana, 3 },
+            { Resource.Earth, 3 }
+        },        
+        Building.InkGrinder => new() {
+            { Resource.Dewdrops, 7 },
+            { Resource.Leaves, 7 },         
+            { Resource.Earth, 3 },
+            { Resource.Wood, 3 }
+        },
         _ => new()
     };
 
@@ -55,36 +109,45 @@ public static class BuildingExtensions
 
     public static Resource ResourceYieldType(this Building building) => (Resource)building;
 
-    private const float percentagePerTile = 0.15f;
-    public static float YieldChanceAt(this Building building, PlayerIsland island, HexPosition position)
+    
+    /// <summary>
+    /// Each turn a building produces between 0 and MaxYield resources
+    /// </summary>
+    public static int MaxYieldAt(this Building building, PlayerIsland island, HexPosition position)
     {
-        if ((int)building > 6) return .8f; //yield chance for
-        float percentage = 0f;
+        if ((int)building > 6) return 2;//averages to 1 per turn
+        int yield = 0;
         foreach (HexPosition pos in position.GetSurrounding())
-            if (island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) percentage += percentagePerTile;
-        return percentage;
+            if (island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) yield += 1;
+        return yield;
     }
 
-   public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float yieldChance)
+   public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float averageYield)
     {
-        yieldChance = -1f;
+        averageYield = -10f;
         HexPosition bestPosition = default;
 
         foreach (HexPosition pos in island.Tiles.Keys)
         {
             if (island.Buildings.GetValueOrDefault(pos) != Building.None) continue;
 
-            float yield = YieldChanceAt(building, island, pos);
+            float yield = MaxYieldAt(building, island, pos);
 
             foreach(HexPosition adj in pos.GetSurrounding())
             {
-                if (island.Buildings.GetValueOrDefault(adj) != Building.None)
-                    yield -= percentagePerTile;//Takes into account the loss of yield of other buildings
+                Building other = island.Buildings.GetValueOrDefault(adj);
+
+                if (island.Buildings.GetValueOrDefault(adj) == Building.None) continue;
+                if (island.Buildings.GetValueOrDefault(adj) >= Building.Composter) continue;//crafters don't care about occupied tiles
+
+                yield -= 1;//Takes into account the loss of yield of other buildings
             }
 
-            if (yield <= yieldChance) continue;
+            yield *= 0.5f;//average yield is half the maximum yield
 
-            yieldChance = yield;
+            if (yield <= averageYield) continue;
+
+            averageYield = yield;
             bestPosition = pos;
         }
 
