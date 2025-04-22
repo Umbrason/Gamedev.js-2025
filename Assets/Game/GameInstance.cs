@@ -11,10 +11,14 @@ public class GameInstance : MonoBehaviour
     public INetworkChannel NetworkChannel { get; set; }
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
     public PlayerData ClientPlayerData { get => PlayerData?.GetValueOrDefault(ClientID); }
+
     public IReadOnlyList<SharedGoal> BalancedFactionGoals { get; set; }
     public IReadOnlyList<SharedGoal> SelfishFactionGoals { get; set; }
+    public event Action<IGamePhase> OnGoalsProgressed;
+
     public IGamePhase CurrentPhase { get; private set; }
     public event Action<IGamePhase> OnPhaseChanged;
+
 
     private IGamePhase RequestedTransition = new InitGamePhase();//new LobbyPhase();
 

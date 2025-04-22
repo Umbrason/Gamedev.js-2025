@@ -1,29 +1,32 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SharedGoalsDisplay : MonoBehaviour
 {
-    IReadOnlyList<SharedGoal> m_Goals;
-    public IReadOnlyList<SharedGoal> Goals
+    [SerializeField] Transform container;
+    Dictionary<SharedGoalID, SharedGoal> m_Goals;
+    public Dictionary<SharedGoalID, SharedGoal> Goals
     {
         get => m_Goals;
         set
         {
             m_Goals = value;
-            while (value.Count != GoalDisplayInstances.Count)
+            foreach (var instance in GoalDisplayInstances.Values)
+                Destroy(instance.gameObject);
+            GoalDisplayInstances.Clear();
+            if (value == null) return;
+            foreach (var (id, goal) in value)
             {
-                if (value.Count > GoalDisplayInstances.Count)
-                    GoalDisplayInstances.Add(Instantiate(Template));
-                else
-                {
-                    Destroy(GoalDisplayInstances[0]);
-                    GoalDisplayInstances.RemoveAt(0);
-                }
+                var instance = Instantiate(Template, container);
+                instance.GoalID = id;
+                instance.Goal = goal;
+                instance.OnClick = (id) => OnClick?.Invoke(id);
+                GoalDisplayInstances[id] = instance;
             }
-            for (int i = 0; i < value.Count; i++)
-                GoalDisplayInstances[i].Goal = Goals[i];
         }
     }
-    private readonly List<SharedGoalDisplay> GoalDisplayInstances = new();
+    private readonly Dictionary<SharedGoalID, SharedGoalDisplay> GoalDisplayInstances = new();
     [SerializeField] private SharedGoalDisplay Template;
+    public Action<SharedGoalID> OnClick;
 }

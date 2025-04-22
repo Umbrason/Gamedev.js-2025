@@ -307,8 +307,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6993847763633828576}
   - component: {fileID: 8983025730199936912}
+  - component: {fileID: -3304920405031852791}
   m_Layer: 0
-  m_Name: VerticalResourceInput
+  m_Name: ResourceInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -350,11 +351,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a9be64fa4fd9a5c6b1f3494787d9832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourceIcons: {fileID: 0}
+  ResourceIcons: {fileID: 11400000, guid: 12e8108b126f1562a846f97624095dbd, type: 2}
   inputField: {fileID: 8889424245795736812}
   resourceIcon: {fileID: 8272485103483228921}
   Increment: {fileID: 6092579313225792288}
   Decrement: {fileID: 7269123460779281660}
+--- !u!114 &-3304920405031852791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714028472103269931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &3467397567182114932
 GameObject:
   m_ObjectHideFlags: 0

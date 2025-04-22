@@ -8,6 +8,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     [SerializeField] private BuildingMenu buildingMenu;
     [SerializeField] private PlayerIDButtons VisitButtons;
     [SerializeField] private GoalResourcePledgeScreen pledgeScreen;
+    [SerializeField] private MissionsDisplay missionsDisplay;
 
     [Header("Visiting")]
     [SerializeField] private PlayerDisplay playerDisplayProvider;
@@ -25,6 +26,8 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         VisitButtons.Refresh();
         VisitButtons.gameObject.SetActive(true);
         VisitButtons.OnClick += SetTargetPlayer;
+        missionsDisplay.OnClickMission += (missionID) => ShowPledgeScreen(new() { missionID });
+        missionsDisplay.Show();
     }
 
     public override void OnPhaseExited()
@@ -34,31 +37,38 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
         VisitButtons.OnClick -= SetTargetPlayer;
+        missionsDisplay.Hide();
+        pledgeScreen.Hide();
     }
 
     void Update()
     {
-        if (Phase.TimeRemaining < 10f) ShowPledgeScreen();
+        if (Phase != null && Phase.TimeRemaining < 50f && !pledgeScreen.Showing)
+            ShowPledgeScreenAllGoals(false);
     }
 
-    ResourcePledge currentPledge = new();
-    public void ShowPledgeScreen()
+    public void ShowPledgeScreenAllGoals(bool canHide = true)
     {
-        var goals = new Dictionary<SharedGoalID, SharedGoal>();
+        var goals = new List<SharedGoalID>();
         for (int i = 0; i < Game.BalancedFactionGoals.Count; i++)
         {
-            SharedGoal goal = Game.BalancedFactionGoals[i];
             SharedGoalID id = new(PlayerRole.Balanced, i);
-            goals.Add(id, goal);
+            goals.Add(id);
         }
         if (Game.ClientPlayerData.Role == PlayerRole.Selfish)
             for (int i = 0; i < Game.SelfishFactionGoals.Count; i++)
             {
-                SharedGoal goal = Game.SelfishFactionGoals[i];
                 SharedGoalID id = new(PlayerRole.Selfish, i);
-                goals.Add(id, goal);
+                goals.Add(id);
             }
-        pledgeScreen.Show(goals, Phase.PledgeResource);
+        ShowPledgeScreen(goals, canHide);
+    }
+    public void ShowPledgeScreen(List<SharedGoalID> goals, bool canHide = true)
+    {
+        var goalsDict = new Dictionary<SharedGoalID, SharedGoal>();
+        foreach (var goalID in goals)
+            goalsDict[goalID] = goalID.GetGoal(Game);
+        pledgeScreen.Show(goalsDict, Phase.PledgedResources.GetValueOrDefault(Game.ClientID), Phase.PledgeResource, canHide);
     }
 
 

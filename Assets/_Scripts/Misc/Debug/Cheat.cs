@@ -8,15 +8,10 @@ public class Cheat : MonoBehaviour
 
     public void AddResources(int quantity)
     {
-        GameInstance.ClientPlayerData.Resources ??= new();
-
-
         foreach (Resource res in Enum.GetValues(typeof(Resource)))
         {
             if (res == Resource.None) continue;
-
-
-            GameInstance.ClientPlayerData.Resources[res] = GameInstance.ClientPlayerData.Resources.GetValueOrDefault(res) + quantity;
+            GameInstance.ClientPlayerData[res] = GameInstance.ClientPlayerData[res] + quantity;
         }
 
         GameInstance.NetworkChannel.BroadcastMessage("UpdateResources", GameInstance.ClientPlayerData.Resources);

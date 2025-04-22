@@ -1,15 +1,29 @@
+using System;
+using System.Linq;
 using UnityEngine;
 
 public class MissionsDisplay : MonoBehaviour
 {
-    GameInstance instance;
-
+    [SerializeField] private GameInstance Game;
+    [SerializeField] private GameObject Canvas;
     [SerializeField] private SharedGoalsDisplay balancedGoalDisplayTemplate;
     [SerializeField] private SharedGoalsDisplay selfishGoalDisplayTemplate;
+    public event Action<SharedGoalID> OnClickMission;
 
-    public void Refresh()
+    public void Show()
     {
-        balancedGoalDisplayTemplate.Goals = instance.BalancedFactionGoals;
-        selfishGoalDisplayTemplate.Goals = instance.SelfishFactionGoals;
+        Canvas.SetActive(true);
+        var balancedGoals = Game.BalancedFactionGoals.Select((goal, index) => (goal, new SharedGoalID(PlayerRole.Balanced, index))).ToDictionary(p => p.Item2, p => p.goal);
+        var selfishGoals = Game.ClientPlayerData.Role == PlayerRole.Selfish ? Game.SelfishFactionGoals.Select((goal, index) => (goal, new SharedGoalID(PlayerRole.Selfish, index))).ToDictionary(p => p.Item2, p => p.goal) : null;
+        balancedGoalDisplayTemplate.Goals = balancedGoals;
+        selfishGoalDisplayTemplate.Goals = selfishGoals;
+        balancedGoalDisplayTemplate.OnClick = OnClick;
+        selfishGoalDisplayTemplate.OnClick = OnClick;
     }
+    public void Hide()
+    {
+        Canvas.SetActive(false);
+    }
+
+    void OnClick(SharedGoalID sharedGoalID) => OnClickMission?.Invoke(sharedGoalID);
 }
