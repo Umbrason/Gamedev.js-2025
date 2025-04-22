@@ -54,7 +54,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
     public IEnumerator OnExit()
     {
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
-        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
+        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID] ?? new());
         void OnPledgeResources(NetworkMessage message) { PledgedResources[message.sender] = (ResourcePledge)message.content; }
         Game.NetworkChannel.StartListening(ShareResourcePledge, OnPledgeResources);
         yield return new WaitUntil(() => PledgedResources.Count >= NetworkUtils.playerCount);
@@ -82,7 +82,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
                 goalID.GetGoal(Game).Collect(resources, receipt);
 
-                foreach (var (resource, amount) in resources) //add back remainder
+                foreach (var (resource, amount) in resources.ToArray()) //add back remainder
                     Game.PlayerData[playerID][resource] += amount;
             }
         }

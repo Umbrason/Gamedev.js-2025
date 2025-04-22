@@ -1,4 +1,4 @@
-#define JakobTest
+//#define JakobTest
 
 using UnityEngine;
 using System.Collections;
@@ -73,22 +73,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             pollingCoroutine = null;
         }
     }
-
-    /*
-    private IEnumerator PullMessagesLoop()
-    {
-        while (true)
-        {
-            foreach (var channel in channels.Values)
-            {
-                if (channel is ProductionNetwork network)
-                {
-                    network.PullMessages();
-                }
-            }
-            yield return new WaitForSeconds(pullingInterval);
-        }
-    }*/
 
     private IEnumerator PullMessagesLoop()
     {

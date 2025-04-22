@@ -37,8 +37,13 @@ public class PlayerDisplay : MonoBehaviour
 
         //PlayerSlot random = displayQueue[Random.Range(0, displayQueue.Count)];
         //decided to go in a fixed order for no. less jumping around when players visit makes for a calmer visual experience
+        if(availableSlots.Count == 0)
+        {
+            Debug.LogError("No available slots left");
+            return;
+        }
         var slot = availableSlots.First();
-        availableSlots.RemoveAt(slot.Key);
+        availableSlots.Remove(slot.Key);
         occupiedDisplays.Add(faction, slot.Value);
         slot.Value.ActiveFaction = faction;
     }
