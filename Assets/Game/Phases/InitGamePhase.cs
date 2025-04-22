@@ -12,32 +12,59 @@ public class InitGamePhase : IGamePhase
     const string RandomSecretGoalIndexHeader = "ScrtGoalIdx";
     const string ShareIslandState = "ShareIslandState";
 
-    const int BalanceFactionSubgoalCount = 4;
-    const int SelfishFactionSubgoalCount = 2;
+    const int BalanceFactionSubgoalCount = 1;
+    const int SelfishFactionSubgoalCount = 1;
     public GameInstance Game { private get; set; }
 
     public IEnumerator OnEnter()
     {
-        #region Start Randomness Requests
+        #region Start Randomness Requests (parallel)
         var RandomRoleIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomFactionIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomSecretGoalIndexResults = (Dictionary<PlayerID, float>)null;
 
+        bool roleDone = false, factionDone = false, secretGoalDone = false;
 
-        yield return new WaitUntil(() =>
-            Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomRoleIndexHeader, ref RandomRoleIndexResults) &&
-            Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults) &&
-            Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults)
-        );
+        IEnumerator WaitForRandomRoleIndex()
+        {
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomRoleIndexHeader, ref RandomRoleIndexResults));
+            roleDone = true;
+        }
+
+        IEnumerator WaitForRandomFactionIndex()
+        {
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults));
+            factionDone = true;
+        }
+
+        IEnumerator WaitForRandomSecretGoalIndex()
+        {
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults));
+            secretGoalDone = true;
+        }
+
+        GameNetworkManager.Instance.RunCoroutine(WaitForRandomRoleIndex());
+        GameNetworkManager.Instance.RunCoroutine(WaitForRandomFactionIndex());
+        GameNetworkManager.Instance.RunCoroutine(WaitForRandomSecretGoalIndex());
+
+        yield return new WaitUntil(() => roleDone && factionDone && secretGoalDone);
         #endregion
 
         #region Decide BalanceFaction Goals
         var BalanceFactionGoals = new List<SharedGoal>();
+        HashSet<int> pickedBalancedGoals = new();
         for (int i = 0; i < BalanceFactionSubgoalCount; i++)
         {
             var RandomGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults));
-            var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * RandomGoalResults.Values.Sum() / 6f);
+            var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * (RandomGoalResults.Values.Sum() % 1f));
+            for (int j = 0; j < GoalTemplates.BalanceFaction.Count; j++)
+            {
+                if (!pickedBalancedGoals.Contains(SharedGoalIndex)) break;
+                SharedGoalIndex++;
+                SharedGoalIndex %= GoalTemplates.BalanceFaction.Count;
+            }
+            pickedBalancedGoals.Add(SharedGoalIndex);
             BalanceFactionGoals.Add(GoalTemplates.BalanceFaction[SharedGoalIndex]);
         }
         Game.BalancedFactionGoals = BalanceFactionGoals;
@@ -45,12 +72,20 @@ public class InitGamePhase : IGamePhase
 
         #region Decide SelfishFaction Goals
         var SelfishFactionGoals = new List<SharedGoal>();
+        HashSet<int> pickedSelfishGoals = new();
         for (int i = 0; i < SelfishFactionSubgoalCount; i++)
         {
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults));
             //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults);
-            var EvilGoalIndex = Mathf.FloorToInt(GoalTemplates.SelfishFaction.Count * RandomEvilGoalResults.Values.Sum() / 6);
+            var EvilGoalIndex = Mathf.FloorToInt(GoalTemplates.SelfishFaction.Count * (RandomEvilGoalResults.Values.Sum() % 1f));
+            for (int j = 0; j < GoalTemplates.SelfishFaction.Count; j++)
+            {
+                if (!pickedBalancedGoals.Contains(EvilGoalIndex)) break;
+                EvilGoalIndex++;
+                EvilGoalIndex %= GoalTemplates.SelfishFaction.Count;
+            }
+            pickedSelfishGoals.Add(EvilGoalIndex);
             SelfishFactionGoals.Add(GoalTemplates.SelfishFaction[EvilGoalIndex]);
         }
         Game.SelfishFactionGoals = SelfishFactionGoals;
@@ -59,7 +94,7 @@ public class InitGamePhase : IGamePhase
         #region Roles
         var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
-        for (int i = 0; i < 6; i++) Game.PlayerData[(PlayerID)i] = new();
+        for (int i = 0; i < NetworkUtils.playerCount; i++) Game.PlayerData[(PlayerID)i] = new();
 
         foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
         foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
@@ -69,6 +104,7 @@ public class InitGamePhase : IGamePhase
         var faction = 0;
         var playerIDsByFactionIndex = RandomFactionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         foreach (var player in playerIDsByFactionIndex) Game.PlayerData[player].Faction = (PlayerFactions)(++faction);
+        var clientFaction = Game.ClientPlayerData.Faction;
         #endregion
 
         #region Secret Individual Goal
@@ -77,9 +113,21 @@ public class InitGamePhase : IGamePhase
         #endregion
 
         #region Player Island
+        FactionData factionData = null;
+        foreach (FactionData data in Game.Factions)
+        {
+            if (data.Faction != clientFaction) continue;
+            factionData = data;
+            break;
+        }
+        if (factionData == null) Debug.LogError(clientFaction + "not found in GameInstance.Factions");
+
         void OnIslandUpdateRecieved(NetworkMessage message) { Game.PlayerData[message.sender].Island = (PlayerIsland)message.content; }
         Game.NetworkChannel.StartListening(ShareIslandState, OnIslandUpdateRecieved);
-        Game.PlayerData[Game.ClientID].Island = Game.MapGenerator.Generate();
+
+        Game.PlayerData[Game.ClientID].Island = factionData.GenerateIsland(size: 5);
+        Game.PlayerData[Game.ClientID].Resources = factionData.StartingResouces;
+
         Game.NetworkChannel.BroadcastMessage(ShareIslandState, Game.PlayerData[Game.ClientID].Island);
         #endregion
 

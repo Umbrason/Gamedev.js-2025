@@ -1,16 +1,16 @@
 using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.Analytics.IAnalytic;
 
 public abstract class SecretTask
 {
     public abstract string Description { get; protected set; }
     public abstract bool Evaluate(PlayerData data);
+    public override string ToString() => Description;
 }
 
 public class BuildingAmount : SecretTask
 {
-    public override string Description { get => Description; protected set => Description = value; }
+
+    public override string Description { get; protected set; }
 
     private Dictionary<Building, int> requiredBuildings;
 
@@ -32,7 +32,7 @@ public class BuildingAmount : SecretTask
 
 public class RequestsFulfilled : SecretTask
 {
-    public override string Description { get => Description; protected set => Description = value; }
+    public override string Description { get; protected set; }
     private int amount;
 
 

@@ -1,25 +1,22 @@
+//#define JakobTest
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Linq;
+using UnityEngine.Networking;
+using System;
+using System.IO;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
-    private string username;
-    private string currentRoomCode;
-    private int serverPlayerId;
-    private bool isHost = false;
-    private PlayerID myPlayerID = PlayerID.None;
-
     private Coroutine pollingCoroutine;
-    private float pollingInterval = 1.0f;
+    private float pullingInterval = .5f;
 
-    public string Username { get => username; }
-    public string CurrentRoomCode { get => currentRoomCode; }
-    public int ServerPlayerId { get => serverPlayerId; }
-    public bool IsHost { get => isHost; }
-    public PlayerID MyPlayerID { get => myPlayerID; }
+    string roomCode;
 
-    public readonly Queue<INetworkChannel> availableChannels = new(); 
+    public readonly Queue<INetworkChannel> availableChannels = new();
 
     private Dictionary<PlayerID, INetworkChannel> channels = new();
 
@@ -30,18 +27,36 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
     {
-        this.username = username;
-        this.currentRoomCode = roomCode;
-        this.serverPlayerId = serverPlayerId;
-        this.isHost = isHost;
-        this.myPlayerID = playerID;
+        this.roomCode = roomCode;
 
-        channels[playerID] = new ProductionNetwork(playerID);
+#if JakobTest
+        channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
+#elif UNITY_EDITOR
+        channels[playerID] = new LocalDummyNetwork(playerID, username);
+#else
+        channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
+#endif
 
         availableChannels.Enqueue(channels[playerID]);
 
         Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
         StartPulling();
+    }
+
+    public void Add_AI(string roomCode, int amount)
+    {
+        for (int i = NetworkUtils.playerCount - amount; i < NetworkUtils.playerCount; i++)
+        {
+#if JakobTest
+            channels[(PlayerID)i] = new ProductionNetwork((PlayerID)i, roomCode, -1, $"AI_{i}");
+#elif UNITY_EDITOR
+            channels[(PlayerID)i] = new LocalDummyNetwork((PlayerID)i, $"AI_{i}");
+#else
+            channels[(PlayerID)i] = new ProductionNetwork((PlayerID)i, roomCode, -1, $"AI_{i}");
+#endif
+            availableChannels.Enqueue(channels[(PlayerID)i]);
+            SceneManager.LoadSceneAsync("AIGame", LoadSceneMode.Additive);
+        }
     }
 
     public void StartPulling()
@@ -63,14 +78,79 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         while (true)
         {
-            foreach(var channel in channels.Values)
+            PullAllMessages();
+            yield return new WaitForSeconds(pullingInterval);
+        }
+    }
+
+    public void PullAllMessages()
+    {
+        string allIDs = string.Join(",", channels.Values
+            .OfType<ProductionNetwork>()
+            .Select(n => ((int)n.PlayerID).ToString()));
+
+        string url = $"{ProductionNetwork.BaseUrl}getMessages_v3.php?room_code={roomCode}&player_game_ids={allIDs}";
+
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        www.SendWebRequest().completed += _ =>
+        {
+            if (www.result != UnityWebRequest.Result.Success)
             {
-                if(channel is ProductionNetwork network)
+                Debug.LogError("Multi-Pull Error: " + www.error);
+                return;
+            }
+
+            string json = www.downloadHandler.text;
+            try
+            {
+                MessageData[] messages = JsonHelper.FromJson<MessageData>(json);
+
+                foreach (var msg in messages)
                 {
-                    network.PullMessages();
+                    Type type = Type.GetType(msg.MessageType);
+                    if (type == null)
+                    {
+                        Debug.LogError($"Unknown type: {msg.MessageType}");
+                        continue;
+                    }
+
+                    var ms = new MemoryStream();
+                    var sw = new StreamWriter(ms);
+                    sw.Write(msg.Message);
+                    sw.Flush();
+                    ms.Position = 0;
+                    var sr = new StreamReader(ms);
+                    var yAMLD = new YAMLDeserializer(sr);
+
+                    object deserialized = ReflectionSerializer.DeserializeField(type, "", yAMLD);
+
+                    if (deserialized == null)
+                    {
+                        Debug.LogError($"Failed to deserialize: {msg.Message}");
+                        continue;
+                    }
+
+                    if (channels.Values.OfType<ProductionNetwork>().FirstOrDefault(
+                            ch => ((int)ch.PlayerID).ToString() == msg.Receiver
+                        ) is ProductionNetwork receiver)
+                    {
+                        receiver.Recieve(new NetworkMessage(msg.Header, deserialized, (PlayerID)int.Parse(msg.Sender)));
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"No channel found for Receiver {msg.Receiver}");
+                    }
                 }
             }
-            yield return new WaitForSeconds(pollingInterval);
-        }
+            catch (Exception ex)
+            {
+                Debug.LogError("Deserialization error: " + ex.Message);
+            }
+        };
+    }
+
+    public void RunCoroutine(IEnumerator coroutine)
+    {
+        StartCoroutine(coroutine);
     }
 }

@@ -10,7 +10,7 @@ public class PlayerIslandViewer : MonoBehaviour
 
     private void Awake()
     {
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < NetworkUtils.playerCount; i++)
         {
             var slot = (PlayerID)i;
             var instance = Instantiate(viewTemplates[i], transform);
@@ -27,14 +27,13 @@ public class PlayerIslandViewer : MonoBehaviour
         get => m_TargetPlayer;
         set
         {
-            Game.PlayerData[m_TargetPlayer].OnIslandChanged -= UpdateIsland;
+            if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged -= UpdateIsland;
             m_TargetPlayer = value;
             if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged += UpdateIsland;
             foreach (var (id, instance) in viewInstances)
             {
                 instance.gameObject.SetActive(id == value);
                 instance.Data = Game.PlayerData[id].Island;
-                //TODO: React to Updates. prob via event
             }
         }
     }

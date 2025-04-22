@@ -14,6 +14,7 @@ namespace MapGenerator
 
         [SerializeField] TilesBoardGeneratorData[] Generators;
         [SerializeField] IslandView IslandViewPrefab;
+        [SerializeField, Range(0f,1f)] float buildingProb = 0.05f;
 
         private void Start()
         {
@@ -51,7 +52,7 @@ namespace MapGenerator
                     List<(HexPosition, Building)> buildings = new();
                     foreach (HexPosition p in hexPositions)
                     {
-                        if (Random.value > 0.95f) buildings.Add((p, Building.LeafCollector));
+                        if (Random.value < buildingProb) buildings.Add((p, Building.LeafCollector));
                     }
 
                     playerIsland = playerIsland.WithBuildings(buildings.ToArray());

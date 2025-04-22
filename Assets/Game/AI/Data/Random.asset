@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25768d0b558d824fb40386ba76bc237, type: 3}
+  m_Name: Random
+  m_EditorClassIdentifier: 
+  minActionDelay: 0.1
+  maxActionDelay: 0.2
+  AIBuildPhase: {fileID: 11400000, guid: 636b56055b38f414cb1458c3587652c8, type: 2}
+  AIPetitionPhase: {fileID: 11400000, guid: 17f823a068d045b4693c233d3e967dae, type: 2}
+  AIVotePhase: {fileID: 11400000, guid: 7535a87f489c0d24e9dc48dba668892f, type: 2}
+  AIAccusationPhase: {fileID: 11400000, guid: 70faa8182f7c1d2409d5e8780ccb2dab, type: 2}

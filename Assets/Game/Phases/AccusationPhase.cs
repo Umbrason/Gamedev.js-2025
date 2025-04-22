@@ -25,7 +25,7 @@ public class AccusationPhase : IGamePhase
 
     public IEnumerator Loop()
     {
-        yield return new WaitUntil(() => votes.Count >= 6);
+        yield return new WaitUntil(() => votes.Count >= NetworkUtils.playerCount);
         if (votes.Values.All(v => v))
             Game.TransitionPhase(new GameOverPhase(AccusedPlayers.All(playerID => Game.PlayerData[playerID].Role == PlayerRole.Selfish) ? PlayerRole.Balanced : PlayerRole.Selfish));
         else Game.TransitionPhase(null); //TODO: dunno yet where this should lead back to.

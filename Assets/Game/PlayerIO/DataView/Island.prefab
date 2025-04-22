@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileViewPrefab: {fileID: 6870693101630989601, guid: 409b83d89e1318b47917ad825fe7e99b, type: 3}
   buildingViewPrefab: {fileID: 6045121543840196912, guid: 9c4cc38df902b5743a11d6b9c33c9af4, type: 3}
+  root: {fileID: 1428794252079124663}

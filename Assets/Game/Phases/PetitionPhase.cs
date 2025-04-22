@@ -17,7 +17,7 @@ public class PetitionPhase : IGamePhase
 
     public IEnumerator Loop()
     {
-        yield return new WaitUntil(() => Petitions.Count >= 6);
+        yield return new WaitUntil(() => Petitions.Count >= NetworkUtils.playerCount);
         Game.TransitionPhase(new VotePhase(Petitions));
     }
 
@@ -27,6 +27,7 @@ public class PetitionPhase : IGamePhase
         yield return null;
     }
 
+    public bool ClientPetitionSubmitted => Petitions.ContainsKey(Game.ClientID);
     [PlayerAction]
     public void SubmitPetition(BuildingPetition petition)
     {
