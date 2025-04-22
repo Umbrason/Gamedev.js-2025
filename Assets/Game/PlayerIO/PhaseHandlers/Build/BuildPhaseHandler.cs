@@ -8,6 +8,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     [SerializeField] private BuildingMenu buildingMenu;
     [SerializeField] private PlayerIDButtons VisitButtons;
     [SerializeField] private GoalResourcePledgeScreen pledgeScreen;
+    [SerializeField] private MissionsDisplay missionsDisplay;
 
     [Header("Visiting")]
     [SerializeField] private PlayerDisplay playerDisplayProvider;
@@ -25,6 +26,8 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         VisitButtons.Refresh();
         VisitButtons.gameObject.SetActive(true);
         VisitButtons.OnClick += SetTargetPlayer;
+        missionsDisplay.OnClickMission += (missionID) => ShowPledgeScreen(new() { missionID });
+        missionsDisplay.Show();
     }
 
     public override void OnPhaseExited()
@@ -34,33 +37,38 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
         VisitButtons.OnClick -= SetTargetPlayer;
+        missionsDisplay.Hide();
+        pledgeScreen.Hide();
     }
 
     void Update()
     {
-        //TODO IMPLEMENT THE PLEDGE SCREEN PLEASE. ITS NULL AT THE MOMENT AND ITS CRASHING THE GAME ON WEB GL RUNTIME
-        return;
-        if (Phase.TimeRemaining < 10f) ShowPledgeScreen();
+        if (Phase != null && Phase.TimeRemaining < 15f && !pledgeScreen.Showing)
+            ShowPledgeScreenAllGoals(false);
     }
 
-    ResourcePledge currentPledge = new();
-    public void ShowPledgeScreen()
+    public void ShowPledgeScreenAllGoals(bool canHide = true)
     {
-        var goals = new Dictionary<SharedGoalID, SharedGoal>();
+        var goals = new List<SharedGoalID>();
         for (int i = 0; i < Game.BalancedFactionGoals.Count; i++)
         {
-            SharedGoal goal = Game.BalancedFactionGoals[i];
             SharedGoalID id = new(PlayerRole.Balanced, i);
-            goals.Add(id, goal);
+            goals.Add(id);
         }
         if (Game.ClientPlayerData.Role == PlayerRole.Selfish)
             for (int i = 0; i < Game.SelfishFactionGoals.Count; i++)
             {
-                SharedGoal goal = Game.SelfishFactionGoals[i];
                 SharedGoalID id = new(PlayerRole.Selfish, i);
-                goals.Add(id, goal);
+                goals.Add(id);
             }
-        pledgeScreen.Show(goals, Phase.PledgeResource);
+        ShowPledgeScreen(goals, canHide);
+    }
+    public void ShowPledgeScreen(List<SharedGoalID> goals, bool canHide = true)
+    {
+        var goalsDict = new Dictionary<SharedGoalID, SharedGoal>();
+        foreach (var goalID in goals)
+            goalsDict[goalID] = goalID.GetGoal(Game);
+        pledgeScreen.Show(goalsDict, Phase.PledgedResources.GetValueOrDefault(Game.ClientID), Phase.PledgeResource, canHide);
     }
 
 
@@ -71,9 +79,9 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         visiting = playerID != Game.ClientID && playerID != PlayerID.None;
         if (targetPlayer != PlayerID.None && targetPlayer != Game.ClientID)
         {
-            Game.NetworkChannel.SendMessage(VisitingHeader, 0, targetPlayer);
+            Game.NetworkChannel.SendMessage(VisitingHeader, false, targetPlayer);
             if (playerID != PlayerID.None && playerID != Game.ClientID)
-                Game.NetworkChannel.SendMessage(VisitingHeader, 1, targetPlayer);
+                Game.NetworkChannel.SendMessage(VisitingHeader, true, targetPlayer);
         }
         targetPlayer = playerID;
 
@@ -89,12 +97,10 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     }
     private void OnOtherPlayerVisitingStatusChanged(NetworkMessage message)
     {
-        var isVisiting = (int)message.content;
+        var isVisiting = (bool)message.content;
         var faction = Game.PlayerData[message.sender].Faction;
-        if (isVisiting == 1) 
-            playerDisplayProvider.Show(faction);
-        else 
-            playerDisplayProvider.Hide(faction);
+        if (isVisiting) playerDisplayProvider.Show(faction);
+        else playerDisplayProvider.Hide(faction);
     }
     #endregion
 }
