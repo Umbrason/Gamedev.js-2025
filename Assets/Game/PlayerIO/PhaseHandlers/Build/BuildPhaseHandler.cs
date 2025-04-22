@@ -43,7 +43,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
     void Update()
     {
-        if (Phase != null && Phase.TimeRemaining < 50f && !pledgeScreen.Showing)
+        if (Phase != null && Phase.TimeRemaining < 15f && !pledgeScreen.Showing)
             ShowPledgeScreenAllGoals(false);
     }
 
