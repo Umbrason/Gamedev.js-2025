@@ -40,7 +40,7 @@ public static class NetworkUtils
         }
         ActiveSignalsForNetworkChannel[header] = new() { ClientID };
         networkChannel.StartListening(header, SignalCallback);
-        networkChannel.BroadcastMessage(header, null);
+        networkChannel.BroadcastMessage(header, 0);
         return false;
     }
 }

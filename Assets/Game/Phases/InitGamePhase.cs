@@ -18,7 +18,7 @@ public class InitGamePhase : IGamePhase
 
     public IEnumerator OnEnter()
     {
-        #region Start Randomness Requests
+        #region Start Randomness Requests (parallel)
         var RandomRoleIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomFactionIndexResults = (Dictionary<PlayerID, float>)null;
         var RandomSecretGoalIndexResults = (Dictionary<PlayerID, float>)null;
@@ -28,6 +28,31 @@ public class InitGamePhase : IGamePhase
             Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults) &&
             Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults)
         );
+        bool roleDone = false, factionDone = false, secretGoalDone = false;
+
+        IEnumerator WaitForRandomRoleIndex()
+        {
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomRoleIndexHeader, ref RandomRoleIndexResults));
+            roleDone = true;
+        }
+
+        IEnumerator WaitForRandomFactionIndex()
+        {
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults));
+            factionDone = true;
+        }
+
+        IEnumerator WaitForRandomSecretGoalIndex()
+        {
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults));
+            secretGoalDone = true;
+        }
+
+        GameNetworkManager.Instance.RunCoroutine(WaitForRandomRoleIndex());
+        GameNetworkManager.Instance.RunCoroutine(WaitForRandomFactionIndex());
+        GameNetworkManager.Instance.RunCoroutine(WaitForRandomSecretGoalIndex());
+
+        yield return new WaitUntil(() => roleDone && factionDone && secretGoalDone);
         #endregion
 
         #region Decide BalanceFaction Goals
