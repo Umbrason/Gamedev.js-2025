@@ -38,6 +38,8 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
     void Update()
     {
+        //TODO IMPLEMENT THE PLEDGE SCREEN PLEASE. ITS NULL AT THE MOMENT AND ITS CRASHING THE GAME ON WEB GL RUNTIME
+        return;
         if (Phase.TimeRemaining < 10f) ShowPledgeScreen();
     }
 
@@ -69,9 +71,9 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         visiting = playerID != Game.ClientID && playerID != PlayerID.None;
         if (targetPlayer != PlayerID.None && targetPlayer != Game.ClientID)
         {
-            Game.NetworkChannel.SendMessage(VisitingHeader, false, targetPlayer);
+            Game.NetworkChannel.SendMessage(VisitingHeader, 0, targetPlayer);
             if (playerID != PlayerID.None && playerID != Game.ClientID)
-                Game.NetworkChannel.SendMessage(VisitingHeader, true, targetPlayer);
+                Game.NetworkChannel.SendMessage(VisitingHeader, 1, targetPlayer);
         }
         targetPlayer = playerID;
 
@@ -87,10 +89,12 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     }
     private void OnOtherPlayerVisitingStatusChanged(NetworkMessage message)
     {
-        var isVisiting = (bool)message.content;
+        var isVisiting = (int)message.content;
         var faction = Game.PlayerData[message.sender].Faction;
-        if (isVisiting) playerDisplayProvider.Show(faction);
-        else playerDisplayProvider.Hide(faction);
+        if (isVisiting == 1) 
+            playerDisplayProvider.Show(faction);
+        else 
+            playerDisplayProvider.Hide(faction);
     }
     #endregion
 }

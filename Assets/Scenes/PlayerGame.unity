@@ -11167,6 +11167,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 832231891}
     - target: {fileID: 7975706824348706114, guid: 3db047fb9cc755e3aa8f52fdc69cf790, type: 3}
+      propertyPath: pledgeScreen
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975706824348706114, guid: 3db047fb9cc755e3aa8f52fdc69cf790, type: 3}
       propertyPath: <Game>k__BackingField
       value: 
       objectReference: {fileID: 633265560}

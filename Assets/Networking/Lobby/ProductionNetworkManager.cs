@@ -28,7 +28,12 @@ public class ProductionNetwork : INetworkChannel
 
     public void SendMessage(string header, object message, PlayerID receiver)
     {
-        //SendToServer("sendMessage.php", header, message, receiver.ToString());
+        if(receiver == PlayerID)
+        {
+            Debug.Log("Receiver cannot be same as sender");
+            return;
+        }
+        SendToServer("sendMessage_v2.php", header, message, ((int)receiver).ToString());
     }
 
     public void BroadcastMessage(string header, object message)
@@ -56,7 +61,7 @@ public class ProductionNetwork : INetworkChannel
         form.AddField("message_type", message.GetType().AssemblyQualifiedName);
 
         if (receiver != null)
-            form.AddField("receiver_id", receiver);
+            form.AddField("receiver_game_id", receiver);
 
         Debug.Log($"Sending: {header}, {dataToSend}, as {PlayerID}");
 

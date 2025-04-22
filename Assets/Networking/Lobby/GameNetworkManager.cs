@@ -1,3 +1,5 @@
+#define JakobTest
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,7 +21,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
     {
-#if UNITY_EDITOR
+#if JakobTest
+        channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
+#elif UNITY_EDITOR
         channels[playerID] = new LocalDummyNetwork(playerID, username);
 #else
         channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
@@ -35,10 +39,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     {
         for (int i = NetworkUtils.playerCount - amount; i < NetworkUtils.playerCount; i++)
         {
-#if UNITY_EDITOR
+#if JakobTest
+            channels[(PlayerID)i] = new ProductionNetwork((PlayerID)i, roomCode, -1, $"AI_{i}");
+#elif UNITY_EDITOR
             channels[(PlayerID)i] = new LocalDummyNetwork((PlayerID)i, $"AI_{i}");
 #else
-        channels[playerID] = new ProductionNetwork((PlayerID)i, roomCode, -1, $"AI_{i}");
+            channels[(PlayerID)i] = new ProductionNetwork((PlayerID)i, roomCode, -1, $"AI_{i}");
 #endif
             availableChannels.Enqueue(channels[(PlayerID)i]);
             SceneManager.LoadSceneAsync("AIGame", LoadSceneMode.Additive);
