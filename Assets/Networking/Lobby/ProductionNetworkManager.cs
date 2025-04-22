@@ -16,7 +16,7 @@ public class ProductionNetwork : INetworkChannel
     public PlayerID PlayerID { get; }
     public string Nickname { get; }
 
-    private const string BaseUrl = "https://jamapi.heggie.dev/";
+    public const string BaseUrl = "https://jamapi.heggie.dev/";
 
     public ProductionNetwork(PlayerID playerID, string roomCode, int serverPlayerID, string nickname)
     {
@@ -181,13 +181,14 @@ public class ProductionNetwork : INetworkChannel
         if (MessageListeners.ContainsKey(message.header))
         {
             MessageListeners[message.header].Invoke(message);
-            return;
         }
+        else
+        {
+            if (!MessageBacklog.ContainsKey(message.header))
+                MessageBacklog[message.header] = new Queue<NetworkMessage>();
 
-        if (!MessageBacklog.ContainsKey(message.header))
-            MessageBacklog[message.header] = new Queue<NetworkMessage>();
-
-        MessageBacklog[message.header].Enqueue(message);
+            MessageBacklog[message.header].Enqueue(message);
+        }
     }
 
     public bool TryGetNextBacklogMessage(string header, out NetworkMessage message)
@@ -218,6 +219,8 @@ public class MessageData
     public string Message;
     public string Sender;
     public string MessageType;
+
+    public string Receiver;
 }
 
 public static class JsonHelper
