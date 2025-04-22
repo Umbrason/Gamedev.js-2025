@@ -14,7 +14,7 @@ public class GameInstance : MonoBehaviour
 
     public IReadOnlyList<SharedGoal> BalancedFactionGoals { get; set; }
     public IReadOnlyList<SharedGoal> SelfishFactionGoals { get; set; }
-    public event Action<IGamePhase> OnGoalsProgressed;
+    /* public event Action<IGamePhase> OnGoalsProgressed; */
 
     public IGamePhase CurrentPhase { get; private set; }
     public event Action<IGamePhase> OnPhaseChanged;

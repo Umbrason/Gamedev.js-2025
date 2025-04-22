@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public static class GoalTemplates
 {
@@ -12,8 +14,7 @@ public static class GoalTemplates
             { Resource.FireflyLanterns, 20 },
             { Resource.Wisps, 20 },
             { Resource.ManaStones, 20 }
-        }),
-        
+        })
         /*
         new("Fertilize", new Dictionary<Resource, int>()
         {
@@ -41,7 +42,7 @@ public static class GoalTemplates
         })*/
     };
 
-    public static IReadOnlyList<SharedGoal> SelfishFaction { get; } = new List<SharedGoal>()
+    public static IReadOnlyList<SharedGoal> SelfishFaction => new List<SharedGoal>()
     {
         new("Seed chaos", new Dictionary<Resource, int>()
         {
@@ -80,5 +81,5 @@ public static class GoalTemplates
             { Resource.Mana, 10 }
         })
     };
-    public static IReadOnlyList<SecretTask> IndividualSecretTasks { get; } = new List<SecretTask>() { null };
+    public static IReadOnlyList<SecretTask> IndividualSecretTasks { get; } = ((Building[])Enum.GetValues(typeof(Building))).Select(building => new BuildingAmount($"Have at least 3 {building}'s.", new() { { building, 5 } })).ToList();
 }
