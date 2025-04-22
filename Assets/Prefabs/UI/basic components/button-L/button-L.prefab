@@ -223,7 +223,7 @@ MonoBehaviour:
   - {fileID: -188343702, guid: a84ab0bc0a2e6824584b1cf254c69c10, type: 3}
   - {fileID: -1011522326, guid: a84ab0bc0a2e6824584b1cf254c69c10, type: 3}
   - {fileID: -1167924597, guid: a84ab0bc0a2e6824584b1cf254c69c10, type: 3}
-  sideOffset: 20
+  sideOffset: 0
 --- !u!1 &8093849792452853163
 GameObject:
   m_ObjectHideFlags: 0
