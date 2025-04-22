@@ -11521,6 +11521,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 413795330949133052, guid: 8b47a2a85f77f1cfa9152bfc83f30545, type: 3}
+      propertyPath: islandViewer
+      value: 
+      objectReference: {fileID: 74597047}
+    - target: {fileID: 413795330949133052, guid: 8b47a2a85f77f1cfa9152bfc83f30545, type: 3}
       propertyPath: <Game>k__BackingField
       value: 
       objectReference: {fileID: 633265560}

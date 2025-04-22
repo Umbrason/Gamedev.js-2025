@@ -36,7 +36,6 @@ public class VotePhase : IGamePhase
         {
             var petition = Petitions[playerID];
             if (petition == null) continue;
-
             CurrentPetition = petition;
             OnPetitionChanged?.Invoke();
 
@@ -45,9 +44,23 @@ public class VotePhase : IGamePhase
             Game.NetworkChannel.StopListening(SubmitVoteHeader);
 
             //TODO: actually do something with the vote here
-            OnPetitionDecided?.Invoke(CurrentVotes.Sum(v => v.Value) > 0);
+            var sum = CurrentVotes.Sum(v => v.Value);
+            OnPetitionDecided?.Invoke(sum > 0);
 
-
+            if (sum > 0) //construct the greatest building and make the players pay for it
+            {
+                var allPlayersHaveRequiredResources = CurrentPetition.ResourceSources.All(resourceSource => Game.PlayerData[resourceSource.Key].HasResources(resourceSource.Value));
+                if (allPlayersHaveRequiredResources)
+                {
+                    foreach (var (player, demand) in CurrentPetition.ResourceSources)
+                    {
+                        var playerData = Game.PlayerData[player];
+                        foreach (var (resource, amount) in demand)
+                            playerData[resource] -= amount;
+                    }
+                    Game.PlayerData[CurrentPetition.PlayerID].Island = Game.PlayerData[CurrentPetition.PlayerID].Island.WithBuildings((CurrentPetition.Position, CurrentPetition.Building));
+                }
+            }
             CurrentVotes.Clear();
             CurrentPetition = null;
             OnPetitionChanged?.Invoke();
