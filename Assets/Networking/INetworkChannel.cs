@@ -5,6 +5,7 @@ public interface INetworkChannel
 {
     #region To Implement
     PlayerID PlayerID { get; }
+    string Nickname { get; }
     void SendMessage(string header, object message, PlayerID playerID);
     void BroadcastMessage(string header, object message);
     #endregion
@@ -17,6 +18,7 @@ public interface INetworkChannel
         if (MessageListeners.ContainsKey(message.header))
         {
             MessageListeners[message.header].Invoke(message);
+            UnityEngine.Debug.Log($"'{PlayerID}' recieved a message from '{message.sender}' with content '{message.content}' on channel '{message.header}'");
             return;
         }
         if (!MessageBacklog.ContainsKey(message.header)) MessageBacklog[message.header] = new();

@@ -20,15 +20,8 @@ public class GameInstance : MonoBehaviour
 
     public void Start()
     {
-        if(GameNetworkManager.Instance.availableChannels.Count >= 1)
-        {
-            NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
-        }
-        else
-        {
-            NetworkChannel = LocalDummyNetwork.availableDummyNetworks.Dequeue();
-            Debug.LogWarning("Using Dummy Network");
-        }
+        if (GameNetworkManager.Instance.availableChannels.Count >= 1) NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
+        else Debug.LogError("Network manager has no more network channels to distribute. Try starting the game via the lobby?");
         StartCoroutine(Loop());
     }
 

@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
-using static System.Net.Mime.MediaTypeNames;
-using static LobbyManager;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
@@ -265,27 +263,18 @@ public class LobbyManager : Singleton<LobbyManager>
         GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
 
         AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
-
-        
-
-        ao.completed += _ => {
+        ao.completed += _ =>
+        {
             if (isHost)
             {
-                /*
-                for (int i = NetworkUtils.playerCount - playerList.players.Count; i > 0; i--)
-                {
-                    GameNetworkManager.Instance.availableChannels[(PlayerID)i] (new ProductionNetwork((PlayerID)i, currentRoomCode, -1));
-                }*/
                 GameNetworkManager.Instance.Add_AI(currentRoomCode, NetworkUtils.playerCount - playerList.players.Count);
             }
-
-
             SceneManager.UnloadSceneAsync(gameObject.scene);
         };
 
     }
 
-     //TODO VALIDATE SUCCESS
+    //TODO VALIDATE SUCCESS
     /*public IEnumerator RegisterAiOnServer(string userName, string roomCode, PlayerID playerID)
     {
         WWWForm form = new WWWForm();

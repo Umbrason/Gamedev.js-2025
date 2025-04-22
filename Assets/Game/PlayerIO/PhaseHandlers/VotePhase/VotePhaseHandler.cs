@@ -7,7 +7,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     [SerializeField] private TextMeshProUGUI buildingNameText;
     [SerializeField] private Canvas canvas;
     [SerializeField] private BuildingView buildingPreview;
-    [SerializeField] private PlayerDisplayProvider playerDisplayProvider;
+    [SerializeField] private PlayerDisplay playerDisplayProvider;
 
     private bool phaseActive = false;
     void Start() => canvas.gameObject.SetActive(false);
@@ -22,7 +22,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         for (int i = 1; i < Enum.GetNames(typeof(PlayerFactions)).Length; i++)
         {
             // method checks for duplicates etc.
-            playerDisplayProvider.OccupyDisplay((PlayerFactions)i);
+            playerDisplayProvider.Show((PlayerFactions)i);
         }
     }
     public override void OnPhaseExited()
@@ -35,7 +35,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         {
             // Should we avoid PlayerID here? don't think so..
             // Should be handled already but idk
-            playerDisplayProvider.ReturnDisplay((PlayerFactions)i);
+            playerDisplayProvider.Hide((PlayerFactions)i);
         }
     }
     #endregion

@@ -13,6 +13,7 @@ public class PlayerData
     public SecretTask SecretGoal { get; set; }
 
     public event Action<PlayerIsland> OnIslandChanged;
+    public event Action<Resource, int> OnResourceChanged;
 
     public bool HasResources(Dictionary<Resource, int> required)
     {

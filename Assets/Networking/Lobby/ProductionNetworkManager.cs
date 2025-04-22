@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.Globalization;
-using Newtonsoft.Json;
 using System.IO;
 
 public class ProductionNetwork : INetworkChannel
@@ -17,15 +14,16 @@ public class ProductionNetwork : INetworkChannel
     public Dictionary<string, Queue<NetworkMessage>> MessageBacklog { get; } = new();
 
     public PlayerID PlayerID { get; }
+    public string Nickname { get; }
 
     private const string BaseUrl = "https://jamapi.heggie.dev/";
 
-    public ProductionNetwork(PlayerID playerID, string roomCode, int serverPlayerID)
+    public ProductionNetwork(PlayerID playerID, string roomCode, int serverPlayerID, string nickname)
     {
         RoomCode = roomCode;
         ServerPlayerID = serverPlayerID;
-
         PlayerID = playerID;
+        Nickname = nickname;
     }
 
     public void SendMessage(string header, object message, PlayerID receiver)
@@ -38,7 +36,7 @@ public class ProductionNetwork : INetworkChannel
         SendToServer("broadcastMessage_v2.php", header, message, null);
     }
 
-    private void SendToServer(string endpoint, string header, object message, string? receiver)
+    private void SendToServer(string endpoint, string header, object message, string receiver)
     {
         WWWForm form = new();
         form.AddField("room_code", RoomCode);
@@ -62,7 +60,7 @@ public class ProductionNetwork : INetworkChannel
 
         Debug.Log($"Sending: {header}, {dataToSend}, as {PlayerID}");
 
-        SendRequestWithRetry(BaseUrl + endpoint, form, 3f); 
+        SendRequestWithRetry(BaseUrl + endpoint, form, 3f);
     }
 
     private void SendRequestWithRetry(string url, WWWForm form, float retryDelay)
@@ -131,7 +129,7 @@ public class ProductionNetwork : INetworkChannel
 
                 foreach (var msg in messages)
                 {
-                    Type? type = Type.GetType(msg.MessageType);
+                    Type type = Type.GetType(msg.MessageType);
                     if (type == null)
                     {
                         Debug.LogError($"Unknown type: {msg.MessageType}");
@@ -153,7 +151,7 @@ public class ProductionNetwork : INetworkChannel
 
                     YAMLDeserializer yAMLDerializer = new YAMLDeserializer(sr);
 
-                    object? deserialized = ReflectionSerializer.DeserializeField(type, "", yAMLDerializer);
+                    object deserialized = ReflectionSerializer.DeserializeField(type, "", yAMLDerializer);
 
                     if (deserialized == null)
                     {
@@ -165,7 +163,7 @@ public class ProductionNetwork : INetworkChannel
                 }
             }
             catch (Exception ex)
-            { 
+            {
                 Debug.Log("JSON Deserialization Error: " + ex.Message);
             }
         };
