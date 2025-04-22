@@ -1,9 +1,10 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ResourceItem : MonoBehaviour
+public class ResourceItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
     private Resource resource;
@@ -15,6 +16,7 @@ public class ResourceItem : MonoBehaviour
             if (value == resource) return;
             resourceIcon.sprite = ResourceIcons[value];
             resource = value;
+            tooltip.Setup(ResourceIcons[value].name);
         }
     }
 
@@ -33,4 +35,15 @@ public class ResourceItem : MonoBehaviour
     [SerializeField] private ResourceSpriteLib ResourceIcons;
     [SerializeField] private Image resourceIcon;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private CostsUITooltip tooltip;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        tooltip.gameObject.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tooltip.gameObject.SetActive(true);
+    }
 }

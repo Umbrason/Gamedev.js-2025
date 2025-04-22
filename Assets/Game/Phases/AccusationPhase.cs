@@ -10,16 +10,19 @@ public class AccusationPhase : IGamePhase
     public readonly IReadOnlyCollection<PlayerID> AccusedPlayers;
     private readonly Dictionary<PlayerID, bool> votes = new();
 
+    public bool isAccused { get; private set; }
+
     public AccusationPhase(PlayerID[] accusedPlayers)
     {
         AccusedPlayers = accusedPlayers;
+        isAccused = AccusedPlayers.Contains(Game.ClientID);
     }
 
     public IEnumerator OnEnter()
     {
         void OnVoteRecieved(NetworkMessage message) => votes[message.sender] = (bool)message.content;
         Game.NetworkChannel.StartListening(ShareVoteHeader, OnVoteRecieved);
-        if(AccusedPlayers.Contains(Game.ClientID)) Vote(true); //accused players can't vote
+        if(isAccused) Vote(true); //accused players can't vote
         yield return null;
     }
 
