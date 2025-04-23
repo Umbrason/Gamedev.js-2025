@@ -77,30 +77,59 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     {
         if (targetPlayer == playerID) return;
         visiting = playerID != Game.ClientID && playerID != PlayerID.None;
-        if (targetPlayer != PlayerID.None && targetPlayer != Game.ClientID)
+        var isClient = playerID == Game.ClientID;
+        var isAnyPlayer = playerID != PlayerID.None;
+        var isOtherPlayer = isAnyPlayer && playerID != Game.ClientID;
+
+        playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(playerID)?.Faction ?? PlayerFactions.None;
+
+        #region send notification to other player when visiting them
+        if (isOtherPlayer)
         {
             Game.NetworkChannel.SendMessage(VisitingHeader, false, targetPlayer);
             if (playerID != PlayerID.None && playerID != Game.ClientID)
                 Game.NetworkChannel.SendMessage(VisitingHeader, true, targetPlayer);
         }
         targetPlayer = playerID;
+        #endregion
+        #region reset visitors
+        foreach (var visitor in otherVisitingPlayers)
+            playerDisplayProvider.Hide(visitor);
+        if (isClient) foreach (var visitor in otherVisitingPlayers)
+                playerDisplayProvider.Show(visitor);
+        #endregion
 
-        if (targetPlayer != PlayerID.None) playerDisplayProvider.IslandOwner = Game.PlayerData[targetPlayer].Faction;
-        else playerDisplayProvider.IslandOwner = PlayerFactions.None;
 
-        playerDisplayProvider.Hide(Game.ClientPlayerData.Faction);
-        if (visiting && targetPlayer != PlayerID.None) playerDisplayProvider.Show(Game.ClientPlayerData.Faction);
-
+        #region Show self as visitor when visiting other players
+        if (isClient)
+        {
+            playerDisplayProvider.Hide(Game.ClientPlayerData.Faction);
+        }
+        if (isOtherPlayer)
+        {
+            playerDisplayProvider.Show(Game.ClientPlayerData.Faction);
+        }
+        #endregion
 
         buildingMenu.gameObject.SetActive(!visiting);
         viewer.TargetPlayer = playerID;
     }
+
+    private List<PlayerFactions> otherVisitingPlayers = new();
     private void OnOtherPlayerVisitingStatusChanged(NetworkMessage message)
     {
-        var isVisiting = (bool)message.content;
+        var isPresent = (bool)message.content;
         var faction = Game.PlayerData[message.sender].Faction;
-        if (isVisiting) playerDisplayProvider.Show(faction);
-        else playerDisplayProvider.Hide(faction);
+        if (isPresent)
+        {
+            otherVisitingPlayers.Add(faction);
+            if (targetPlayer == Game.ClientID) playerDisplayProvider.Show(faction);
+        }
+        else
+        {
+            otherVisitingPlayers.Remove(faction);
+            if (targetPlayer == Game.ClientID) playerDisplayProvider.Hide(faction);
+        }
     }
     #endregion
 }
