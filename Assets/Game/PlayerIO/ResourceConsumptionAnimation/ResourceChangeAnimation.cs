@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,21 +13,33 @@ public class ResourceChangeAnimation : MonoBehaviour
     [Header("Asset Refs")]
     [SerializeField] private ResourceSpriteLib ResourceIcons;
     [SerializeField] private SpriteRenderer ResourceParticleTemplate;
-    struct ChangeAnimationInstance
+    const float DefaultAnimationDuration = 1.5f;
+    const float SpawnDelay = .2f;
+
+    private struct ChangeAnimationInstance
     {
-        public ChangeAnimationInstance(SpriteRenderer spriteInstance, Vector3 start, Vector3 end, Vector3 arcDirection, float duration)
+        public ChangeAnimationInstance(SpriteRenderer spriteInstance, Vector3 start, Vector3 end, Vector3 arcDirection, float duration, Action onStart, Action onEnd)
         {
             SpriteInstance = spriteInstance;
-            Start = start;
-            End = end;
+            StartPos = start;
+            EndPos = end;
             ArcDirection = arcDirection;
             StartTime = Time.time;
             Duration = duration;
+            OnStart = onStart;
+            OnEnd = onEnd;
         }
 
+        public void DoStart()
+        {
+            SpriteInstance.gameObject.SetActive(true);
+            StartTime = Time.time;
+        }
+        public Action OnStart { get; private set; }
+        public Action OnEnd { get; private set; }
         public SpriteRenderer SpriteInstance { get; private set; }
-        public Vector3 Start { get; private set; }
-        public Vector3 End { get; private set; }
+        public Vector3 StartPos { get; private set; }
+        public Vector3 EndPos { get; private set; }
         public Vector3 ArcDirection { get; private set; }
         public float StartTime { get; private set; }
         public float Duration { get; private set; }
@@ -42,13 +55,21 @@ public class ResourceChangeAnimation : MonoBehaviour
             var invT = 1 - t;
             var amplitude = invT * invT - invT * invT * invT;
             amplitude /= 0.148148f;
-            SpriteInstance.transform.position = Start * invT + End * t + ArcDirection * amplitude;
+            SpriteInstance.transform.position = StartPos * invT + EndPos * t + ArcDirection * amplitude;
         }
     }
     private readonly List<ChangeAnimationInstance> instances = new();
 
+    float lastSpawn = -SpawnDelay;
     void Update()
     {
+        if (Time.time - lastSpawn > SpawnDelay && spawnQueue.Count > 0)
+        {
+            var instance = spawnQueue.Dequeue();
+            instances.Add(instance);
+            instance.DoStart();
+            lastSpawn = Time.time;
+        }
         foreach (var instance in instances)
             instance.UpdateSprite();
         var expired = instances.Where((i) => i.Expired);
@@ -80,45 +101,44 @@ public class ResourceChangeAnimation : MonoBehaviour
     }
     private Vector3 PositionOf(HexPosition position) => position.WorldPositionCenter + Vector3.up * 1f;
 
-    const float defaultDuration = .75f;
     #region PlayerID <-> SharedGoalID
-    public void Spawn(Resource resource, PlayerID start, SharedGoalID end, float duration = defaultDuration) => Spawn(resource, PositionOf(start), PositionOf(end), duration);
-    public void Spawn(Resource resource, SharedGoalID start, PlayerID end, float duration = defaultDuration) => Spawn(resource, PositionOf(start), PositionOf(end), duration);
+    public void Spawn(Resource resource, PlayerID start, SharedGoalID end, float duration = DefaultAnimationDuration, Action onStart = null, Action onEnd = null) => Spawn(resource, PositionOf(start), PositionOf(end), duration, onStart, onEnd);
+    public void Spawn(Resource resource, SharedGoalID start, PlayerID end, float duration = DefaultAnimationDuration, Action onStart = null, Action onEnd = null) => Spawn(resource, PositionOf(start), PositionOf(end), duration, onStart, onEnd);
     #endregion
 
     #region  PlayerID <-> PlayerID
-    public void Spawn(Resource resource, PlayerID start, PlayerID end, float duration = defaultDuration) => Spawn(resource, PositionOf(start), PositionOf(end), duration);
+    public void Spawn(Resource resource, PlayerID start, PlayerID end, float duration = DefaultAnimationDuration, Action onStart = null, Action onEnd = null) => Spawn(resource, PositionOf(start), PositionOf(end), duration, onStart, onEnd);
     #endregion
 
     #region HexPosition <-> PlayerID
-    public void Spawn(Resource resource, PlayerID start, HexPosition end, float duration = defaultDuration) => Spawn(resource, PositionOf(start), PositionOf(end), duration);
-    public void Spawn(Resource resource, HexPosition start, PlayerID end, float duration = defaultDuration) => Spawn(resource, PositionOf(start), PositionOf(end), duration);
+    public void Spawn(Resource resource, PlayerID start, HexPosition end, float duration = DefaultAnimationDuration, Action onStart = null, Action onEnd = null) => Spawn(resource, PositionOf(start), PositionOf(end), duration, onStart, onEnd);
+    public void Spawn(Resource resource, HexPosition start, PlayerID end, float duration = DefaultAnimationDuration, Action onStart = null, Action onEnd = null) => Spawn(resource, PositionOf(start), PositionOf(end), duration, onStart, onEnd);
     #endregion
 
-    public void Spawn(Resource resource, Vector3 start, Vector3 end, float duration = defaultDuration)
+
+    readonly Queue<ChangeAnimationInstance> spawnQueue = new();
+    public void Spawn(Resource resource, Vector3 start, Vector3 end, float duration = DefaultAnimationDuration, Action onStart = null, Action onEnd = null)
     {
         var SpriteInstance = pool.Count > 0 ? pool.Dequeue() : Instantiate(ResourceParticleTemplate, transform);
         SpriteInstance.sprite = ResourceIcons[resource];
         SpriteInstance.transform.position = start;
-        SpriteInstance.gameObject.SetActive(true);
 
         var travelDirection = end - start;
-        var arcDirection = Quaternion.AngleAxis(Random.value * 180f, travelDirection) * Vector3.Cross(travelDirection, Vector3.up);
+        var arcDirection = Quaternion.AngleAxis(UnityEngine.Random.value * 180f, travelDirection) * Vector3.Cross(travelDirection, Vector3.up);
         arcDirection *= Mathf.Sign(arcDirection.y);
         arcDirection = arcDirection.normalized;
-        arcDirection *= Random.value * 3 + 1;
+        arcDirection *= UnityEngine.Random.value * 3 + 1;
 
-        var startOffset = Random.insideUnitSphere;
+        var startOffset = UnityEngine.Random.insideUnitSphere;
         startOffset *= Mathf.Sign(startOffset.y);
-        start += .5f * Random.value * startOffset;
+        start += .5f * UnityEngine.Random.value * startOffset;
 
-        var endOffset = Random.insideUnitSphere;
+        var endOffset = UnityEngine.Random.insideUnitSphere;
         endOffset *= Mathf.Sign(endOffset.y);
-        end += .5f * Random.value * endOffset;
+        end += .5f * UnityEngine.Random.value * endOffset;
 
-        duration *= 1f - ((Random.value - .5f) * 2f) * .2f;
-
-        instances.Add(new ChangeAnimationInstance(SpriteInstance, start, end, arcDirection, duration));
+        duration *= 1f - ((UnityEngine.Random.value - .5f) * 2f) * .2f;
+        spawnQueue.Enqueue(new ChangeAnimationInstance(SpriteInstance, start, end, arcDirection, duration, onStart, onEnd));
     }
 
     private void Despawn(ChangeAnimationInstance instance)

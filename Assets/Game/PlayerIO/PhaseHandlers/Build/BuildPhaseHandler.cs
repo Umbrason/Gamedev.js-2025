@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -123,7 +122,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         foreach (var visitor in otherVisitingPlayers)
             playerDisplayProvider.Hide(visitor);
         if (isClient) foreach (var visitor in otherVisitingPlayers)
-                playerDisplayProvider.Show(visitor);
+                playerDisplayProvider.Show(visitor, true);
         #endregion
 
 
@@ -150,7 +149,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         if (isPresent)
         {
             otherVisitingPlayers.Add(faction);
-            if (targetPlayer == Game.ClientID) playerDisplayProvider.Show(faction);
+            if (targetPlayer == Game.ClientID) playerDisplayProvider.Show(faction, true);
         }
         else
         {
