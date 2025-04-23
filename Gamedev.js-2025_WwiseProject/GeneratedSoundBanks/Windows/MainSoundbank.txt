@@ -1,0 +1,3 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1517298560	Play__testSegment			\Default Work Unit\Play__testSegment	
+
