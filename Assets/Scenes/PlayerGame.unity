@@ -1630,7 +1630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1835853991169069130, guid: 48ffad926db51adacb8384f0d4dcc175, type: 3}
       propertyPath: m_Name
-      value: VisitButtons
+      value: PlayerIDButtons
       objectReference: {fileID: 0}
     - target: {fileID: 2223508899410851040, guid: 48ffad926db51adacb8384f0d4dcc175, type: 3}
       propertyPath: m_Pivot.x

@@ -7,6 +7,7 @@ public class PlayerIDButtons : MonoBehaviour
 {
     [SerializeField] private GameInstance game;
     [SerializeField] private PlayerIDButton playerIDButtonTemplate;
+    [SerializeField] private PlayerIDButton clientPlayerIDButtonTemplate;
     private readonly List<PlayerIDButton> buttonInstances = new();
     [SerializeField] private Transform container;
     public Action<PlayerID> OnClick;
@@ -18,13 +19,14 @@ public class PlayerIDButtons : MonoBehaviour
         Clear();
         for (PlayerID id = 0; (int)id < 6; id++)
         {
-            var instance = Instantiate(playerIDButtonTemplate, container);
+            var instance = Instantiate(id == game.ClientID ? clientPlayerIDButtonTemplate : playerIDButtonTemplate, container);
             instance.onClick += OnClickButton;
             instance.PlayerID = id;
             instance.Faction = game?.PlayerData?.GetValueOrDefault(id)?.Faction ?? PlayerFaction.None;
             instance.Nickname = game?.PlayerData?.GetValueOrDefault(id)?.Nickname ?? instance.Faction.ToString();
             buttonInstances.Add(instance);
         }
+        if(game.ClientID >= 0) buttonInstances[(int)game.ClientID].transform.SetSiblingIndex(0);
     }
     private void OnClickButton(PlayerID id) => OnClick?.Invoke(id);
 

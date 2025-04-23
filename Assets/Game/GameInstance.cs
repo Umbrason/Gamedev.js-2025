@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class GameInstance : MonoBehaviour
 {
-    public PlayerID ClientID => NetworkChannel.PlayerID;
+    public PlayerID ClientID => NetworkChannel?.PlayerID ?? PlayerID.None;
     [field: SerializeField] public GameSettings Settings { get; private set; }
     public INetworkChannel NetworkChannel { get; set; }
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }

@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game: {fileID: 0}
   playerIDButtonTemplate: {fileID: 4309254620186645185, guid: d04b2ab15e650e2538ee03ea46afdd32, type: 3}
+  clientPlayerIDButtonTemplate: {fileID: 916293476214801704, guid: 7ce782b44b8f43d2b85e09c890f058d4, type: 3}
   container: {fileID: 457707754745141181}
 --- !u!1 &9084374107129340969
 GameObject:
@@ -130,7 +131,7 @@ GameObject:
   - component: {fileID: 5407468476267497609}
   - component: {fileID: 600876151438440549}
   m_Layer: 5
-  m_Name: Image
+  m_Name: LayoutPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,7 +182,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 5
-  m_Spacing: 0
+  m_Spacing: 15
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
