@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public enum Building
 {
@@ -15,7 +16,7 @@ public enum Building
     Composter,              // Earth + Leaves
     InkGrinder,             // Leaves + Dewdrops
     MushroomsFarm,          // Dewdrops + Wood
-    LanternWeavingStation,  // Wood + Fireflies
+    FirebugCradle,  // Wood + Fireflies
     WispNursery,            // Fireflies + Mana
     ManaSolidifier,         // Mana + Earth
 }
@@ -31,20 +32,19 @@ public static class BuildingExtensions
 
     public static Resource ResourceYieldType(this Building building) => (Resource)building;
 
-    
+
     /// <summary>
-    /// Each turn a building produces between 0 and MaxYield resources
+    /// Produced .3333 resources per tile. 3 tiles => 1, 6 tiles => 2. partial yield is decided by a coin toss (i.e. 0.3 yield => 30% chance to gain +1)
     /// </summary>
-    public static int MaxYieldAt(this Building building, PlayerIsland island, HexPosition position)
+    public static float ExpectedYield(this Building building, PlayerIsland island, HexPosition position)
     {
-        if ((int)building > 6) return 2;//averages to 1 per turn
-        int yield = 0;
-        foreach (HexPosition pos in position.GetSurrounding())
-            if (island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) yield += 1;
+        if ((int)building > 6) return 1;
+        const float yieldPerTile = 1 / 3f;
+        var yield = position.GetSurrounding().Count(pos => island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) * yieldPerTile;
         return yield;
     }
 
-   public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float averageYield)
+    public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float averageYield)
     {
         averageYield = -10f;
         HexPosition bestPosition = default;
@@ -53,9 +53,9 @@ public static class BuildingExtensions
         {
             if (island.Buildings.GetValueOrDefault(pos) != Building.None) continue;
 
-            float yield = MaxYieldAt(building, island, pos);
+            float yield = ExpectedYield(building, island, pos);
 
-            foreach(HexPosition adj in pos.GetSurrounding())
+            foreach (HexPosition adj in pos.GetSurrounding())
             {
                 Building other = island.Buildings.GetValueOrDefault(adj);
 
