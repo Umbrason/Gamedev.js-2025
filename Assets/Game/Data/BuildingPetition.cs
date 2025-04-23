@@ -33,32 +33,36 @@ public class BuildingPetition : ISerializable<BuildingPetition>
 
     BuildingPetition ISerializable<BuildingPetition>.Deserialize(IDeserializer deserializer)
     {
-        Dictionary<PlayerID, Dictionary<Resource, int>> petition =
-            deserializer.ReadDict<PlayerID, Dictionary<Resource, int>>(
+        PlayerID = deserializer.ReadEnum<PlayerID>(nameof(PlayerID));
+        Position = deserializer.ReadSerializable<HexPosition>(nameof(Position));
+        Building = deserializer.ReadEnum<Building>(nameof(Building));
+        ResourceSources = deserializer.ReadDict(
                 nameof(ResourceSources),
-                (string keyName) => deserializer.ReadEnum<PlayerID>(keyName),
-                (string valueName) => deserializer.ReadDict<Resource, int>(
+                keyName => deserializer.ReadEnum<PlayerID>(keyName),
+                valueName => deserializer.ReadDict(
                     valueName,
-                    (string innerKeyName) => deserializer.ReadEnum<Resource>(innerKeyName),
-                    (string innerValueName) => deserializer.ReadInt(innerValueName)
+                    innerKeyName => deserializer.ReadEnum<Resource>(innerKeyName),
+                    innerValueName => deserializer.ReadInt(innerValueName)
                 )
             );
-
-        return new BuildingPetition(petition);
+        return this;
     }
 
     void ISerializable<BuildingPetition>.Serialize(ISerializer serializer)
     {
+        serializer.WriteEnum(nameof(PlayerID), PlayerID);
+        serializer.WriteSerializable(nameof(Position), Position);
+        serializer.WriteEnum(nameof(Building), Building);
         serializer.WriteDict(
             nameof(ResourceSources),
             ResourceSources,
-            (string keyName, PlayerID key) => serializer.WriteEnum(keyName, key),
-            (string valueName, Dictionary<Resource, int> innerDict) =>
+            (keyName, key) => serializer.WriteEnum(keyName, key),
+            (valueName, innerDict) =>
                 serializer.WriteDict(
                     valueName,
                     innerDict,
-                    (string innerKeyName, Resource resource) => serializer.WriteEnum(innerKeyName, resource),
-                    (string innerValueName, int amount) => serializer.WriteInt(innerValueName, amount)
+                    (innerKeyName, resource) => serializer.WriteEnum(innerKeyName, resource),
+                    (innerValueName, amount) => serializer.WriteInt(innerValueName, amount)
                 )
         );
     }

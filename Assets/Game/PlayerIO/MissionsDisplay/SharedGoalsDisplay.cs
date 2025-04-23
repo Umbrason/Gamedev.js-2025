@@ -29,4 +29,5 @@ public class SharedGoalsDisplay : MonoBehaviour
     private readonly Dictionary<SharedGoalID, SharedGoalDisplay> GoalDisplayInstances = new();
     [SerializeField] private SharedGoalDisplay Template;
     public Action<SharedGoalID> OnClick;
+    public SharedGoalDisplay ButtonOf(SharedGoalID id) => GoalDisplayInstances.GetValueOrDefault(id);
 }

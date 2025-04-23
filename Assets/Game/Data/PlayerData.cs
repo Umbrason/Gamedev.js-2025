@@ -6,7 +6,7 @@ public class PlayerData
 {
     public string Nickname { get; set; }
     public PlayerRole Role { get; set; }
-    public PlayerFactions Faction { get; set; }
+    public PlayerFaction Faction { get; set; }
     private PlayerIsland m_Island;
     public PlayerIsland Island { get => m_Island; set { m_Island = value; OnIslandChanged?.Invoke(m_Island); } }
     private readonly Dictionary<Resource, int> m_Resources = new();

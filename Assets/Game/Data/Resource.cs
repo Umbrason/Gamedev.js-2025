@@ -5,7 +5,7 @@ public enum Resource
     //Basic
     Dewdrops,
     Leaves,
-    Earth,
+    Pebbles,
     Mana,
     Wood,
     Fireflies,
@@ -14,7 +14,7 @@ public enum Resource
     Compost,
     Ink,
     Mushrooms,
-    FireflyLanterns,
+    Firebugs,
     Wisps,
     ManaStones,
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,9 @@ public class BuildPhase : IGamePhase, ITimedPhase
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
     private PledgeSummaryPhase nextPhase;
 
+    public event Action<HexPosition, Building, Resource, int> OnConsumeResource;
+    public event Action<HexPosition, Building, Resource, int> OnHarvestResource;
+    public event Action<SharedGoalID, Resource, int> OnPledgeResource;
 
     public readonly Dictionary<PlayerID, ResourcePledge> PledgedResources = new();
 
@@ -96,18 +100,21 @@ public class BuildPhase : IGamePhase, ITimedPhase
         var multiplier = Game.ClientPlayerData.SecretGoal.Evaluate(Game.ClientPlayerData) ? SecretTaskRewardResourceMultiplier : 1;
         foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value + ((int)_.Value >= 7 ? 1 : 0)))
         {
-            int maxYield = building.MaxYieldAt(Game.ClientPlayerData.Island, position);
-            int yield = Random.Range(0, maxYield) * multiplier;
-
+            var expectedYield = building.ExpectedYield(Game.ClientPlayerData.Island, position);
+            var actualYield = Mathf.FloorToInt(expectedYield) + (UnityEngine.Random.value <= (expectedYield % 1f) ? 1 : 0);
             #region refined resources
             var opCosts = building.OperationCosts();
             if (!opCosts.Select(pair => (pair.Key, pair.Value)).All(((Resource resource, int amount) cost) => Game.ClientPlayerData[cost.resource] >= cost.amount))
                 continue;
             foreach (var (resource, amount) in opCosts)
+            {
+                OnConsumeResource?.Invoke(position, building, resource, amount);
                 Game.ClientPlayerData[resource] -= amount;
+            }
             #endregion
             var resourceYieldType = building.ResourceYieldType();
-            Game.ClientPlayerData[resourceYieldType] += yield;
+            Game.ClientPlayerData[resourceYieldType] += actualYield;
+            OnHarvestResource?.Invoke(position, building, resourceYieldType, actualYield);
         }
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
     }
@@ -126,7 +133,10 @@ public class BuildPhase : IGamePhase, ITimedPhase
         if (skipping) return;
         if (!CanPlaceBuilding(position, building)) return;
         foreach (var (resource, cost) in building.ConstructionCosts())
+        {
             Game.ClientPlayerData[resource] -= cost;
+            OnConsumeResource?.Invoke(position, building, resource, cost);
+        }
         Game.ClientPlayerData.Island = Game.ClientPlayerData.Island.WithBuildings((position, building));
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
@@ -159,6 +169,8 @@ public class BuildPhase : IGamePhase, ITimedPhase
             amount = Mathf.Max(amount, -clientPledgedResources.goalPledges[targetGoalID].GetValueOrDefault(resource));
         }
         else return; //doesnt have any resources pledged but tried to withdraw some
+        if (amount == 0) return;
+        OnPledgeResource?.Invoke(targetGoalID, resource, amount);
         Game.ClientPlayerData[resource] -= amount;
         if (!clientPledgedResources.goalPledges[targetGoalID].ContainsKey(resource))
             clientPledgedResources.goalPledges[targetGoalID][resource] = amount;
