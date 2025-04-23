@@ -4,6 +4,7 @@ using System.Linq;
 
 public static class GoalTemplates
 {
+    /*
     public static IReadOnlyList<SharedGoal> BalanceFaction { get; } = new List<SharedGoal>()
     {
         new("Restore balance", new Dictionary<Resource, int>()
@@ -15,31 +16,6 @@ public static class GoalTemplates
             { Resource.Wisps, 20 },
             { Resource.ManaStones, 20 }
         })
-        /*
-        new("Fertilize", new Dictionary<Resource, int>()
-        {
-            { Resource.Compost, 30 }
-        }), 
-        new("Write stories", new Dictionary<Resource, int>()
-        {
-            { Resource.Ink, 30 }
-        }),
-        new("Symbiosis", new Dictionary<Resource, int>()
-        {
-            { Resource.Mushrooms, 30 }
-        }),
-        new("Illuminate", new Dictionary<Resource, int>()
-        {
-            { Resource.FireflyLanterns, 30 }
-        }),
-        new("Commune", new Dictionary<Resource, int>()
-        {
-            { Resource.Wisps, 30 }
-        }),
-        new("Attune", new Dictionary<Resource, int>()
-        {
-            { Resource.ManaStones, 30 }
-        })*/
     };
 
     public static IReadOnlyList<SharedGoal> SelfishFaction => new List<SharedGoal>()
@@ -81,5 +57,6 @@ public static class GoalTemplates
             { Resource.Mana, 10 }
         })
     };
+    */
     public static IReadOnlyList<SecretTask> IndividualSecretTasks { get; } = ((Building[])Enum.GetValues(typeof(Building))).Select(building => new BuildingAmount($"Have at least 3 {building}'s.", new() { { building, 5 } })).ToList();
 }

@@ -57,15 +57,15 @@ public class InitGamePhase : IGamePhase
         {
             var RandomGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults));
-            var SharedGoalIndex = Mathf.FloorToInt(GoalTemplates.BalanceFaction.Count * (RandomGoalResults.Values.Sum() % 1f));
-            for (int j = 0; j < GoalTemplates.BalanceFaction.Count; j++)
+            var SharedGoalIndex = Mathf.FloorToInt(GameSettings.BalanceGoals.Count * (RandomGoalResults.Values.Sum() % 1f));
+            for (int j = 0; j < GameSettings.BalanceGoals.Count; j++)
             {
                 if (!pickedBalancedGoals.Contains(SharedGoalIndex)) break;
                 SharedGoalIndex++;
-                SharedGoalIndex %= GoalTemplates.BalanceFaction.Count;
+                SharedGoalIndex %= GameSettings.BalanceGoals.Count;
             }
             pickedBalancedGoals.Add(SharedGoalIndex);
-            BalanceFactionGoals.Add(GoalTemplates.BalanceFaction[SharedGoalIndex]);
+            BalanceFactionGoals.Add(GameSettings.BalanceGoals[SharedGoalIndex]);
         }
         Game.BalancedFactionGoals = BalanceFactionGoals;
         #endregion
@@ -78,15 +78,15 @@ public class InitGamePhase : IGamePhase
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults));
             //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults);
-            var EvilGoalIndex = Mathf.FloorToInt(GoalTemplates.SelfishFaction.Count * (RandomEvilGoalResults.Values.Sum() % 1f));
-            for (int j = 0; j < GoalTemplates.SelfishFaction.Count; j++)
+            var EvilGoalIndex = Mathf.FloorToInt(GameSettings.SelfishGoals.Count * (RandomEvilGoalResults.Values.Sum() % 1f));
+            for (int j = 0; j < GameSettings.SelfishGoals.Count; j++)
             {
                 if (!pickedBalancedGoals.Contains(EvilGoalIndex)) break;
                 EvilGoalIndex++;
-                EvilGoalIndex %= GoalTemplates.SelfishFaction.Count;
+                EvilGoalIndex %= GameSettings.SelfishGoals.Count;
             }
             pickedSelfishGoals.Add(EvilGoalIndex);
-            SelfishFactionGoals.Add(GoalTemplates.SelfishFaction[EvilGoalIndex]);
+            SelfishFactionGoals.Add(GameSettings.SelfishGoals[EvilGoalIndex]);
         }
         Game.SelfishFactionGoals = SelfishFactionGoals;
         #endregion
@@ -114,7 +114,7 @@ public class InitGamePhase : IGamePhase
 
         #region Player Island
         FactionData factionData = null;
-        foreach (FactionData data in Game.Factions)
+        foreach (FactionData data in GameSettings.Factions)
         {
             if (data.Faction != clientFaction) continue;
             factionData = data;

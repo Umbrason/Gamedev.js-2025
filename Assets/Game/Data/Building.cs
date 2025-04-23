@@ -25,88 +25,10 @@ public static class BuildingExtensions
 {
     // TODO: define Resource values
     public static Dictionary<Resource, int> ConstructionCosts(this Building building)
-    => building switch
-    {
-        Building.DewCollector => new() {
-            { Resource.Dewdrops, 2 },
-            { Resource.Pebbles, 2 },
-            { Resource.Fireflies, 2 }
-        },
-        Building.WoodCollector => new() {
-            { Resource.Wood, 2 },
-            { Resource.Fireflies, 2 },
-            { Resource.Leaves, 2 }
-        },
-        Building.LeafCollector => new() {
-            { Resource.Leaves, 2 },
-            { Resource.Dewdrops, 2 },
-            { Resource.Mana, 2 }
-        },
-        Building.EarthCollector => new() {
-            { Resource.Pebbles, 2 },
-            { Resource.Mana, 2 },
-            { Resource.Wood, 2 }
-        },
-        Building.FireflyCollector => new() {
-            { Resource.Fireflies, 2 },
-            { Resource.Wood, 2 },
-            { Resource.Pebbles, 2 }
-        },
-        Building.ManaCollector => new() {
-            { Resource.Mana, 2 },
-            { Resource.Leaves, 2 },
-            { Resource.Dewdrops, 2 }
-        },
-        Building.Composter => new() {
-            { Resource.Pebbles, 7 },
-            { Resource.Leaves, 7 },
-            { Resource.Fireflies, 3 },
-            { Resource.Mana, 3 }
-        },
-        Building.WispNursery => new() {
-            { Resource.Fireflies, 7 },
-            { Resource.Mana, 7 },
-            { Resource.Dewdrops, 3 },
-            { Resource.Wood, 3 }
-        },
-        Building.ManaSolidifier => new() {
-            { Resource.Mana, 7 },
-            { Resource.Pebbles, 7 },
-            { Resource.Leaves, 3 },
-            { Resource.Dewdrops, 3 }
-        },
-        Building.MushroomsFarm => new() {
-            { Resource.Wood,7 },
-            { Resource.Dewdrops, 7 },
-            { Resource.Fireflies, 3 },
-            { Resource.Leaves, 3 }
-        },
-        Building.FirebugCradle => new() {
-            { Resource.Fireflies, 7 },
-            { Resource.Wood, 7 },
-            { Resource.Mana, 3 },
-            { Resource.Pebbles, 3 }
-        },
-        Building.InkGrinder => new() {
-            { Resource.Dewdrops, 7 },
-            { Resource.Leaves, 7 },
-            { Resource.Pebbles, 3 },
-            { Resource.Wood, 3 }
-        },
-        _ => new()
-    };
+    => GameSettings.ConstructionCosts.GetValueOrDefault(building);
 
     public static Dictionary<Resource, int> OperationCosts(this Building building)
-     => building switch
-     {
-         Building.InkGrinder => new() { { Resource.Leaves, 1 }, { Resource.Dewdrops, 1 } },
-         Building.MushroomsFarm => new() { { Resource.Dewdrops, 1 }, { Resource.Wood, 1 } },
-         Building.FirebugCradle => new() { { Resource.Wood, 1 }, { Resource.Fireflies, 1 } },
-         Building.WispNursery => new() { { Resource.Fireflies, 1 }, { Resource.Mana, 1 } },
-         Building.ManaSolidifier => new() { { Resource.Mana, 1 }, { Resource.Pebbles, 1 } },
-         Building.Composter => new() { { Resource.Leaves, 1 }, { Resource.Pebbles, 1 } },
-         _ => new()
-     };
+     => GameSettings.OperationCosts.GetValueOrDefault(building);
 
     public static Resource ResourceYieldType(this Building building) => (Resource)building;
 
