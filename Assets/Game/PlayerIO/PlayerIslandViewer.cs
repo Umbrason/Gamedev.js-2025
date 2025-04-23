@@ -34,7 +34,6 @@ public class PlayerIslandViewer : MonoBehaviour
             {
                 instance.gameObject.SetActive(id == value);
                 instance.Data = Game.PlayerData[id].Island;
-                //TODO: React to Updates. prob via event
             }
         }
     }

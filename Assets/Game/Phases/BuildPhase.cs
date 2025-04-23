@@ -62,8 +62,6 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.StopListening(UpdateResourcesHeader);
         Game.NetworkChannel.StopListening(ShareResourcePledge);
 
-
-
         var pledgeWithdrawalOrderPrio = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
         var pledgeWithdrawalOrder = pledgeWithdrawalOrderPrio.OrderBy(pair => pair.Value).Select(pair => pair.Key);

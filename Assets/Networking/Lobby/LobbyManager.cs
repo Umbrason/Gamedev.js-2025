@@ -51,7 +51,7 @@ public class LobbyManager : Singleton<LobbyManager>
         panelLobby.SetActive(false);
         panelJoinRoom.SetActive(false);
 
-        inputUsername.text = "_default";
+        //inputUsername.text = "_default";
     }
 
     void OnCreateClicked()
