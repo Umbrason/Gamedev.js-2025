@@ -180,4 +180,5 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
     }
 
+    public bool CanSkip() => true;
 }
