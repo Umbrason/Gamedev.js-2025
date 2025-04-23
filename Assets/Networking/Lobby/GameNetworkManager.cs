@@ -1,4 +1,4 @@
-//#define JakobTest
+#define JakobTest
 
 using UnityEngine;
 using System.Collections;

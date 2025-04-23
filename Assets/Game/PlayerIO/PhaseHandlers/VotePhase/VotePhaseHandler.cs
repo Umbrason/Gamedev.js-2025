@@ -58,15 +58,15 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     private void SetDisplay(PlayerID playerID)
     {
         islandViewer.TargetPlayer = playerID;
-        for (int i = 1; i < Enum.GetNames(typeof(PlayerFactions)).Length; i++)
-            playerDisplayProvider.Hide((PlayerFactions)i);
+        for (int i = 1; i < Enum.GetNames(typeof(PlayerFaction)).Length; i++)
+            playerDisplayProvider.Hide((PlayerFaction)i);
         playerDisplayProvider.IslandOwner = Game.ClientPlayerData.Faction;
         if (playerID == PlayerID.None) return;
         playerDisplayProvider.IslandOwner = Game.PlayerData[playerID].Faction;
-        for (int i = 1; i < Enum.GetNames(typeof(PlayerFactions)).Length; i++)
+        for (int i = 1; i < Enum.GetNames(typeof(PlayerFaction)).Length; i++)
         {
-            if (Game.PlayerData[playerID].Faction == (PlayerFactions)i) continue;
-            playerDisplayProvider.Show((PlayerFactions)i);
+            if (Game.PlayerData[playerID].Faction == (PlayerFaction)i) continue;
+            playerDisplayProvider.Show((PlayerFaction)i);
         }
     }
 

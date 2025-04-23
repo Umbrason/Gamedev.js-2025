@@ -258,20 +258,22 @@ public class LobbyManager : Singleton<LobbyManager>
 
     void LoadGameScene()
     {
-        gameLoaded = true;
-        Debug.Log(myPlayerID);
-        GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
-
-        AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
-        ao.completed += _ =>
+        if (!gameLoaded)
         {
-            if (isHost)
-            {
-                GameNetworkManager.Instance.Add_AI(currentRoomCode, NetworkUtils.playerCount - playerList.players.Count);
-            }
-            SceneManager.UnloadSceneAsync(gameObject.scene);
-        };
+            gameLoaded = true;
+            Debug.Log(myPlayerID);
+            GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
 
+            AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
+            ao.completed += _ =>
+            {
+                if (isHost)
+                {
+                    GameNetworkManager.Instance.Add_AI(currentRoomCode, NetworkUtils.playerCount - playerList.players.Count);
+                }
+                SceneManager.UnloadSceneAsync(gameObject.scene);
+            };
+        }
     }
 
     //TODO VALIDATE SUCCESS

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
@@ -9,6 +8,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     [SerializeField] private PlayerIDButtons VisitButtons;
     [SerializeField] private GoalResourcePledgeScreen pledgeScreen;
     [SerializeField] private MissionsDisplay missionsDisplay;
+    [SerializeField] private ResourceChangeAnimation resourceChangeAnimation;
 
     [Header("Visiting")]
     [SerializeField] private PlayerDisplay playerDisplayProvider;
@@ -28,6 +28,30 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         VisitButtons.OnClick += SetTargetPlayer;
         missionsDisplay.OnClickMission += (missionID) => ShowPledgeScreen(new() { missionID });
         missionsDisplay.Show();
+        Phase.OnHarvestResource += OnHarvest;
+        Phase.OnConsumeResource += OnConsume;
+        Phase.OnPledgeResource += OnPledgeResource;
+    }
+
+    private void OnPledgeResource(SharedGoalID goalID, Resource resource, int amount)
+    {
+        for (int i = 0; i < Mathf.Abs(amount); i++)
+        {
+            if (amount > 0) resourceChangeAnimation.Spawn(resource, Game.ClientID, goalID);
+            else resourceChangeAnimation.Spawn(resource, goalID, Game.ClientID);
+        }
+    }
+
+    private void OnConsume(HexPosition position, Building building, Resource resource, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+            resourceChangeAnimation.Spawn(resource, Game.ClientID, position);
+    }
+
+    private void OnHarvest(HexPosition position, Building building, Resource resource, int amount)
+    {
+        for (int i = 0; i < amount; i++)
+            resourceChangeAnimation.Spawn(resource, position, Game.ClientID);
     }
 
     public override void OnPhaseExited()
@@ -39,6 +63,8 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         VisitButtons.OnClick -= SetTargetPlayer;
         missionsDisplay.Hide();
         pledgeScreen.Hide();
+        Phase.OnHarvestResource -= OnHarvest;
+        Phase.OnConsumeResource -= OnConsume;
     }
 
     void Update()
@@ -81,7 +107,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         var isAnyPlayer = playerID != PlayerID.None;
         var isOtherPlayer = isAnyPlayer && playerID != Game.ClientID;
 
-        playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(playerID)?.Faction ?? PlayerFactions.None;
+        playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(playerID)?.Faction ?? PlayerFaction.None;
 
         #region send notification to other player when visiting them
         if (isOtherPlayer)
@@ -96,7 +122,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         foreach (var visitor in otherVisitingPlayers)
             playerDisplayProvider.Hide(visitor);
         if (isClient) foreach (var visitor in otherVisitingPlayers)
-                playerDisplayProvider.Show(visitor);
+                playerDisplayProvider.Show(visitor, true);
         #endregion
 
 
@@ -115,7 +141,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         viewer.TargetPlayer = playerID;
     }
 
-    private List<PlayerFactions> otherVisitingPlayers = new();
+    private List<PlayerFaction> otherVisitingPlayers = new();
     private void OnOtherPlayerVisitingStatusChanged(NetworkMessage message)
     {
         var isPresent = (bool)message.content;
@@ -123,7 +149,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         if (isPresent)
         {
             otherVisitingPlayers.Add(faction);
-            if (targetPlayer == Game.ClientID) playerDisplayProvider.Show(faction);
+            if (targetPlayer == Game.ClientID) playerDisplayProvider.Show(faction, true);
         }
         else
         {

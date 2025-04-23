@@ -37,6 +37,17 @@ public static class NetworkUtils
         }
     }
 
+#if UNITY_EDITOR
+    [UnityEditor.InitializeOnLoadMethod]
+    public static void RegisterClearCallback()
+    {
+        UnityEditor.EditorApplication.playModeStateChanged += (state) =>
+        {
+            if (state != UnityEditor.PlayModeStateChange.ExitingEditMode) return;
+            ActiveSignals.Clear();
+        };
+    }
+#endif
     private readonly static Dictionary<PlayerID, Dictionary<string, HashSet<PlayerID>>> ActiveSignals = new();
     public static bool WaitForAllPlayersSignal(this INetworkChannel networkChannel, string header, PlayerID ClientID)
     {
