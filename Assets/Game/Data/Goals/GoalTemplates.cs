@@ -11,7 +11,7 @@ public static class GoalTemplates
             { Resource.Compost, 20 },
             { Resource.Ink, 20 },
             { Resource.Mushrooms, 20 },
-            { Resource.FireflyLanterns, 20 },
+            { Resource.Firebugs, 20 },
             { Resource.Wisps, 20 },
             { Resource.ManaStones, 20 }
         })
@@ -51,15 +51,15 @@ public static class GoalTemplates
             { Resource.Mushrooms, 10 },
             { Resource.Dewdrops, 10 },
             { Resource.Leaves, 10 },
-            { Resource.FireflyLanterns, 10 }
+            { Resource.Firebugs, 10 }
         }),
         new("Seed chaos", new Dictionary<Resource, int>()
         {
-            { Resource.FireflyLanterns, 10 },
+            { Resource.Firebugs, 10 },
             { Resource.Wisps, 10 },
             { Resource.ManaStones, 10 },
             { Resource.Wood, 10 },
-            { Resource.Earth, 10 },
+            { Resource.Pebbles, 10 },
             { Resource.Mana, 10 }
         }),
         new("Seed chaos", new Dictionary<Resource, int>()
@@ -73,10 +73,10 @@ public static class GoalTemplates
         }),
         new("Seed chaos", new Dictionary<Resource, int>()
         {
-            { Resource.FireflyLanterns, 10 },
+            { Resource.Firebugs, 10 },
             { Resource.Wisps, 10 },
             { Resource.ManaStones, 10 },
-            { Resource.Earth, 10 },
+            { Resource.Pebbles, 10 },
             { Resource.Dewdrops, 10 },
             { Resource.Mana, 10 }
         })

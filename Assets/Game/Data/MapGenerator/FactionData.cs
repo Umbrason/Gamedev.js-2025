@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "Faction", menuName = "Scriptable Objects/Faction")]
 public class FactionData : ScriptableObject
 {
-    [SerializeField] PlayerFactions faction;
+    [SerializeField] PlayerFaction faction;
     [SerializeField] TilesBoardGeneratorData mapGenerator;
     [SerializeField] ResourceQuantity[] startingResources;
     [SerializeField] Building[] startingBuildings;
@@ -40,7 +40,7 @@ public class FactionData : ScriptableObject
         }
     }
 
-    public PlayerFactions Faction => faction;
+    public PlayerFaction Faction => faction;
 
     [System.Serializable] class ResourceQuantity
     {

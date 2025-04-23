@@ -103,7 +103,7 @@ public class InitGamePhase : IGamePhase
         #region Factions
         var faction = 0;
         var playerIDsByFactionIndex = RandomFactionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
-        foreach (var player in playerIDsByFactionIndex) Game.PlayerData[player].Faction = (PlayerFactions)(++faction);
+        foreach (var player in playerIDsByFactionIndex) Game.PlayerData[player].Faction = (PlayerFaction)(++faction);
         var clientFaction = Game.ClientPlayerData.Faction;
         #endregion
 

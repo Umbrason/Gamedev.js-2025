@@ -829,8 +829,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Game: {fileID: 0}
   Canvas: {fileID: 4117729961770792132}
-  balancedGoalDisplayTemplate: {fileID: 7126364181988996338}
-  selfishGoalDisplayTemplate: {fileID: 4234187254922917468}
+  balancedGoalDisplay: {fileID: 7126364181988996338}
+  selfishGoalDisplay: {fileID: 4234187254922917468}
   secretTaskDisplay: {fileID: 2409588335572770712}
 --- !u!114 &7458784753288892833
 MonoBehaviour:
@@ -961,6 +961,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Description: {fileID: 6473910089211160496}
   Checkbox: {fileID: 3721152450130236286}
+  Game: {fileID: 0}
 --- !u!1 &7913983146054950487
 GameObject:
   m_ObjectHideFlags: 0

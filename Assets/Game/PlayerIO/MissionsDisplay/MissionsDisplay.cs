@@ -6,20 +6,31 @@ public class MissionsDisplay : MonoBehaviour
 {
     [SerializeField] private GameInstance Game;
     [SerializeField] private GameObject Canvas;
-    [SerializeField] private SharedGoalsDisplay balancedGoalDisplayTemplate;
-    [SerializeField] private SharedGoalsDisplay selfishGoalDisplayTemplate;
+    [SerializeField] private SharedGoalsDisplay balancedGoalDisplay;
+    [SerializeField] private SharedGoalsDisplay selfishGoalDisplay;
     [SerializeField] private SecretTaskDisplay secretTaskDisplay;
     public event Action<SharedGoalID> OnClickMission;
+
+    public SharedGoalDisplay ButtonOf(SharedGoalID goalID)
+    {
+        var display = goalID.TargetRole switch
+        {
+            PlayerRole.Balanced => balancedGoalDisplay,
+            PlayerRole.Selfish => selfishGoalDisplay,
+            _ => null
+        };
+        return display?.ButtonOf(goalID);
+    }
 
     public void Show()
     {
         Canvas.SetActive(true);
         var balancedGoals = Game.BalancedFactionGoals.Select((goal, index) => (goal, new SharedGoalID(PlayerRole.Balanced, index))).ToDictionary(p => p.Item2, p => p.goal);
         var selfishGoals = Game.ClientPlayerData.Role == PlayerRole.Selfish ? Game.SelfishFactionGoals.Select((goal, index) => (goal, new SharedGoalID(PlayerRole.Selfish, index))).ToDictionary(p => p.Item2, p => p.goal) : null;
-        balancedGoalDisplayTemplate.Goals = balancedGoals;
-        selfishGoalDisplayTemplate.Goals = selfishGoals;
-        balancedGoalDisplayTemplate.OnClick = OnClick;
-        selfishGoalDisplayTemplate.OnClick = OnClick;
+        balancedGoalDisplay.Goals = balancedGoals;
+        selfishGoalDisplay.Goals = selfishGoals;
+        balancedGoalDisplay.OnClick = OnClick;
+        selfishGoalDisplay.OnClick = OnClick;
         secretTaskDisplay.SecretTask = Game.ClientPlayerData.SecretGoal;
     }
     public void Hide()
