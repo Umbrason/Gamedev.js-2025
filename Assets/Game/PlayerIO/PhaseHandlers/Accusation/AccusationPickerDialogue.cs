@@ -40,6 +40,8 @@ public class AccusationPickerDialogue : MonoBehaviour
             if (id == game.ClientID) continue;
             var instance = Instantiate(playerIDToggle, playerButtonContainer);
             instance.PlayerID = id;
+            instance.Faction = game.PlayerData[id].Faction;
+            instance.Nickname = game?.PlayerData?.GetValueOrDefault(id)?.Nickname ?? instance.Faction.ToString();
             playerIDToggles.Add(id, instance);
             instance.onValueChanged += OnPlayerClicked;
         }
