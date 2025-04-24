@@ -1,4 +1,4 @@
-#define JakobTest
+//#define JakobTest
 
 using UnityEngine;
 using System.Collections;
@@ -63,6 +63,8 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
             availableChannels.Enqueue(channels[(PlayerID)i]);
             SceneManager.LoadSceneAsync("AIGame", LoadSceneMode.Additive);
         }
+
+        SoundAndMusicController.Instance.EnsureSingleAudioListener();
     }
 
     public void StartPulling()

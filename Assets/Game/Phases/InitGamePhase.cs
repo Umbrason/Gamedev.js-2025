@@ -131,6 +131,18 @@ public class InitGamePhase : IGamePhase
         Game.NetworkChannel.BroadcastMessage(ShareIslandState, Game.PlayerData[Game.ClientID].Island);
         #endregion
 
+        #region Music
+        switch (Game.PlayerData[Game.ClientID].Role)
+        {
+            case PlayerRole.Balanced:
+                SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackGoodLoopable);
+                SoundAndMusicController.Instance.PlayAmbience(SoundAndMusicController.Instance.MusicClips.ambienceGoodLoopable); break;
+            case PlayerRole.Selfish:
+                SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackSusLoopable);
+                SoundAndMusicController.Instance.PlayAmbience(SoundAndMusicController.Instance.MusicClips.ambienceSusLoopable); break;
+        }
+        #endregion
+
         yield return new WaitUntil(() => Game.PlayerData.Values.All(data => data.Island != PlayerIsland.Empty));
         //Game.PlayerData.Values.All(data => data.Island != PlayerIsland.Empty);
         Game.TransitionPhase(new BuildPhase());

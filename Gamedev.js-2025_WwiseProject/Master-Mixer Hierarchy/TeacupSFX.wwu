@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{BC44504B-88AB-45D4-8714-50F325F8DE1C}" SchemaVersion="123">
+	<Busses>
+		<WorkUnit Name="TeacupSFX" ID="{BC44504B-88AB-45D4-8714-50F325F8DE1C}" PersistMode="Standalone">
+			<ChildrenList>
+				<Folder Name="TeacupSFX" ID="{BB4A7F38-701B-415B-8EB6-D4BDAC3538B6}" ShortID="228852487"/>
+			</ChildrenList>
+		</WorkUnit>
+	</Busses>
+</WwiseDocument>

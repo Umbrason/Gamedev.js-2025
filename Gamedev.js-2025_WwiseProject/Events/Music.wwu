@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" SchemaVersion="123">
+	<Events>
+		<WorkUnit Name="Music" ID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" PersistMode="Standalone">
+			<ChildrenList>
+				<Event Name="Play_ambience_good_loopable" ID="{E8D4DEB5-00D5-4ECC-8A44-EE8B43CC5772}">
+					<ChildrenList>
+						<Action Name="" ID="{181A480E-C4B6-436F-8F8C-4974B2315F57}" ShortID="593902461">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ambience_good_loopable" ID="{E000A969-A023-42C2-96A7-B7A9458FA7C8}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_ambience_sus_loopable" ID="{01B01DB4-15D4-4C1B-A169-F9C5EDB85FD7}">
+					<ChildrenList>
+						<Action Name="" ID="{88A9B66E-3201-4434-BCE1-AF4F5CABBE33}" ShortID="774284526">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ambience_sus_loopable" ID="{67903BFB-0C96-4D01-B717-63932C79AE9B}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_soundtrack_sus_loopable" ID="{15782164-F167-470F-A0D5-F3ABC7780653}">
+					<ChildrenList>
+						<Action Name="" ID="{605D536C-A1DB-4664-8E3B-123C2AB8EE89}" ShortID="171462506">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="soundtrack_sus_loopable" ID="{7F1C2BFF-B7D9-4B28-A45D-0C10059D6659}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Play_soundtrack_good_loopable" ID="{24757AC4-B25F-45D2-A548-DEECD9E82A01}">
+					<ChildrenList>
+						<Action Name="" ID="{690716DA-174E-42BD-A1FF-4FB1CFA0506F}" ShortID="393677597">
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="soundtrack_good_loopable" ID="{770A466A-A40F-407B-BA2E-222768AF0CE5}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_ambience_sus_loopable" ID="{6581D2CD-42CD-4DB5-B751-0C2CD4DD116E}">
+					<ChildrenList>
+						<Action Name="" ID="{18171017-CB23-4847-8369-F3CD6012F8B4}" ShortID="479274964">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ambience_sus_loopable" ID="{67903BFB-0C96-4D01-B717-63932C79AE9B}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_soundtrack_good_loopable" ID="{E7C6C1A2-5E49-44E9-9F65-7DA9C13A1D12}">
+					<ChildrenList>
+						<Action Name="" ID="{7B30AED0-6233-45EA-8DB5-2CEF3569F4A9}" ShortID="957699465">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="soundtrack_good_loopable" ID="{770A466A-A40F-407B-BA2E-222768AF0CE5}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_ambience_good_loopable" ID="{200135EB-7801-4144-87EB-CBB0AA0C7C8C}">
+					<ChildrenList>
+						<Action Name="" ID="{7FEFB35D-7C8E-4349-8DE8-DF82DB4EF3FF}" ShortID="572586902">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="ambience_good_loopable" ID="{E000A969-A023-42C2-96A7-B7A9458FA7C8}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+				<Event Name="Stop_soundtrack_sus_loopable" ID="{0687AE61-F883-4C5A-9989-C4888398F20D}">
+					<ChildrenList>
+						<Action Name="" ID="{27B96F98-3232-4A1D-BE0E-6C6AEF626E83}" ShortID="45203812">
+							<PropertyList>
+								<Property Name="ActionType" Type="int16" Value="2"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Target">
+									<ObjectRef Name="soundtrack_sus_loopable" ID="{7F1C2BFF-B7D9-4B28-A45D-0C10059D6659}" WorkUnitID="{AC15681A-901B-470A-8426-7976E206B4D0}"/>
+								</Reference>
+							</ReferenceList>
+						</Action>
+					</ChildrenList>
+				</Event>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

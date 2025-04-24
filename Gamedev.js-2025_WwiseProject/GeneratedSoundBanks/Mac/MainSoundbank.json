@@ -1,0 +1,1011 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "534561221",
+    "Type": "User",
+    "GUID": "{7E486E91-3B0F-402C-985E-CCB0921C0431}",
+    "Language": "SFX",
+    "Hash": "{560FDBD0-C6D4-AAC6-A037-6BA657A6125E}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\MainSoundbank",
+    "ShortName": "MainSoundbank",
+    "Path": "MainSoundbank.bnk",
+    "Media": [
+     {
+      "Id": "16139638",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "7_Lyki_joins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "18644980",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "33_drop_building.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "35627516",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "31_look_at_Seltas_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "61599083",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "37_vote_sus_button.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "76452907",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "ambience_good_loopable.wav",
+      "CachePath": "14/{14380851-FBEC-4A4C-9740-7FC0519916E1}.wem"
+     },
+     {
+      "Id": "127743887",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "3_general_button_click.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "137118093",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "29_look_at_Pygin_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "141931726",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "34_opening_dropdown.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "185291143",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "30_look_at_Gumbi_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "200911609",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "ambience_sus_loopable.wav",
+      "CachePath": "FB/{FB12E33A-318B-417F-796F-40DA0F2C8936}.wem"
+     },
+     {
+      "Id": "207307364",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "21_build_voting_time_start.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "224824961",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "14_Seltas_leaves.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "234880162",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "4_popup_opens.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "251288576",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "28_look_at_Lyki_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "255385518",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "39_pause_button.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "309668760",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "36_confirm_button.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "315981561",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "32_look_at_PomPom_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "335959964",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "2_shared_goal_progresses.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "349371574",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "15_PomPom_joins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "350097180",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "35_number_ticker.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "356856608",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "11_Gumbi_joins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "372164354",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "25_timer_ticking.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "482931993",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "38_next_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "487866986",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "16_PomPom_leaves.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "499636826",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "20_round_end.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "585474080",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "soundtrack_sus_loopable.wav",
+      "CachePath": "D4/{D41D70F0-CA5B-55AD-1FC6-1D4856EBFC84}.wem"
+     },
+     {
+      "Id": "738084105",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "22_build_voting_time_end.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "742680830",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "13_Seltas_joins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "759092647",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "23_sus_voting_time_start.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "771806572",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "12_Gumbi_leaves.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "773598734",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "5_Bumbi_joins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "780665078",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "19_round_start.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "788463852",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "soundtrack_good_loopable.wav",
+      "CachePath": "D4/{D41D70F0-CA5B-55AD-1FC6-1D4856EBFC84}.wem"
+     },
+     {
+      "Id": "825526484",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "6_Bumbi_leaves.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "828528024",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "40_main_menu_nav_buttons.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "839074542",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "10_Pigyn_leaves.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "851588701",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "26_creatures_walking_around.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "970750791",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "24_sus_voting_time_end.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "982263358",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "9_Pigyn_joins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "1011186403",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "18_sus_side_wins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "1013825066",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "8_Lyki_leaves.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "1063177679",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "17_good_side_wins.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     },
+     {
+      "Id": "1067414358",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "27_look_at_Bumbi_island.wav",
+      "CachePath": "B6/{B69194BB-223F-48F0-BDBE-235525C43715}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "1547210608",
+      "Name": "Play_10_Pigyn_leaves",
+      "ObjectPath": "\\Events\\SFX\\Play_10_Pigyn_leaves",
+      "GUID": "{4D7369E9-80DF-4FEB-A01F-0AA42A16DC52}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "839074542"
+       }
+      ]
+     },
+     {
+      "Id": "2694124561",
+      "Name": "Play_11_Gumbi_joins",
+      "ObjectPath": "\\Events\\SFX\\Play_11_Gumbi_joins",
+      "GUID": "{BF60FF8F-24AE-48DF-B419-C595E55AD4F8}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "356856608"
+       }
+      ]
+     },
+     {
+      "Id": "4198965895",
+      "Name": "Play_12_Gumbi_leaves",
+      "ObjectPath": "\\Events\\SFX\\Play_12_Gumbi_leaves",
+      "GUID": "{0BC726F9-7B29-4545-859B-539BB3C36F37}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "771806572"
+       }
+      ]
+     },
+     {
+      "Id": "1743418787",
+      "Name": "Play_13_Seltas_joins",
+      "ObjectPath": "\\Events\\SFX\\Play_13_Seltas_joins",
+      "GUID": "{7D06A0FB-7137-45DA-8047-98DBB574A00A}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "742680830"
+       }
+      ]
+     },
+     {
+      "Id": "2053696715",
+      "Name": "Play_14_Seltas_leaves",
+      "ObjectPath": "\\Events\\SFX\\Play_14_Seltas_leaves",
+      "GUID": "{367D77DC-6A74-4932-B7A6-8CE9563E0D65}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "224824961"
+       }
+      ]
+     },
+     {
+      "Id": "254315829",
+      "Name": "Play_15_PomPom_joins",
+      "ObjectPath": "\\Events\\SFX\\Play_15_PomPom_joins",
+      "GUID": "{3F50B5A5-54AC-4060-B9A2-DE49249960C7}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "349371574"
+       }
+      ]
+     },
+     {
+      "Id": "1371212641",
+      "Name": "Play_16_PomPom_leaves",
+      "ObjectPath": "\\Events\\SFX\\Play_16_PomPom_leaves",
+      "GUID": "{F802BBB1-59A0-4D89-A893-7C344EBC3477}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "487866986"
+       }
+      ]
+     },
+     {
+      "Id": "3294640862",
+      "Name": "Play_17_good_side_wins",
+      "ObjectPath": "\\Events\\SFX\\Play_17_good_side_wins",
+      "GUID": "{F4354C92-649B-43CE-BD0F-FE5AC07CE2C4}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "1063177679"
+       }
+      ]
+     },
+     {
+      "Id": "2958835227",
+      "Name": "Play_18_sus_side_wins",
+      "ObjectPath": "\\Events\\SFX\\Play_18_sus_side_wins",
+      "GUID": "{C8ECFE9F-C3D1-4111-9367-1C9723D89896}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "1011186403"
+       }
+      ]
+     },
+     {
+      "Id": "4146907124",
+      "Name": "Play_19_round_start",
+      "ObjectPath": "\\Events\\SFX\\Play_19_round_start",
+      "GUID": "{43718382-5B69-4472-9602-070D4ED2FFCD}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "780665078"
+       }
+      ]
+     },
+     {
+      "Id": "4247663943",
+      "Name": "Play_20_round_end",
+      "ObjectPath": "\\Events\\SFX\\Play_20_round_end",
+      "GUID": "{DAD7F057-1E8F-4CFC-8D45-8E225A48757E}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "499636826"
+       }
+      ]
+     },
+     {
+      "Id": "1479119223",
+      "Name": "Play_21_build_voting_time_start",
+      "ObjectPath": "\\Events\\SFX\\Play_21_build_voting_time_start",
+      "GUID": "{8768314E-3BAF-4F47-B50E-0C2A9BD85EDC}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "207307364"
+       }
+      ]
+     },
+     {
+      "Id": "1864969855",
+      "Name": "Play_22_build_voting_time_end",
+      "ObjectPath": "\\Events\\SFX\\Play_22_build_voting_time_end",
+      "GUID": "{8272AA82-DA71-40E2-B1DE-449ADBCDC4B3}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "738084105"
+       }
+      ]
+     },
+     {
+      "Id": "274437310",
+      "Name": "Play_23_sus_voting_time_start",
+      "ObjectPath": "\\Events\\SFX\\Play_23_sus_voting_time_start",
+      "GUID": "{9F5DD176-9507-4DF7-A1F5-66966C4A6BB3}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "759092647"
+       }
+      ]
+     },
+     {
+      "Id": "2915456994",
+      "Name": "Play_24_sus_voting_time_end",
+      "ObjectPath": "\\Events\\SFX\\Play_24_sus_voting_time_end",
+      "GUID": "{92709ACB-BD61-4CE4-A640-6A2E78A5F456}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "970750791"
+       }
+      ]
+     },
+     {
+      "Id": "666741847",
+      "Name": "Play_25_timer_ticking",
+      "ObjectPath": "\\Events\\SFX\\Play_25_timer_ticking",
+      "GUID": "{89817256-2421-4127-A40C-CFF1F58459C3}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "372164354"
+       }
+      ]
+     },
+     {
+      "Id": "757958839",
+      "Name": "Play_26_creatures_walking_around",
+      "ObjectPath": "\\Events\\SFX\\Play_26_creatures_walking_around",
+      "GUID": "{B6B8833E-328E-466B-843A-7156DC55F079}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "851588701"
+       }
+      ]
+     },
+     {
+      "Id": "50002245",
+      "Name": "Play_27_look_at_Bumbi_island",
+      "ObjectPath": "\\Events\\SFX\\Play_27_look_at_Bumbi_island",
+      "GUID": "{8A31FE4E-5162-4223-ACCA-F615DBC3873E}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "1067414358"
+       }
+      ]
+     },
+     {
+      "Id": "3976943196",
+      "Name": "Play_28_look_at_Lyki_island",
+      "ObjectPath": "\\Events\\SFX\\Play_28_look_at_Lyki_island",
+      "GUID": "{E770587C-E5CB-48E8-A617-A5F23F435E40}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "251288576"
+       }
+      ]
+     },
+     {
+      "Id": "1078774477",
+      "Name": "Play_29_look_at_Pygin_island",
+      "ObjectPath": "\\Events\\SFX\\Play_29_look_at_Pygin_island",
+      "GUID": "{98E86290-30F3-43BC-B80B-FF1708F53CE4}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "137118093"
+       }
+      ]
+     },
+     {
+      "Id": "2485826128",
+      "Name": "Play_2_shared_goal_progresses",
+      "ObjectPath": "\\Events\\SFX\\Play_2_shared_goal_progresses",
+      "GUID": "{BEFBEBEC-F368-47F5-8CCD-E7647AA1F187}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "335959964"
+       }
+      ]
+     },
+     {
+      "Id": "1613368310",
+      "Name": "Play_30_look_at_Gumbi_island",
+      "ObjectPath": "\\Events\\SFX\\Play_30_look_at_Gumbi_island",
+      "GUID": "{89F34CA7-8253-4C99-86D5-7DF34246468B}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "185291143"
+       }
+      ]
+     },
+     {
+      "Id": "2470008069",
+      "Name": "Play_31_look_at_Seltas_island",
+      "ObjectPath": "\\Events\\SFX\\Play_31_look_at_Seltas_island",
+      "GUID": "{2234E341-88E1-4289-B56D-D71415D85F03}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "35627516"
+       }
+      ]
+     },
+     {
+      "Id": "1506025282",
+      "Name": "Play_32_look_at_PomPom_island",
+      "ObjectPath": "\\Events\\SFX\\Play_32_look_at_PomPom_island",
+      "GUID": "{DC38CE09-DF2B-4575-B587-2CFAB2D42C1E}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "315981561"
+       }
+      ]
+     },
+     {
+      "Id": "2064121255",
+      "Name": "Play_33_drop_building",
+      "ObjectPath": "\\Events\\SFX\\Play_33_drop_building",
+      "GUID": "{0D14DF35-64F9-4338-810E-07E932BD0F62}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "18644980"
+       }
+      ]
+     },
+     {
+      "Id": "3386066630",
+      "Name": "Play_34_opening_dropdown",
+      "ObjectPath": "\\Events\\SFX\\Play_34_opening_dropdown",
+      "GUID": "{3A08F750-6519-4E2D-A718-DEAA845FD8A7}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "141931726"
+       }
+      ]
+     },
+     {
+      "Id": "3745297963",
+      "Name": "Play_35_number_ticker",
+      "ObjectPath": "\\Events\\SFX\\Play_35_number_ticker",
+      "GUID": "{4725FF43-205E-4125-BDFB-38735E8DB9F4}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "350097180"
+       }
+      ]
+     },
+     {
+      "Id": "376480983",
+      "Name": "Play_36_confirm_button",
+      "ObjectPath": "\\Events\\SFX\\Play_36_confirm_button",
+      "GUID": "{FA4C063F-D782-428C-B12A-FE45E8F111DF}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "309668760"
+       }
+      ]
+     },
+     {
+      "Id": "1425015820",
+      "Name": "Play_37_vote_sus_button",
+      "ObjectPath": "\\Events\\SFX\\Play_37_vote_sus_button",
+      "GUID": "{E07BA331-5349-4A96-84C2-8952C01E65E1}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "61599083"
+       }
+      ]
+     },
+     {
+      "Id": "1451121811",
+      "Name": "Play_38_next_island",
+      "ObjectPath": "\\Events\\SFX\\Play_38_next_island",
+      "GUID": "{5F6DBAF3-E1BB-4EE1-838F-8EFA0F816E7E}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "482931993"
+       }
+      ]
+     },
+     {
+      "Id": "4041716596",
+      "Name": "Play_39_pause_button",
+      "ObjectPath": "\\Events\\SFX\\Play_39_pause_button",
+      "GUID": "{FB52143E-C978-4181-A972-779743AFB938}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "255385518"
+       }
+      ]
+     },
+     {
+      "Id": "2943307134",
+      "Name": "Play_3_general_button_click",
+      "ObjectPath": "\\Events\\SFX\\Play_3_general_button_click",
+      "GUID": "{E9534663-4C19-48D6-A02B-2092636C5A88}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "127743887"
+       }
+      ]
+     },
+     {
+      "Id": "1770083352",
+      "Name": "Play_40_main_menu_nav_buttons",
+      "ObjectPath": "\\Events\\SFX\\Play_40_main_menu_nav_buttons",
+      "GUID": "{5F2ED18F-29B2-4AA1-9934-3EC61907F9A5}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "828528024"
+       }
+      ]
+     },
+     {
+      "Id": "2053117463",
+      "Name": "Play_4_popup_opens",
+      "ObjectPath": "\\Events\\SFX\\Play_4_popup_opens",
+      "GUID": "{1C1BF9AB-72EF-484A-A9E0-BC39EEED1339}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "234880162"
+       }
+      ]
+     },
+     {
+      "Id": "1133091123",
+      "Name": "Play_5_Bumbi_joins",
+      "ObjectPath": "\\Events\\SFX\\Play_5_Bumbi_joins",
+      "GUID": "{4348762A-D4F8-446A-AEB8-FDBE87AB9B93}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "773598734"
+       }
+      ]
+     },
+     {
+      "Id": "3514254361",
+      "Name": "Play_6_Bumbi_leaves",
+      "ObjectPath": "\\Events\\SFX\\Play_6_Bumbi_leaves",
+      "GUID": "{71E666DF-9CD5-4DDF-9AE3-E67D0EBA3F44}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "825526484"
+       }
+      ]
+     },
+     {
+      "Id": "4122580151",
+      "Name": "Play_7_Lyki_joins",
+      "ObjectPath": "\\Events\\SFX\\Play_7_Lyki_joins",
+      "GUID": "{ABBBB1AA-E2FA-4D62-81E9-7B008E50C308}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "16139638"
+       }
+      ]
+     },
+     {
+      "Id": "3610975843",
+      "Name": "Play_8_Lyki_leaves",
+      "ObjectPath": "\\Events\\SFX\\Play_8_Lyki_leaves",
+      "GUID": "{020EC63D-4BFA-4396-B20B-C153A5441107}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "1013825066"
+       }
+      ]
+     },
+     {
+      "Id": "2407941505",
+      "Name": "Play_9_Pigyn_joins",
+      "ObjectPath": "\\Events\\SFX\\Play_9_Pigyn_joins",
+      "GUID": "{A75183C8-FC30-4423-90CC-09DC6F101A11}",
+      "DurationType": "OneShot",
+      "DurationMin": "0.91216666",
+      "DurationMax": "0.91216666",
+      "MediaRefs": [
+       {
+        "Id": "982263358"
+       }
+      ]
+     },
+     {
+      "Id": "3154778667",
+      "Name": "Play_ambience_good_loopable",
+      "ObjectPath": "\\Events\\Music\\Play_ambience_good_loopable",
+      "GUID": "{E8D4DEB5-00D5-4ECC-8A44-EE8B43CC5772}",
+      "DurationType": "OneShot",
+      "DurationMin": "134.75226",
+      "DurationMax": "134.75226",
+      "MediaRefs": [
+       {
+        "Id": "76452907"
+       }
+      ]
+     },
+     {
+      "Id": "859269557",
+      "Name": "Play_ambience_sus_loopable",
+      "ObjectPath": "\\Events\\Music\\Play_ambience_sus_loopable",
+      "GUID": "{01B01DB4-15D4-4C1B-A169-F9C5EDB85FD7}",
+      "DurationType": "OneShot",
+      "DurationMin": "74.594604",
+      "DurationMax": "74.594604",
+      "MediaRefs": [
+       {
+        "Id": "200911609"
+       }
+      ]
+     },
+     {
+      "Id": "3296322481",
+      "Name": "Play_soundtrack_good_loopable",
+      "ObjectPath": "\\Events\\Music\\Play_soundtrack_good_loopable",
+      "GUID": "{24757AC4-B25F-45D2-A548-DEECD9E82A01}",
+      "DurationType": "OneShot",
+      "DurationMin": "169.36938",
+      "DurationMax": "169.36938",
+      "MediaRefs": [
+       {
+        "Id": "788463852"
+       }
+      ]
+     },
+     {
+      "Id": "1025195475",
+      "Name": "Play_soundtrack_sus_loopable",
+      "ObjectPath": "\\Events\\Music\\Play_soundtrack_sus_loopable",
+      "GUID": "{15782164-F167-470F-A0D5-F3ABC7780653}",
+      "DurationType": "OneShot",
+      "DurationMin": "169.36938",
+      "DurationMax": "169.36938",
+      "MediaRefs": [
+       {
+        "Id": "585474080"
+       }
+      ]
+     },
+     {
+      "Id": "1713510733",
+      "Name": "Stop_ambience_good_loopable",
+      "ObjectPath": "\\Events\\Music\\Stop_ambience_good_loopable",
+      "GUID": "{200135EB-7801-4144-87EB-CBB0AA0C7C8C}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     },
+     {
+      "Id": "3177282575",
+      "Name": "Stop_ambience_sus_loopable",
+      "ObjectPath": "\\Events\\Music\\Stop_ambience_sus_loopable",
+      "GUID": "{6581D2CD-42CD-4DB5-B751-0C2CD4DD116E}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     },
+     {
+      "Id": "1256006023",
+      "Name": "Stop_soundtrack_good_loopable",
+      "ObjectPath": "\\Events\\Music\\Stop_soundtrack_good_loopable",
+      "GUID": "{E7C6C1A2-5E49-44E9-9F65-7DA9C13A1D12}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     },
+     {
+      "Id": "2849073313",
+      "Name": "Stop_soundtrack_sus_loopable",
+      "ObjectPath": "\\Events\\Music\\Stop_soundtrack_sus_loopable",
+      "GUID": "{0687AE61-F883-4C5A-9989-C4888398F20D}",
+      "MaxAttenuation": "0",
+      "DurationType": "OneShot",
+      "DurationMin": "0",
+      "DurationMax": "0"
+     }
+    ]
+   }
+  ],
+  "FileHash": "{AA2C3C83-25A5-DCF3-37E9-BC4C976362E0}"
+ }
+}
