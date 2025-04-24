@@ -12,6 +12,7 @@ public class AIConfigData : ScriptableObject
     [SerializeField] private AIPetitionPhaseData AIPetitionPhase; 
     [SerializeField] private AIVotePhaseData AIVotePhase; 
     [SerializeField] private AIAccusationPhaseData AIAccusationPhase;
+    [field: SerializeField] public AIResourcesEstimatorData ResourcesEstimator { get; private set; }
 
 
     public bool LogActions = true;
