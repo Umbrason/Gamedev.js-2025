@@ -36,7 +36,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
     {
         SubphaseStart = Time.unscaledTime;
         Duration = AccusationDuration;
-        if(Duration <= 0) 
+        if(TimeRemaining <= 0) Accuse(null);
         yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
 
         var accusationOrder = new Dictionary<PlayerID, float>();
