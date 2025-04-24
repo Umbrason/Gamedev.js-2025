@@ -36,4 +36,9 @@ public class PhaseCountdown : MonoBehaviour
         Progress.Invoke(_phase.Progress);
         TimeRemaining.Invoke(Mathf.Max(Mathf.CeilToInt(_phase.TimeRemaining), 0).ToString());
     }
+
+    public void SkipPhase()
+    {
+        // TODO: skip btn implementation
+    }
 }

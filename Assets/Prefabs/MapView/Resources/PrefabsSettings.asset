@@ -14,12 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tilesPrefabs:
   - {fileID: 0}
-  - {fileID: 2342572894568158351, guid: 9d95d7b7ef4817d4f9dc0c41e5f43de2, type: 3}
-  - {fileID: 2342572894568158351, guid: 591baddaa34d0a9419644dbd79328ffc, type: 3}
-  - {fileID: 2342572894568158351, guid: 4f2be4da8601cf24f982c6f2557f40a4, type: 3}
-  - {fileID: 2342572894568158351, guid: 4ca4ee3505d6e1e448fe8a9b1d4c6897, type: 3}
-  - {fileID: 2342572894568158351, guid: b20d4f6a77d5aed4880f37bd53bf0a10, type: 3}
-  - {fileID: 2342572894568158351, guid: 095582031664a6e439e2eac2e75c245d, type: 3}
+  - {fileID: 8343872988606774381, guid: 3080faa17ddc7ba3d9848ee0a90bf720, type: 3}
+  - {fileID: 8343872988606774381, guid: 55162ab83b530e1f3b947b3b34326acf, type: 3}
+  - {fileID: 8343872988606774381, guid: 824528aeaff5bed99a125078da9a59ed, type: 3}
+  - {fileID: 8343872988606774381, guid: 69dca26643b28fde38e658b9587bcbc7, type: 3}
+  - {fileID: 8343872988606774381, guid: 892fee28a583c80c19c117c0cfd262a8, type: 3}
+  - {fileID: 8343872988606774381, guid: 7a1513a20eb4c0f298629de862f65269, type: 3}
   buildingsPrefabs:
   - {fileID: 0}
   - {fileID: 4567309227084850141, guid: 84f9e2051dcb78c4a9fc5adcb5b6ec7f, type: 3}

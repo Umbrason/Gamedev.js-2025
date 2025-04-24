@@ -6,7 +6,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] private LoadScenes sceneLoader;
 
-
+    
     public void BtnPlay()
     {
         // show Singleplayer/Multiplayer options using DoTweens
@@ -21,6 +21,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void BtnQuit()
     {
+        Application.OpenURL("https://www.wikihow.com/Close-Tabs");
         Application.Quit();
     }
 
