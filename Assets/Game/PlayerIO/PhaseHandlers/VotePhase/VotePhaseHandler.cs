@@ -8,15 +8,16 @@ using UnityEngine.UI;
 public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 {
     [SerializeField] private TMP_Text buildingNameText;
-    [SerializeField] private TMP_Text resourceSourcesText;
     [SerializeField] private Canvas canvas;
     [SerializeField] private BuildingView buildingPreview;
     [SerializeField] private PlayerDisplay playerDisplayProvider;
     [SerializeField] private PlayerIslandViewer islandViewer;
-    [SerializeField] private List<Button> voteBtns;
+    [SerializeField] private ResourceSourceDisplay resourceSourceDisplay;
+    [SerializeField] private GameObject Buttons;
 
     [Header("VoteDisplay")]
     [SerializeField] private Transform voteDisplayParent;
+    private List<PlayerVoteDisplay> instances = new();
     [SerializeField] private PlayerVoteDisplay voteDisplayPrefab;
     [SerializeField] private GameObject votedAccept, votedRefuse;
 
@@ -28,26 +29,33 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     {
         Phase.OnPetitionChanged += PetitionChanged;
         Phase.OnPetitionDecided += PetitionDecided;
-        Phase.OnVoted += Voted;
+        Phase.OnVoted += OnVoted;
         canvas.gameObject.SetActive(true);
         phaseActive = true;
+        voteDisplayParent.gameObject.SetActive(false);
     }
     public override void OnPhaseExited()
     {
         SetDisplay(PlayerID.None);
         Phase.OnPetitionChanged -= PetitionChanged;
         Phase.OnPetitionDecided -= PetitionDecided;
-        Phase.OnVoted -= Voted;
+        Phase.OnVoted -= OnVoted;
         canvas.gameObject.SetActive(false);
         phaseActive = false;
+        Buttons.gameObject.SetActive(true);
+        voteDisplayParent.gameObject.SetActive(false);
     }
     #endregion
 
     private void PetitionChanged()
     {
-        voteDisplayParent.DeleteChildren();
-        for (int i = 0; i < voteBtns.Count; i++) voteBtns[i].interactable = true;
-
+        foreach (var instance in instances)
+            Destroy(instance.gameObject);
+        instances.Clear();
+        votedAccept.SetActive(false);
+        votedRefuse.SetActive(false);
+        Buttons.gameObject.SetActive(true);
+        voteDisplayParent.gameObject.SetActive(false);
         var hasPetition = Phase.CurrentPetition != null;
         canvas.gameObject.SetActive(hasPetition);
         buildingPreview.gameObject.SetActive(hasPetition);
@@ -57,14 +65,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         buildingPreview.Data = Phase.CurrentPetition.Building;
         var resourceSources = Phase.CurrentPetition.ResourceSources;
         // TODO: replace this with icons
-        var resourceSourceTextLines = new List<string>();
-        foreach (var (playerID, resources) in resourceSources)
-        {
-            var resStrings = resources.Select((pair) => $"{pair.Value} {pair.Key}").ToList();
-            var text = $"{Game.PlayerData[playerID].Faction}: {string.Join(", ", resStrings)}";
-            resourceSourceTextLines.Add(text);
-        }
-        resourceSourcesText.text = string.Join("\n", resourceSourceTextLines);
+        resourceSourceDisplay.Sources = resourceSources;
         buildingPreview.transform.position = Phase.CurrentPetition.Position.WorldPositionCenter;
     }
 
@@ -89,11 +90,12 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 
     }
 
-    private void Voted(PlayerID id, int vote)
+    private void OnVoted(PlayerID id, int vote)
     {
         // display vote player with icon
-        PlayerVoteDisplay go = Instantiate(voteDisplayPrefab, voteDisplayParent);
-        go.Setup(Game.PlayerData[id].Faction, vote);
+        PlayerVoteDisplay votedDisplay = Instantiate(voteDisplayPrefab, voteDisplayParent);
+        instances.Add(votedDisplay);
+        votedDisplay.Setup(Game.PlayerData[id].Faction, vote);
     }
 
     // TODO: @Cathy: do things with buttons maybe idk
@@ -101,8 +103,9 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     {
         if (!phaseActive) return;
         Phase.SubmitVote(vote);
-        for (int i = 0; i < voteBtns.Count; i++) voteBtns[i].interactable = false;
         votedAccept.SetActive(vote > 0);
         votedRefuse.SetActive(vote < 0);
+        Buttons.gameObject.SetActive(false);
+        voteDisplayParent.gameObject.SetActive(true);
     }
 }

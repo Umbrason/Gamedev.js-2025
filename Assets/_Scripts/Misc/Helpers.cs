@@ -19,7 +19,7 @@ public static class Helpers
         return list[roll];
     }
 
-    
+
     //* The following are taken from https://youtu.be/JOABOQMurZo
     private static Camera camera;
     public static Camera Camera
@@ -57,6 +57,7 @@ public static class Helpers
         return result;
     }
 
+    [System.Obsolete("Please do not use this style of clearing children. You never know what other objects might be children of the thing you call this on")]
     public static void DeleteChildren(this Transform t)
     {
         foreach (Transform child in t) Object.Destroy(child.gameObject);

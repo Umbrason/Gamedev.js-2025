@@ -36,7 +36,7 @@ public class VotePhase : IGamePhase
         foreach (var playerID in PetitionOrder)
         {
             var petition = Petitions[playerID];
-            if (petition == null) continue;
+            if (petition == null || petition.Building == Building.None) continue;
             CurrentPetition = petition;
             OnPetitionChanged?.Invoke();
 
@@ -49,7 +49,6 @@ public class VotePhase : IGamePhase
             yield return new WaitUntil(() => CurrentVotes.Count >= NetworkUtils.playerCount);
             Game.NetworkChannel.StopListening(SubmitVoteHeader);
 
-            //TODO: actually do something with the vote here
             var sum = CurrentVotes.Sum(v => v.Value);
             OnPetitionDecided?.Invoke(sum > 0);
 
