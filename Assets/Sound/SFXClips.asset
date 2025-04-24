@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc43c4d9cf5b4e25a8940a05ed8242e, type: 3}
+  m_Name: SFXClips
+  m_EditorClassIdentifier: 
+  sharedGoalProgress: {fileID: 8300000, guid: 256689ed666444c3eaf654c671d23c94, type: 3}
+  generalButtonClick: {fileID: 8300000, guid: a437579665d934f5b84bb6b639cc2320, type: 3}
+  popupOpens: {fileID: 8300000, guid: c2e40adc11c134289b7f943c8c367f22, type: 3}
+  bumbiJoins: {fileID: 8300000, guid: 92979cd811aa24223a8bd3e0e3b8e58b, type: 3}
+  bumbiLeaves: {fileID: 8300000, guid: 84178e089be554aa0a3ac4dadac715a8, type: 3}
+  lykiJoins: {fileID: 8300000, guid: 75a9fb0423a414d4eae12fdfc6503e27, type: 3}
+  lykiLeaves: {fileID: 8300000, guid: f26c62680d97548f094c74bdaf3a0e76, type: 3}
+  pigynJoins: {fileID: 8300000, guid: c85aa8b35e29b47eb994abafe9bc40ba, type: 3}
+  pigynLeaves: {fileID: 8300000, guid: a3294e192dfac4e2ba72b89a327e42ae, type: 3}
+  gumbiJoins: {fileID: 8300000, guid: 684597035863840b1a2c07eee1927109, type: 3}
+  gumbiLeaves: {fileID: 8300000, guid: 3fb5d79d21a33486c81a93b8bc498562, type: 3}
+  seltasJoins: {fileID: 8300000, guid: d72af716a9683462cbc9fbb4470160ea, type: 3}
+  seltasLeaves: {fileID: 8300000, guid: bf1ccf7efc19849f89a3e48dc48b44a7, type: 3}
+  pomPomJoins: {fileID: 8300000, guid: 8a091f60c915f408a88db75e9cdc8f5b, type: 3}
+  pomPomLeaves: {fileID: 8300000, guid: eeb8d0da9efe741358b233b3a5e4feae, type: 3}
+  goodSideWins: {fileID: 8300000, guid: 13992bcddfcb64135836589c7c9a5b5a, type: 3}
+  susSideWins: {fileID: 8300000, guid: cd6824bb69e6f4601818ce5a9760f28f, type: 3}
+  roundStart: {fileID: 8300000, guid: c9a193ef057874ce091da3823d35187f, type: 3}
+  roundEnd: {fileID: 8300000, guid: 39149fc10d601463db5d712c42f99edd, type: 3}
+  buildVotingTimeStart: {fileID: 8300000, guid: 8db9fd500debf48b68fd61775f0ecec2, type: 3}
+  buildVotingTimeEnd: {fileID: 8300000, guid: 0ccec2d9f29494a5bb7d4f1a25d687d0, type: 3}
+  susVotingTimeStart: {fileID: 8300000, guid: 962a16b4a2c374db78ab7506966f23dd, type: 3}
+  susVotingTimeEnd: {fileID: 8300000, guid: 9c722159d949e4cf594dee92e2abe590, type: 3}
+  timerTicking: {fileID: 8300000, guid: bfc06ef887900491cbd3885d8ab7c5bf, type: 3}
+  creaturesWalking: {fileID: 8300000, guid: 1a918b371c69a47eaa94f0ad1cb6533b, type: 3}
+  lookAtBumbiIsland: {fileID: 8300000, guid: f1d4c3bde940647e3bbe10e0c45bb593, type: 3}
+  lookAtLykiIsland: {fileID: 8300000, guid: 95d0a20cc4a384dff923db04646a7417, type: 3}
+  lookAtPigynIsland: {fileID: 8300000, guid: d836e8051c45348f58b9143cceb09030, type: 3}
+  lookAtGumbiIsland: {fileID: 8300000, guid: a27d7b6b65df343a085fb2531362b6c9, type: 3}
+  lookAtSeltasIsland: {fileID: 8300000, guid: 9006c28299a0844c89ce402765a33a46, type: 3}
+  lookAtPomPomIsland: {fileID: 8300000, guid: 0e9124800f17a4925bb5d954260054b0, type: 3}
+  dropBuilding: {fileID: 8300000, guid: 90db77bb1c6b64a5b8a17ee1d57ad5a9, type: 3}
+  openingDropdown: {fileID: 8300000, guid: f9312bea54b2745db8a0c15e09967cf6, type: 3}
+  numberTicker: {fileID: 8300000, guid: 5ef757e05dad84866a6dd1b6dd018e5e, type: 3}
+  confirmButton: {fileID: 8300000, guid: adc6f1359348449acb86d85d8910588e, type: 3}
+  voteSusButton: {fileID: 8300000, guid: 7d7cb03ecb5204e53aa58782c76d6c83, type: 3}
+  nextIsland: {fileID: 8300000, guid: 5fe5332e497b9440e8721cdf09e291db, type: 3}
+  pauseButton: {fileID: 8300000, guid: a49d4e0eb730d40c5b4a92a4386c6455, type: 3}
+  mainMenuNavButtons: {fileID: 8300000, guid: b37be4c3c596d4beb875f94f7726306f, type: 3}

@@ -566,6 +566,7 @@ GameObject:
   - component: {fileID: 382271132}
   - component: {fileID: 382271131}
   - component: {fileID: 382271130}
+  - component: {fileID: 382271133}
   m_Layer: 5
   m_Name: ConfirmJoin_btn
   m_TagString: Untagged
@@ -675,6 +676,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 382271128}
   m_CullTransparentMesh: 1
+--- !u!114 &382271133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382271128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: 0
 --- !u!1 &487874189
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +890,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5e76b5fd05a949afb38fd125d420192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
+  musicClips: {fileID: 11400000, guid: 64789ead2b3de464d81a4deac9938190, type: 2}
+  sfxClips: {fileID: 11400000, guid: 2d427dafb5d204182bb9e9a03b9629a5, type: 2}
 --- !u!1 &491970263
 GameObject:
   m_ObjectHideFlags: 0
@@ -941,6 +957,7 @@ GameObject:
   - component: {fileID: 540057298}
   - component: {fileID: 540057297}
   - component: {fileID: 540057296}
+  - component: {fileID: 540057299}
   m_Layer: 5
   m_Name: CreateRoom_btn
   m_TagString: Untagged
@@ -1050,6 +1067,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540057294}
   m_CullTransparentMesh: 1
+--- !u!114 &540057299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540057294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: 0
 --- !u!1 &548652060
 GameObject:
   m_ObjectHideFlags: 0
@@ -2426,6 +2456,7 @@ GameObject:
   - component: {fileID: 939946575}
   - component: {fileID: 939946574}
   - component: {fileID: 939946573}
+  - component: {fileID: 939946576}
   m_Layer: 5
   m_Name: LeaveLobby_btn
   m_TagString: Untagged
@@ -2535,6 +2566,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939946571}
   m_CullTransparentMesh: 1
+--- !u!114 &939946576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939946571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEffect: 0
 --- !u!1 &961000226
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,6 +3912,7 @@ GameObject:
   - component: {fileID: 1695133240}
   - component: {fileID: 1695133239}
   - component: {fileID: 1695133238}
+  - component: {fileID: 1695133241}
   m_Layer: 5
   m_Name: StartGame_btn
   m_TagString: Untagged
@@ -3977,63 +4022,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695133236}
   m_CullTransparentMesh: 1
---- !u!1 &1730940447
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1730940449}
-  - component: {fileID: 1730940448}
-  m_Layer: 0
-  m_Name: WwiseGlobal
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1730940448
+--- !u!114 &1695133241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730940447}
+  m_GameObject: {fileID: 1695133236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5fc9a1c90b9d4ac4a1171c7d3e4d40a, type: 3}
+  m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 03c511a1c3f4b4e058db13dbc7de136c, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
---- !u!4 &1730940449
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730940447}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  soundEffect: 0
 --- !u!1 &1858634088
 GameObject:
   m_ObjectHideFlags: 0
@@ -4544,6 +4545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4f23699534ba43b5b758fd07509a98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  akGameObjectID: 18446744073709551615
+  EmittersToStartListeningTo: []
+  EmittersToStopListeningTo: []
   isDefaultListener: 1
   bOverrideScalingFactor: 0
   scalingFactor: -1
@@ -4565,11 +4569,13 @@ MonoBehaviour:
     useDefaultListeners: 1
   isEnvironmentAware: 0
   isStaticObject: 0
+  m_Collider: {fileID: 0}
   usePositionOffsetData: 0
   m_positionOffsetData:
     KeepMe: 0
     positionOffset: {x: 0, y: 0, z: 0}
   scalingFactor: 1
+  isRegistered: 0
   m_posOffsetData: {fileID: 0}
   listenerMask: 1
 --- !u!1660057539 &9223372036854775807
@@ -4582,5 +4588,4 @@ SceneRoots:
   - {fileID: 639576592}
   - {fileID: 719505601}
   - {fileID: 1225255814}
-  - {fileID: 1730940449}
   - {fileID: 488469390}

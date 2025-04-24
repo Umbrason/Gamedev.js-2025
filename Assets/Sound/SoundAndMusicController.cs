@@ -1,27 +1,65 @@
+using UnityEngine;
+
 public class SoundAndMusicController : Singleton<SoundAndMusicController>
 {
-    private string soundbankName = "MainSoundbank";
+    [SerializeField]
+    private MusicClipCollection musicClips;
+    public MusicClipCollection MusicClips { get => musicClips; }
+    [SerializeField]
+    private SFXClipCollection sfxClips;
+    public SFXClipCollection SfxClips { get => sfxClips; }
+
+    private AudioSource musicSource;
+    private AudioSource sfxSource;
 
     private void Start()
     {
-        dontDestroyOnLoad = true;
-        LoadBank();
+        musicSource = gameObject.AddComponent<AudioSource>();
+        sfxSource = gameObject.AddComponent<AudioSource>();
 
-        PostEvent2D(WwiseSoundEvents.BuildVotingTimeEnd);
+        musicSource.loop = true;
+        sfxSource.loop = false;
+
+        musicSource.playOnAwake = false;
+        sfxSource.playOnAwake = false;
+
+        EnsureSingleAudioListener();
     }
 
-    private void LoadBank()
+    public void PlayMusic(AudioClip clip)
     {
-        AkBankManager.LoadBank(soundbankName, true, true);
+        if (clip == null) return;
+        musicSource.clip = clip;
+        musicSource.Play();
     }
 
-    public void PostEvent2D(string eventName)
+    public void PlaySFX(AudioClip clip)
     {
-        if (string.IsNullOrEmpty(eventName))
+        if (clip == null) return;
+        sfxSource.PlayOneShot(clip);
+    }
+
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
+
+    private void EnsureSingleAudioListener()
+    {
+        AudioListener[] audioListeners = FindObjectsOfType<AudioListener>();
+
+        if (audioListeners.Length > 1)
         {
-            return;
+            for (int i = 1; i < audioListeners.Length; i++)
+            {
+                Destroy(audioListeners[i]);
+            }
         }
 
-        AkUnitySoundEngine.PostEvent(eventName, gameObject);
+        // Wenn kein AudioListener vorhanden ist, einen hinzufügen (optional)
+        if (audioListeners.Length == 0)
+        {
+            gameObject.AddComponent<AudioListener>();
+        }
     }
 }
