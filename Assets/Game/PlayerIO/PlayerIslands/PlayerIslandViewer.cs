@@ -30,10 +30,10 @@ public class PlayerIslandViewer : MonoBehaviour
             if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged -= UpdateIsland;
             m_TargetPlayer = value;
             if (m_TargetPlayer != PlayerID.None) Game.PlayerData[m_TargetPlayer].OnIslandChanged += UpdateIsland;
-            var playerFaction = Game.PlayerData[value].Faction;
+            var playerFaction = Game.PlayerData.GetValueOrDefault(value)?.Faction;
             foreach (var (id, instance) in viewInstances)
             {
-                instance.gameObject.SetActive(id == Game.PlayerData[value].Faction);
+                instance.gameObject.SetActive(id == playerFaction);
                 if (id == playerFaction) instance.Data = Game.PlayerData[value].Island;
             }
         }

@@ -7,7 +7,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game { private get; set; }
 
-    public float TimeRemaining => Time.unscaledTime - SubphaseStart;
+    public float TimeRemaining => Mathf.Max(0, Duration - (Time.unscaledTime - SubphaseStart));
     private float SubphaseStart;
     public float Duration { get; private set; }
 
@@ -36,7 +36,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
     {
         SubphaseStart = Time.unscaledTime;
         Duration = AccusationDuration;
-
+        if(Duration <= 0) 
         yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
 
         var accusationOrder = new Dictionary<PlayerID, float>();
