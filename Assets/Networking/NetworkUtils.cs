@@ -5,7 +5,7 @@ public static class NetworkUtils
 {
     public const int playerCount = 6;
 
-    public static bool DistributedRandomDecision(this INetworkChannel networkChannel, PlayerID ClientID, string header, ref Dictionary<PlayerID, float> results)
+    public static bool DistributedRandomDecision(this INetworkChannel networkChannel, string header, ref Dictionary<PlayerID, float> results)
     {
         if (results != null) return results.Count >= playerCount;
         var dict = new Dictionary<PlayerID, float>();
@@ -17,7 +17,7 @@ public static class NetworkUtils
             if (dict.Count >= playerCount) networkChannel.StopListening(header);
         }
         var value = UnityEngine.Random.value;
-        results[ClientID] = value;
+        results[networkChannel.PlayerID] = value;
         networkChannel.StartListening(header, ResultCallback);
         networkChannel.BroadcastMessage(header, value);
         return false;
@@ -49,8 +49,9 @@ public static class NetworkUtils
     }
 #endif
     private readonly static Dictionary<PlayerID, Dictionary<string, HashSet<PlayerID>>> ActiveSignals = new();
-    public static bool WaitForAllPlayersSignal(this INetworkChannel networkChannel, string header, PlayerID ClientID)
+    public static bool WaitForAllPlayersSignal(this INetworkChannel networkChannel, string header)
     {
+        var ClientID = networkChannel.PlayerID;
         var ActiveSignalsForNetworkChannel = ActiveSignals.GetValueOrDefault(ClientID) ?? (ActiveSignals[ClientID] = new());
         if (ActiveSignalsForNetworkChannel.ContainsKey(header))
         {

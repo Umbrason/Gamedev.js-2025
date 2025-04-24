@@ -27,11 +27,15 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
             Game.TransitionPhase(new GameOverPhase(BalancedTeamHasPriority ?
                                     (Game.BalancedFactionGoals.All(goal => goal.Complete) ? PlayerRole.Balanced : PlayerRole.Selfish) :
                                     (Game.SelfishFactionGoals.All(goal => goal.Complete) ? PlayerRole.Selfish : PlayerRole.Balanced)));
-        else Game.TransitionPhase(new PetitionPhase());
+        else Game.TransitionPhase(new AccusationPhase());
     }
 
     public IEnumerator OnExit()
     {
         yield return null;
     }
+
+    public void Skip() { }
+
+    public bool CanSkip() => false;
 }

@@ -25,7 +25,7 @@ public class VotePhase : IGamePhase
     public IEnumerator OnEnter()
     {
         var RandomPetitionIndexResults = (Dictionary<PlayerID, float>)null;
-        yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomPetitionOrderHeader, ref RandomPetitionIndexResults));
+        yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomPetitionOrderHeader, ref RandomPetitionIndexResults));
         PetitionOrder = RandomPetitionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key).ToList();
     }
 

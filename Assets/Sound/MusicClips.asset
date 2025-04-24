@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dea92fd9262943789769967436c09fb, type: 3}
+  m_Name: MusicClips
+  m_EditorClassIdentifier: 
+  ambienceGoodLoopable: {fileID: 8300000, guid: f72d2d86fe50347b4bfa17ca781f488b, type: 3}
+  ambienceSusLoopable: {fileID: 8300000, guid: ad3081e6e47954569a73dd52a86cbd65, type: 3}
+  soundtrackGoodLoopable: {fileID: 8300000, guid: a9e0a875545224e6d91407f2ecdb5e8c, type: 3}
+  soundtrackSusLoopable: {fileID: 8300000, guid: ae7c785e6f65d40c9a945733f43d67e7, type: 3}
