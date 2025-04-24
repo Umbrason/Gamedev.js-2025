@@ -1165,6 +1165,42 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5160486b93f1d0080bdd1e8adbd9e629, type: 2}
+    - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: far clip plane
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0.49056602
+      objectReference: {fileID: 0}
+    - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.33428144
+      objectReference: {fileID: 0}
+    - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0.21520111
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_Name
       value: 3DBackground
@@ -1555,6 +1591,8 @@ MonoBehaviour:
   moveAmount: 0.2
   smoothSpeed: 2
   moveThreshold: {x: 0.2, y: 0.15}
+  baseAspectRatio: 1.77
+  aspectOffsetMultiplier: 1
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,19 +2203,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fc9a1c90b9d4ac4a1171c7d3e4d40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 03c511a1c3f4b4e058db13dbc7de136c, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &1307873335
 Transform:
   m_ObjectHideFlags: 0
