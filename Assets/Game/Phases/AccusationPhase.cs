@@ -40,6 +40,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
         if (!Accusations.ContainsKey(Game.ClientID)) Accuse(null);
         Game.NetworkChannel.StartListening(AccusationMade, (message) => Accusations[message.sender] = (PlayerID[])message.content);
         yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
+        Game.NetworkChannel.StopListening(AccusationMade);
 
         var accusationOrder = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(AccusationsOrder, ref accusationOrder));
@@ -57,6 +58,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
             yield return new WaitUntil(() => TimeRemaining <= 0 || currentVotes.ContainsKey(Game.ClientID));
             if (!currentVotes.ContainsKey(Game.ClientID)) Vote(false);
             yield return new WaitUntil(() => currentVotes.Count >= NetworkUtils.playerCount);
+            Game.NetworkChannel.StopListening(ShareVoteHeader);
 
             if (currentVotes.Values.All(v => v))
                 Game.TransitionPhase(new GameOverPhase(AccusedPlayers.All(playerID => Game.PlayerData[playerID].Role == PlayerRole.Selfish) ? PlayerRole.Balanced : PlayerRole.Selfish));
@@ -68,7 +70,6 @@ public class AccusationPhase : IGamePhase, ITimedPhase
 
     public IEnumerator OnExit()
     {
-        Game.NetworkChannel.StopListening(ShareVoteHeader);
         yield return null;
     }
 

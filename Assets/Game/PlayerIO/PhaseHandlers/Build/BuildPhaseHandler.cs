@@ -60,6 +60,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         Game.NetworkChannel.StopListening(VisitingHeader);
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
+        buildingMenu.gameObject.SetActive(false);
         VisitButtons.OnClick -= SetTargetPlayer;
         missionsDisplay.Hide();
         pledgeScreen.Hide();

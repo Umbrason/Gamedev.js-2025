@@ -31,6 +31,7 @@ public class PetitionPhaseHandler : GamePhaseHandler<PetitionPhase>
         SetTargetPlayer(Game.ClientID);
         buildingMenu.OnPlaceBuilding += CreatePetition;
         buildingMenu.CanBuildBuilding += _ => !Phase.ClientPetitionSubmitted;
+        buildingMenu.gameObject.SetActive(true);
         VisitButtons.OnClick += SetTargetPlayer;
         resourcePicker.Refresh();
         resourcePicker.OnResourceSourcesModified += petitionBuildingPreviewCostDisplay.Refresh;
