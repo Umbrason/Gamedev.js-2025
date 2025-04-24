@@ -1,4 +1,4 @@
-//#define JakobTest
+#define JakobTest
 
 using UnityEngine;
 using System.Collections;
@@ -198,14 +198,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                                 availableChannels.Enqueue(channels[(PlayerID)removed.player_gameID]);
                                 SceneManager.LoadScene("Main Menu");
 
-                                Debug.Log($"Spieler entfernt: {removed.player_name} (ID: {removed.player_gameID})");
+                                Debug.Log($"Player missing: {removed.player_name} (ID: {removed.player_gameID})");
 
                                 Destroy(gameObject);
                             }
-                        }
-                        else
-                        {
-                            Debug.Log("Keine Spieler wurden entfernt.");
                         }
                     }
 
@@ -216,7 +212,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 },
                 (errorMsg) =>
                 {
-                    Debug.LogError($"Fehler beim Abrufen der Spielerliste: {errorMsg}");
+                    Debug.LogError($"{errorMsg}");
                     retryCount++;
                     done = true;
                 }
@@ -230,14 +226,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (!success && retryCount < maxRetries)
             {
-                Debug.LogWarning($"Erneuter Versuch {retryCount}/{maxRetries}...");
+                Debug.LogWarning($"Reconnecting {retryCount}/{maxRetries}...");
                 yield return new WaitForSeconds(checkPlayerConnectedInterval); // optional kleine Pause zwischen Versuchen
             }
         }
 
         if (!success)
         {
-            Debug.LogError("Maximale Anzahl an Versuchen erreicht. Zurück zum Hauptmenü.");
+            Debug.LogError("Connecting lost. Game ending");
             SceneManager.LoadScene("Main Menu");
             Destroy(gameObject);
         }

@@ -23,6 +23,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
     public float AccusationVoteDuration = 30f;
     public void Accuse(PlayerID[] Accusation = null)
     {
+        if (Accusation == null) Accusation = new PlayerID[0];
         if (Accusations.ContainsKey(Game.ClientID)) return;
         Accusations[Game.ClientID] = Accusation;
         Game.NetworkChannel.BroadcastMessage(AccusationMade, Accusation);
