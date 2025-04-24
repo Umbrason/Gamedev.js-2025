@@ -39,9 +39,14 @@ public class AccusationPhase : IGamePhase, ITimedPhase
         Duration = AccusationDuration;
         yield return new WaitUntil(() => TimeRemaining <= 0 || Accusations.ContainsKey(Game.ClientID));
         if (!Accusations.ContainsKey(Game.ClientID)) Accuse(null);
-        Game.NetworkChannel.StartListening(AccusationMade, (message) => Accusations[message.sender] = (PlayerID[])message.content);
+        void OnMessageRecieved(NetworkMessage message)
+        {
+            Accusations[message.sender] = (PlayerID[])message.content;
+            if (Accusations.Count == NetworkUtils.playerCount)
+                Game.NetworkChannel.StopListening(AccusationMade);
+        }
+        Game.NetworkChannel.StartListening(AccusationMade, OnMessageRecieved);
         yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
-        Game.NetworkChannel.StopListening(AccusationMade);
 
         var accusationOrder = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(AccusationsOrder, ref accusationOrder));
