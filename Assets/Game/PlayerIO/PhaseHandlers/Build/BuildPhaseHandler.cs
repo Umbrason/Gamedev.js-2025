@@ -106,7 +106,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         visiting = newTargetPlayer != Game.ClientID && newTargetPlayer != PlayerID.None;
         var isClient = newTargetPlayer == Game.ClientID;
         var isAnyPlayer = newTargetPlayer != PlayerID.None;
-        var isOtherPlayer = isAnyPlayer && newTargetPlayer != Game.ClientID;
+        var isOtherPlayer = isAnyPlayer && !isClient;
 
         playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(newTargetPlayer)?.Faction ?? PlayerFaction.None;
 
@@ -114,7 +114,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         if (isOtherPlayer)
         {
             Game.NetworkChannel.SendMessage(VisitingHeader, false, currentTargetPlayer);
-            if (newTargetPlayer != PlayerID.None && newTargetPlayer != Game.ClientID)
+            if (isOtherPlayer)
                 Game.NetworkChannel.SendMessage(VisitingHeader, true, newTargetPlayer);
         }
         currentTargetPlayer = newTargetPlayer;
