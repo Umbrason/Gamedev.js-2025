@@ -8,8 +8,15 @@ public class AIAccusationPhaseRandomData : AIAccusationPhaseData
 {
     [SerializeField, Range(0f,1f)] private float AccuseProbability = 0.01f;
     [SerializeField, Range(0f,1f)] private float AgreeProbability = 0.5f;
+
+    bool _voteStarted = false;
+    PlayerID[] _accusedPlayers = null;
+
     public override IEnumerator PlayingPhase(AccusationPhase Phase, AIPlayer AI)
     {
+        _voteStarted = false;
+        Phase.OnAccusationVoteStarted += OnAccusationVoteStarted;
+
         yield return new WaitForSeconds(AI.Config.ActionDelay);
 
         if (AccuseProbability > UnityEngine.Random.value)
@@ -34,9 +41,21 @@ public class AIAccusationPhaseRandomData : AIAccusationPhaseData
             Phase.Accuse(null);
         }
 
+        while (true)
+        {
+            yield return new WaitUntil(() => _voteStarted);
+            yield return new WaitForSeconds(AI.Config.ActionDelay);
 
-        bool vote = UnityEngine.Random.value <= AgreeProbability;
-        AI.Log("votes " + (vote ? "yes" : "no"));
-        Phase.Vote(vote);;
+            bool vote = UnityEngine.Random.value <= AgreeProbability;
+            AI.Log("votes " + (vote ? "yes" : "no"));
+            Phase.Vote(vote);
+        }
+
+    }
+
+    private void OnAccusationVoteStarted(PlayerID[] accusedPlayers)
+    {
+        _voteStarted = true;
+        _accusedPlayers = accusedPlayers;
     }
 }
