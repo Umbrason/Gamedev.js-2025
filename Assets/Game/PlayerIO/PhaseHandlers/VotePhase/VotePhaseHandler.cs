@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 {
@@ -12,6 +13,12 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     [SerializeField] private BuildingView buildingPreview;
     [SerializeField] private PlayerDisplay playerDisplayProvider;
     [SerializeField] private PlayerIslandViewer islandViewer;
+    [SerializeField] private List<Button> voteBtns;
+
+    [Header("VoteDisplay")]
+    [SerializeField] private Transform voteDisplayParent;
+    [SerializeField] private PlayerVoteDisplay voteDisplayPrefab;
+    [SerializeField] private GameObject votedAccept, votedRefuse;
 
     private bool phaseActive = false;
     void Start() => canvas.gameObject.SetActive(false);
@@ -21,6 +28,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     {
         Phase.OnPetitionChanged += PetitionChanged;
         Phase.OnPetitionDecided += PetitionDecided;
+        Phase.OnVoted += Voted;
         canvas.gameObject.SetActive(true);
         phaseActive = true;
     }
@@ -29,6 +37,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         SetDisplay(PlayerID.None);
         Phase.OnPetitionChanged -= PetitionChanged;
         Phase.OnPetitionDecided -= PetitionDecided;
+        Phase.OnVoted -= Voted;
         canvas.gameObject.SetActive(false);
         phaseActive = false;
     }
@@ -36,6 +45,9 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 
     private void PetitionChanged()
     {
+        voteDisplayParent.DeleteChildren();
+        for (int i = 0; i < voteBtns.Count; i++) voteBtns[i].interactable = true;
+
         var hasPetition = Phase.CurrentPetition != null;
         canvas.gameObject.SetActive(hasPetition);
         buildingPreview.gameObject.SetActive(hasPetition);
@@ -44,10 +56,11 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         buildingNameText.text = Phase.CurrentPetition.Building.ToString();
         buildingPreview.Data = Phase.CurrentPetition.Building;
         var resourceSources = Phase.CurrentPetition.ResourceSources;
+        // TODO: replace this with icons
         var resourceSourceTextLines = new List<string>();
         foreach (var (playerID, resources) in resourceSources)
         {
-            var resStrings = resources.Select((pair) => $"{pair.Value} {pair.Key}'s").ToList();
+            var resStrings = resources.Select((pair) => $"{pair.Value} {pair.Key}").ToList();
             var text = $"{Game.PlayerData[playerID].Faction}: {string.Join(", ", resStrings)}";
             resourceSourceTextLines.Add(text);
         }
@@ -72,12 +85,24 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 
     private void PetitionDecided(bool success)
     {
-        //Animation here
+        // TODO: Animation here @Cathy
+
     }
 
+    private void Voted(PlayerID id, int vote)
+    {
+        // display vote player with icon
+        PlayerVoteDisplay go = Instantiate(voteDisplayPrefab, voteDisplayParent);
+        go.Setup(Game.PlayerData[id].Faction, vote);
+    }
+
+    // TODO: @Cathy: do things with buttons maybe idk
     public void SubmitVote(int vote)
     {
         if (!phaseActive) return;
         Phase.SubmitVote(vote);
+        for (int i = 0; i < voteBtns.Count; i++) voteBtns[i].interactable = false;
+        votedAccept.SetActive(vote > 0);
+        votedRefuse.SetActive(vote < 0);
     }
 }
