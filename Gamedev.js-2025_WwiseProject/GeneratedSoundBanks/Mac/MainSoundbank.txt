@@ -1,3 +1,94 @@
 Event	ID	Name			Wwise Object Path	Notes
-	1517298560	Play__testSegment			\Default Work Unit\Play__testSegment	
+	50002245	Play_27_look_at_Bumbi_island			\SFX\Play_27_look_at_Bumbi_island	
+	254315829	Play_15_PomPom_joins			\SFX\Play_15_PomPom_joins	
+	274437310	Play_23_sus_voting_time_start			\SFX\Play_23_sus_voting_time_start	
+	376480983	Play_36_confirm_button			\SFX\Play_36_confirm_button	
+	666741847	Play_25_timer_ticking			\SFX\Play_25_timer_ticking	
+	757958839	Play_26_creatures_walking_around			\SFX\Play_26_creatures_walking_around	
+	859269557	Play_ambience_sus_loopable			\Music\Play_ambience_sus_loopable	
+	1025195475	Play_soundtrack_sus_loopable			\Music\Play_soundtrack_sus_loopable	
+	1078774477	Play_29_look_at_Pygin_island			\SFX\Play_29_look_at_Pygin_island	
+	1133091123	Play_5_Bumbi_joins			\SFX\Play_5_Bumbi_joins	
+	1256006023	Stop_soundtrack_good_loopable			\Music\Stop_soundtrack_good_loopable	
+	1371212641	Play_16_PomPom_leaves			\SFX\Play_16_PomPom_leaves	
+	1425015820	Play_37_vote_sus_button			\SFX\Play_37_vote_sus_button	
+	1451121811	Play_38_next_island			\SFX\Play_38_next_island	
+	1479119223	Play_21_build_voting_time_start			\SFX\Play_21_build_voting_time_start	
+	1506025282	Play_32_look_at_PomPom_island			\SFX\Play_32_look_at_PomPom_island	
+	1547210608	Play_10_Pigyn_leaves			\SFX\Play_10_Pigyn_leaves	
+	1613368310	Play_30_look_at_Gumbi_island			\SFX\Play_30_look_at_Gumbi_island	
+	1713510733	Stop_ambience_good_loopable			\Music\Stop_ambience_good_loopable	
+	1743418787	Play_13_Seltas_joins			\SFX\Play_13_Seltas_joins	
+	1770083352	Play_40_main_menu_nav_buttons			\SFX\Play_40_main_menu_nav_buttons	
+	1864969855	Play_22_build_voting_time_end			\SFX\Play_22_build_voting_time_end	
+	2053117463	Play_4_popup_opens			\SFX\Play_4_popup_opens	
+	2053696715	Play_14_Seltas_leaves			\SFX\Play_14_Seltas_leaves	
+	2064121255	Play_33_drop_building			\SFX\Play_33_drop_building	
+	2407941505	Play_9_Pigyn_joins			\SFX\Play_9_Pigyn_joins	
+	2470008069	Play_31_look_at_Seltas_island			\SFX\Play_31_look_at_Seltas_island	
+	2485826128	Play_2_shared_goal_progresses			\SFX\Play_2_shared_goal_progresses	
+	2694124561	Play_11_Gumbi_joins			\SFX\Play_11_Gumbi_joins	
+	2849073313	Stop_soundtrack_sus_loopable			\Music\Stop_soundtrack_sus_loopable	
+	2915456994	Play_24_sus_voting_time_end			\SFX\Play_24_sus_voting_time_end	
+	2943307134	Play_3_general_button_click			\SFX\Play_3_general_button_click	
+	2958835227	Play_18_sus_side_wins			\SFX\Play_18_sus_side_wins	
+	3154778667	Play_ambience_good_loopable			\Music\Play_ambience_good_loopable	
+	3177282575	Stop_ambience_sus_loopable			\Music\Stop_ambience_sus_loopable	
+	3294640862	Play_17_good_side_wins			\SFX\Play_17_good_side_wins	
+	3296322481	Play_soundtrack_good_loopable			\Music\Play_soundtrack_good_loopable	
+	3386066630	Play_34_opening_dropdown			\SFX\Play_34_opening_dropdown	
+	3514254361	Play_6_Bumbi_leaves			\SFX\Play_6_Bumbi_leaves	
+	3610975843	Play_8_Lyki_leaves			\SFX\Play_8_Lyki_leaves	
+	3745297963	Play_35_number_ticker			\SFX\Play_35_number_ticker	
+	3976943196	Play_28_look_at_Lyki_island			\SFX\Play_28_look_at_Lyki_island	
+	4041716596	Play_39_pause_button			\SFX\Play_39_pause_button	
+	4122580151	Play_7_Lyki_joins			\SFX\Play_7_Lyki_joins	
+	4146907124	Play_19_round_start			\SFX\Play_19_round_start	
+	4198965895	Play_12_Gumbi_leaves			\SFX\Play_12_Gumbi_leaves	
+	4247663943	Play_20_round_end			\SFX\Play_20_round_end	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	16139638	7_Lyki_joins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\7_Lyki_joins		175232
+	18644980	33_drop_building	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\33_drop_building		175232
+	35627516	31_look_at_Seltas_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\31_look_at_Seltas_island		175232
+	61599083	37_vote_sus_button	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\37_vote_sus_button		175232
+	76452907	ambience_good_loopable	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\14\{14380851-FBEC-4A4C-9740-7FC0519916E1}.wem		\Interactive Music Hierarchy\TeacupMusic\TeacupMusicSwitch\ambience_good_loopable\ambience_good_loopable		25872532
+	127743887	3_general_button_click	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\3_general_button_click		175232
+	137118093	29_look_at_Pygin_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\29_look_at_Pygin_island		175232
+	141931726	34_opening_dropdown	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\34_opening_dropdown		175232
+	185291143	30_look_at_Gumbi_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\30_look_at_Gumbi_island		175232
+	200911609	ambience_sus_loopable	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\FB\{FB12E33A-318B-417F-796F-40DA0F2C8936}.wem		\Interactive Music Hierarchy\TeacupMusic\TeacupMusicSwitch\ambience_sus_loopable\ambience_sus_loopable		14322260
+	207307364	21_build_voting_time_start	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\21_build_voting_time_start		175232
+	224824961	14_Seltas_leaves	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\14_Seltas_leaves		175232
+	234880162	4_popup_opens	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\4_popup_opens		175232
+	251288576	28_look_at_Lyki_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\28_look_at_Lyki_island		175232
+	255385518	39_pause_button	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\39_pause_button		175232
+	309668760	36_confirm_button	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\36_confirm_button		175232
+	315981561	32_look_at_PomPom_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\32_look_at_PomPom_island		175232
+	335959964	2_shared_goal_progresses	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\2_shared_goal_progresses		175232
+	349371574	15_PomPom_joins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\15_PomPom_joins		175232
+	350097180	35_number_ticker	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\35_number_ticker		175232
+	356856608	11_Gumbi_joins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\11_Gumbi_joins		175232
+	372164354	25_timer_ticking	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\25_timer_ticking		175232
+	482931993	38_next_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\38_next_island		175232
+	487866986	16_PomPom_leaves	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\16_PomPom_leaves		175232
+	499636826	20_round_end	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\20_round_end		175232
+	585474080	soundtrack_sus_loopable	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\D4\{D41D70F0-CA5B-55AD-1FC6-1D4856EBFC84}.wem		\Interactive Music Hierarchy\TeacupMusic\TeacupMusicSwitch\soundtrack_sus_loopable\soundtrack_sus_loopable		32519020
+	738084105	22_build_voting_time_end	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\22_build_voting_time_end		175232
+	742680830	13_Seltas_joins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\13_Seltas_joins		175232
+	759092647	23_sus_voting_time_start	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\23_sus_voting_time_start		175232
+	771806572	12_Gumbi_leaves	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\12_Gumbi_leaves		175232
+	773598734	5_Bumbi_joins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\5_Bumbi_joins		175232
+	780665078	19_round_start	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\19_round_start		175232
+	788463852	soundtrack_good_loopable	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\D4\{D41D70F0-CA5B-55AD-1FC6-1D4856EBFC84}.wem		\Interactive Music Hierarchy\TeacupMusic\TeacupMusicSwitch\soundtrack_good_loopable\soundtrack_good_loopable		32519020
+	825526484	6_Bumbi_leaves	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\6_Bumbi_leaves		175232
+	828528024	40_main_menu_nav_buttons	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\40_main_menu_nav_buttons		175232
+	839074542	10_Pigyn_leaves	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\10_Pigyn_leaves		175232
+	851588701	26_creatures_walking_around	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\26_creatures_walking_around		175232
+	970750791	24_sus_voting_time_end	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\24_sus_voting_time_end		175232
+	982263358	9_Pigyn_joins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\9_Pigyn_joins		175232
+	1011186403	18_sus_side_wins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\18_sus_side_wins		175232
+	1013825066	8_Lyki_leaves	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\8_Lyki_leaves		175232
+	1063177679	17_good_side_wins	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\17_good_side_wins		175232
+	1067414358	27_look_at_Bumbi_island	Y:\Documents\GitHub\Gamedev.js-2025\Gamedev.js-2025_WwiseProject\.cache\B6\{B69194BB-223F-48F0-BDBE-235525C43715}.wem		\Actor-Mixer Hierarchy\TeacupSFX\27_look_at_Bumbi_island		175232
 
