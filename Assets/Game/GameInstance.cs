@@ -19,6 +19,7 @@ public class GameInstance : MonoBehaviour
     public IGamePhase CurrentPhase { get; private set; }
     public event Action<IGamePhase> OnPhaseChanged;
 
+    public int Turn {  get; set; } = 0;
 
     private IGamePhase RequestedTransition = new InitGamePhase();//new LobbyPhase();
 

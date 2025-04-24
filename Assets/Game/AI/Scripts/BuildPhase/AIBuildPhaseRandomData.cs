@@ -20,7 +20,7 @@ public class AIBuildPhaseRandomData : AIBuildPhaseData
 
             Building building = affordableBuildings.GetRandom();
 
-            HexPosition pos = building.FindBestPosition(AI.GameInstance.ClientPlayerData.Island, out _);
+            if (!building.FindBestPosition(AI.GameInstance.ClientPlayerData.Island, out HexPosition pos, out _)) continue;
 
             AI.Log("builds " + building);
             Phase.PlaceBuilding(pos, building);

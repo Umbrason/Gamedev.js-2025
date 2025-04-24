@@ -19,7 +19,7 @@ public class FactionData : ScriptableObject
 
         foreach(Building building in startingBuildings)
         {
-            HexPosition bestTile = building.FindBestPosition(island, out _);
+            if(!building.FindBestPosition(island, out HexPosition bestTile, out _)) break;
             Buildings.Add((bestTile, building));
             island = island.WithBuildings(Buildings.ToArray());
         }

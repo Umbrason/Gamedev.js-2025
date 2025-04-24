@@ -32,6 +32,7 @@ public static class BuildingExtensions
 
     public static Resource ResourceYieldType(this Building building) => (Resource)building;
 
+    const float YIELD_PER_TILE = 1 / 3f;
 
     /// <summary>
     /// Produced .3333 resources per tile. 3 tiles => 1, 6 tiles => 2. partial yield is decided by a coin toss (i.e. 0.3 yield => 30% chance to gain +1)
@@ -39,15 +40,14 @@ public static class BuildingExtensions
     public static float ExpectedYield(this Building building, PlayerIsland island, HexPosition position)
     {
         if ((int)building > 6) return 1;
-        const float yieldPerTile = 1 / 3f;
-        var yield = position.GetSurrounding().Count(pos => island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) * yieldPerTile;
+        var yield = position.GetSurrounding().Count(pos => island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) * YIELD_PER_TILE;
         return yield;
     }
 
-    public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float averageYield)
+    public static bool FindBestPosition(this Building building, PlayerIsland island, out HexPosition bestPosition, out float averageYield)
     {
-        averageYield = -10f;
-        HexPosition bestPosition = default;
+        averageYield = -1000f;
+        bestPosition = default;
 
         foreach (HexPosition pos in island.Tiles.Keys)
         {
@@ -62,10 +62,8 @@ public static class BuildingExtensions
                 if (island.Buildings.GetValueOrDefault(adj) == Building.None) continue;
                 if (island.Buildings.GetValueOrDefault(adj) >= Building.Composter) continue;//crafters don't care about occupied tiles
 
-                yield -= 1;//Takes into account the loss of yield of other buildings
+                yield -= YIELD_PER_TILE;//Takes into account the loss of yield of other buildings
             }
-
-            yield *= 0.5f;//average yield is half the maximum yield
 
             if (yield <= averageYield) continue;
 
@@ -73,6 +71,6 @@ public static class BuildingExtensions
             bestPosition = pos;
         }
 
-        return bestPosition;
+        return averageYield > -999f;//hex found
     }
 }

@@ -29,6 +29,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
     public IEnumerator OnEnter()
     {
+
         HarvestResources();
         startTime = Time.unscaledTime;
         void OnUpdatePlayerIsland(NetworkMessage message)
