@@ -7,9 +7,9 @@ using System.Collections.Generic;
 public class AIBuildPhaseRandomData : AIBuildPhaseData
 {
     [SerializeField, Min(0)] int maxBuildingPerTurn = 1;
-    public override IEnumerator PlayingPhase(BuildPhase Phase, AIConfigData Config, GameInstance GameInstance)
+    public override IEnumerator PlayingPhase(BuildPhase Phase, AIPlayer AI)
     {
-        yield return new WaitForSeconds(Config.ActionDelay);
+        yield return new WaitForSeconds(AI.Config.ActionDelay);
 
         //BUILDING
         for (int i = 0; i < maxBuildingPerTurn; i++)
@@ -20,30 +20,31 @@ public class AIBuildPhaseRandomData : AIBuildPhaseData
 
             Building building = affordableBuildings.GetRandom();
 
-            HexPosition pos = building.FindBestPosition(GameInstance.ClientPlayerData.Island, out _);
+            HexPosition pos = building.FindBestPosition(AI.GameInstance.ClientPlayerData.Island, out _);
 
+            AI.Log("builds " + building);
             Phase.PlaceBuilding(pos, building);
 
-            yield return new WaitForSeconds(Config.ActionDelay);
+            yield return new WaitForSeconds(AI.Config.ActionDelay);
         }
 
         //PLEDGING
-        if (GameInstance.ClientPlayerData.Role == PlayerRole.Selfish)
+        if (AI.GameInstance.ClientPlayerData.Role == PlayerRole.Selfish)
         {
-            PledgeCommonGoals(PlayerRole.Selfish, Phase, GameInstance);
+            PledgeCommonGoals(PlayerRole.Selfish, Phase, AI);
         }
-        PledgeCommonGoals(PlayerRole.Balanced, Phase, GameInstance);
-        yield return new WaitForSeconds(Config.ActionDelay);
+        PledgeCommonGoals(PlayerRole.Balanced, Phase, AI);
+        yield return new WaitForSeconds(AI.Config.ActionDelay);
 
 
         Phase.Skip();
     }
 
-    private void PledgeCommonGoals(PlayerRole role, BuildPhase Phase, GameInstance GameInstance)
+    private void PledgeCommonGoals(PlayerRole role, BuildPhase Phase, AIPlayer AI)
     {
         if (role == PlayerRole.None) return;
 
-        var Goals = role == PlayerRole.Selfish ? GameInstance.SelfishFactionGoals : GameInstance.BalancedFactionGoals;
+        var Goals = role == PlayerRole.Selfish ? AI.GameInstance.SelfishFactionGoals :  AI.GameInstance.BalancedFactionGoals;
 
         for (int i = 0; i < Goals.Count; i++)
         {
@@ -51,11 +52,12 @@ public class AIBuildPhaseRandomData : AIBuildPhaseData
 
             foreach ((Resource res, int required) in goal.Required)
             {
-                int stock = GameInstance.ClientPlayerData.Resources.GetValueOrDefault(res);
+                int stock = AI.GameInstance.ClientPlayerData.Resources.GetValueOrDefault(res);
                 int pledge = UnityEngine.Random.Range(0, Mathf.Min(stock, required) + 1);
 
                 if (pledge == 0) continue;
                 
+                AI.Log(string.Format("offers {0} {1} to {2}", pledge, res, goal.Name));
                 Phase.PledgeResource(new(role, i), res, pledge);
             }
         }

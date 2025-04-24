@@ -1,34 +1,69 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AccusationPhase : IGamePhase
+public class AccusationPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game { private get; set; }
 
-    public readonly IReadOnlyCollection<PlayerID> AccusedPlayers;
-    private readonly Dictionary<PlayerID, bool> votes = new();
+    public float TimeRemaining => Mathf.Max(0, Duration - (Time.unscaledTime - SubphaseStart));
+    private float SubphaseStart;
+    public float Duration { get; private set; } = 1f;
 
-    public AccusationPhase(PlayerID[] accusedPlayers)
-    {
-        AccusedPlayers = accusedPlayers;
-    }
-
+    public event Action<PlayerID[]> OnAccusationVoteStarted;
     public IEnumerator OnEnter()
     {
-        void OnVoteRecieved(NetworkMessage message) => votes[message.sender] = (bool)message.content;
-        Game.NetworkChannel.StartListening(ShareVoteHeader, OnVoteRecieved);
-        if(AccusedPlayers.Contains(Game.ClientID)) Vote(true); //accused players can't vote
         yield return null;
     }
 
+
+    public float AccusationDuration = 10f;
+    public float AccusationVoteDuration = 30f;
+    public void Accuse(PlayerID[] Accusation = null)
+    {
+        if (Accusations.ContainsKey(Game.ClientID)) return;
+        Accusations[Game.ClientID] = Accusation;
+        Game.NetworkChannel.BroadcastMessage(AccusationMade, Accusation);
+    }
+
+    const string AccusationMade = "AccusationMade";
+    const string AccusationsOrder = "AccusationsOrder";
+    Dictionary<PlayerID, PlayerID[]> Accusations = new();
+    Dictionary<PlayerID, bool> currentVotes = new();
     public IEnumerator Loop()
     {
-        yield return new WaitUntil(() => votes.Count >= NetworkUtils.playerCount);
-        if (votes.Values.All(v => v))
-            Game.TransitionPhase(new GameOverPhase(AccusedPlayers.All(playerID => Game.PlayerData[playerID].Role == PlayerRole.Selfish) ? PlayerRole.Balanced : PlayerRole.Selfish));
-        else Game.TransitionPhase(null); //TODO: dunno yet where this should lead back to.
+        SubphaseStart = Time.unscaledTime;
+        Duration = AccusationDuration;
+        yield return new WaitUntil(() => TimeRemaining <= 0 || Accusations.ContainsKey(Game.ClientID));
+        if (!Accusations.ContainsKey(Game.ClientID)) Accuse(null);
+        Game.NetworkChannel.StartListening(AccusationMade, (message) => Accusations[message.sender] = (PlayerID[])message.content);
+        yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
+
+        var accusationOrder = (Dictionary<PlayerID, float>)null;
+        yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(AccusationsOrder, ref accusationOrder));
+
+        foreach (var (accuser, AccusedPlayers) in Accusations.OrderBy(p => accusationOrder[p.Key]))
+        {
+            Duration = AccusationVoteDuration;
+            SubphaseStart = Time.unscaledTime;
+            if (AccusedPlayers == null) continue;
+            canVote = true;
+            OnAccusationVoteStarted?.Invoke(AccusedPlayers);
+            void OnVoteRecieved(NetworkMessage message) => currentVotes[message.sender] = (bool)message.content;
+            Game.NetworkChannel.StartListening(ShareVoteHeader, OnVoteRecieved);
+            if (AccusedPlayers.Contains(Game.ClientID)) Vote(true); //accused players can't vote
+            yield return new WaitUntil(() => TimeRemaining <= 0 || currentVotes.ContainsKey(Game.ClientID));
+            if (!currentVotes.ContainsKey(Game.ClientID)) Vote(false);
+            yield return new WaitUntil(() => currentVotes.Count >= NetworkUtils.playerCount);
+
+            if (currentVotes.Values.All(v => v))
+                Game.TransitionPhase(new GameOverPhase(AccusedPlayers.All(playerID => Game.PlayerData[playerID].Role == PlayerRole.Selfish) ? PlayerRole.Balanced : PlayerRole.Selfish));
+
+            currentVotes.Clear();
+        }
+        Game.TransitionPhase(new RoundTransitionPhase());
     }
 
     public IEnumerator OnExit()
@@ -38,10 +73,18 @@ public class AccusationPhase : IGamePhase
     }
 
     const string ShareVoteHeader = "ShareAccusationVote";
+    bool canVote = false;
+
     [PlayerAction]
     public void Vote(bool agreeWithAccusation)
     {
+        if (!canVote) return;
+        canVote = false;
         Game.NetworkChannel.BroadcastMessage(ShareVoteHeader, agreeWithAccusation);
-        votes[Game.ClientID] = agreeWithAccusation;
+        currentVotes[Game.ClientID] = agreeWithAccusation;
     }
+
+
+    public bool CanSkip() => false;
+    public void Skip() { }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BuildingPhaseSkip", menuName = "Scriptable Objects/AI/BuildingPhase/Skip")]
 public class AIBuildPhaseSkipData : AIBuildPhaseData
 {
-    public override IEnumerator PlayingPhase(BuildPhase Phase, AIConfigData Config, GameInstance gameInstance)
+    public override IEnumerator PlayingPhase(BuildPhase Phase, AIPlayer AI)
     {
-        yield return new WaitForSeconds(Config.ActionDelay);
+        yield return new WaitForSeconds(AI.Config.ActionDelay);
         Phase.Skip();
     }
 }

@@ -5,7 +5,53 @@
 			<ChildrenList>
 				<SoundBank Name="MainSoundbank" ID="{7E486E91-3B0F-402C-985E-CCB0921C0431}">
 					<ObjectInclusionList>
-						<ObjectRef Name="Play__testSegment" ID="{D8E3C98B-705A-4ADD-AA01-4F46BAAB5C84}" WorkUnitID="{7801F26C-1E0D-4C40-8526-171CD5BFFF20}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_15_PomPom_joins" ID="{3F50B5A5-54AC-4060-B9A2-DE49249960C7}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_22_build_voting_time_end" ID="{8272AA82-DA71-40E2-B1DE-449ADBCDC4B3}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_18_sus_side_wins" ID="{C8ECFE9F-C3D1-4111-9367-1C9723D89896}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_35_number_ticker" ID="{4725FF43-205E-4125-BDFB-38735E8DB9F4}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_25_timer_ticking" ID="{89817256-2421-4127-A40C-CFF1F58459C3}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Stop_ambience_good_loopable" ID="{200135EB-7801-4144-87EB-CBB0AA0C7C8C}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_39_pause_button" ID="{FB52143E-C978-4181-A972-779743AFB938}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_27_look_at_Bumbi_island" ID="{8A31FE4E-5162-4223-ACCA-F615DBC3873E}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_31_look_at_Seltas_island" ID="{2234E341-88E1-4289-B56D-D71415D85F03}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_36_confirm_button" ID="{FA4C063F-D782-428C-B12A-FE45E8F111DF}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_33_drop_building" ID="{0D14DF35-64F9-4338-810E-07E932BD0F62}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_8_Lyki_leaves" ID="{020EC63D-4BFA-4396-B20B-C153A5441107}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_29_look_at_Pygin_island" ID="{98E86290-30F3-43BC-B80B-FF1708F53CE4}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_17_good_side_wins" ID="{F4354C92-649B-43CE-BD0F-FE5AC07CE2C4}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_9_Pigyn_joins" ID="{A75183C8-FC30-4423-90CC-09DC6F101A11}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_5_Bumbi_joins" ID="{4348762A-D4F8-446A-AEB8-FDBE87AB9B93}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_19_round_start" ID="{43718382-5B69-4472-9602-070D4ED2FFCD}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Stop_soundtrack_good_loopable" ID="{E7C6C1A2-5E49-44E9-9F65-7DA9C13A1D12}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_12_Gumbi_leaves" ID="{0BC726F9-7B29-4545-859B-539BB3C36F37}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_32_look_at_PomPom_island" ID="{DC38CE09-DF2B-4575-B587-2CFAB2D42C1E}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_soundtrack_good_loopable" ID="{24757AC4-B25F-45D2-A548-DEECD9E82A01}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_13_Seltas_joins" ID="{7D06A0FB-7137-45DA-8047-98DBB574A00A}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_26_creatures_walking_around" ID="{B6B8833E-328E-466B-843A-7156DC55F079}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_soundtrack_sus_loopable" ID="{15782164-F167-470F-A0D5-F3ABC7780653}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_2_shared_goal_progresses" ID="{BEFBEBEC-F368-47F5-8CCD-E7647AA1F187}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_4_popup_opens" ID="{1C1BF9AB-72EF-484A-A9E0-BC39EEED1339}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_3_general_button_click" ID="{E9534663-4C19-48D6-A02B-2092636C5A88}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_11_Gumbi_joins" ID="{BF60FF8F-24AE-48DF-B419-C595E55AD4F8}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_28_look_at_Lyki_island" ID="{E770587C-E5CB-48E8-A617-A5F23F435E40}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_14_Seltas_leaves" ID="{367D77DC-6A74-4932-B7A6-8CE9563E0D65}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_37_vote_sus_button" ID="{E07BA331-5349-4A96-84C2-8952C01E65E1}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_40_main_menu_nav_buttons" ID="{5F2ED18F-29B2-4AA1-9934-3EC61907F9A5}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_ambience_sus_loopable" ID="{01B01DB4-15D4-4C1B-A169-F9C5EDB85FD7}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Stop_soundtrack_sus_loopable" ID="{0687AE61-F883-4C5A-9989-C4888398F20D}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_30_look_at_Gumbi_island" ID="{89F34CA7-8253-4C99-86D5-7DF34246468B}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_24_sus_voting_time_end" ID="{92709ACB-BD61-4CE4-A640-6A2E78A5F456}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_20_round_end" ID="{DAD7F057-1E8F-4CFC-8D45-8E225A48757E}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_7_Lyki_joins" ID="{ABBBB1AA-E2FA-4D62-81E9-7B008E50C308}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_16_PomPom_leaves" ID="{F802BBB1-59A0-4D89-A893-7C344EBC3477}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Stop_ambience_sus_loopable" ID="{6581D2CD-42CD-4DB5-B751-0C2CD4DD116E}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_6_Bumbi_leaves" ID="{71E666DF-9CD5-4DDF-9AE3-E67D0EBA3F44}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_23_sus_voting_time_start" ID="{9F5DD176-9507-4DF7-A1F5-66966C4A6BB3}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_34_opening_dropdown" ID="{3A08F750-6519-4E2D-A718-DEAA845FD8A7}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_ambience_good_loopable" ID="{E8D4DEB5-00D5-4ECC-8A44-EE8B43CC5772}" WorkUnitID="{07C322C5-98C4-479A-B326-97D7D7FA6C99}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_38_next_island" ID="{5F6DBAF3-E1BB-4EE1-838F-8EFA0F816E7E}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_21_build_voting_time_start" ID="{8768314E-3BAF-4F47-B50E-0C2A9BD85EDC}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Play_10_Pigyn_leaves" ID="{4D7369E9-80DF-4FEB-A01F-0AA42A16DC52}" WorkUnitID="{0D7FA364-D095-4E3D-9924-761005997A81}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

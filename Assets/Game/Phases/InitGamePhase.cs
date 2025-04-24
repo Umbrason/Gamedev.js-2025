@@ -27,19 +27,19 @@ public class InitGamePhase : IGamePhase
 
         IEnumerator WaitForRandomRoleIndex()
         {
-            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomRoleIndexHeader, ref RandomRoleIndexResults));
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomRoleIndexHeader, ref RandomRoleIndexResults));
             roleDone = true;
         }
 
         IEnumerator WaitForRandomFactionIndex()
         {
-            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomFactionIndexHeader, ref RandomFactionIndexResults));
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomFactionIndexHeader, ref RandomFactionIndexResults));
             factionDone = true;
         }
 
         IEnumerator WaitForRandomSecretGoalIndex()
         {
-            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults));
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomSecretGoalIndexHeader, ref RandomSecretGoalIndexResults));
             secretGoalDone = true;
         }
 
@@ -56,7 +56,7 @@ public class InitGamePhase : IGamePhase
         for (int i = 0; i < BalanceFactionSubgoalCount; i++)
         {
             var RandomGoalResults = (Dictionary<PlayerID, float>)null;
-            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomGoalHeader, ref RandomGoalResults));
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomGoalHeader, ref RandomGoalResults));
             var SharedGoalIndex = Mathf.FloorToInt(GameSettings.BalanceGoals.Count * (RandomGoalResults.Values.Sum() % 1f));
             for (int j = 0; j < GameSettings.BalanceGoals.Count; j++)
             {
@@ -76,8 +76,8 @@ public class InitGamePhase : IGamePhase
         for (int i = 0; i < SelfishFactionSubgoalCount; i++)
         {
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
-            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults));
-            //Game.NetworkChannel.DistributedRandomDecision(Game.ClientID, RandomEvilGoalHeader, ref RandomEvilGoalResults);
+            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomEvilGoalHeader, ref RandomEvilGoalResults));
+            //Game.NetworkChannel.DistributedRandomDecision( RandomEvilGoalHeader, ref RandomEvilGoalResults);
             var EvilGoalIndex = Mathf.FloorToInt(GameSettings.SelfishGoals.Count * (RandomEvilGoalResults.Values.Sum() % 1f));
             for (int j = 0; j < GameSettings.SelfishGoals.Count; j++)
             {
@@ -129,6 +129,18 @@ public class InitGamePhase : IGamePhase
         Game.PlayerData[Game.ClientID].Resources = factionData.StartingResouces;
 
         Game.NetworkChannel.BroadcastMessage(ShareIslandState, Game.PlayerData[Game.ClientID].Island);
+        #endregion
+
+        #region Music
+        switch (Game.PlayerData[Game.ClientID].Role)
+        {
+            case PlayerRole.Balanced:
+                SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackGoodLoopable);
+                SoundAndMusicController.Instance.PlayAmbience(SoundAndMusicController.Instance.MusicClips.ambienceGoodLoopable); break;
+            case PlayerRole.Selfish:
+                SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackSusLoopable);
+                SoundAndMusicController.Instance.PlayAmbience(SoundAndMusicController.Instance.MusicClips.ambienceSusLoopable); break;
+        }
         #endregion
 
         yield return new WaitUntil(() => Game.PlayerData.Values.All(data => data.Island != PlayerIsland.Empty));

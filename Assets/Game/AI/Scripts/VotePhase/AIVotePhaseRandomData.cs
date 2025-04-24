@@ -6,7 +6,7 @@ public class AIVotePhaseRandomData : AIVotePhaseData
 {
     [SerializeField, Range(0f, 1f)] float probabilityToAccept = 0.5f; 
 
-    public override IEnumerator PlayingPhase(VotePhase Phase, AIConfigData Config, GameInstance GameInstance)
+    public override IEnumerator PlayingPhase(VotePhase Phase, AIPlayer AI)
     {
         BuildingPetition petition = null;
 
@@ -18,8 +18,11 @@ public class AIVotePhaseRandomData : AIVotePhaseData
             }
             petition = Phase.CurrentPetition;
             if (petition == null) break;
-            yield return new WaitForSeconds(Config.ActionDelay);
-            Phase.SubmitVote(Random.value < probabilityToAccept ? 1 : -1);
+            yield return new WaitForSeconds(AI.Config.ActionDelay);
+
+            bool vote = Random.value < probabilityToAccept;
+            AI.Log(vote ? " agrees to petition" : "disagrees to petition");
+            Phase.SubmitVote(vote ? 1 : -1);
         }
     }
 }

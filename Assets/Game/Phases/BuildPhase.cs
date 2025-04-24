@@ -12,7 +12,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         set;
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
-    const float BuildPhaseDurationSeconds = 60;
+    const float BuildPhaseDurationSeconds = 5;
     private float startTime;
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
     private PledgeSummaryPhase nextPhase;
@@ -46,7 +46,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
     {
         yield return new WaitUntil(() => (Time.unscaledTime - startTime > BuildPhaseDurationSeconds) || skipping);
         skipping = true;
-        yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(FinishedBuildPhaseSignal, Game.ClientID));
+        yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(FinishedBuildPhaseSignal));
 
         nextPhase = new PledgeSummaryPhase();
         Game.TransitionPhase(nextPhase);
@@ -67,7 +67,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.StopListening(ShareResourcePledge);
 
         var pledgeWithdrawalOrderPrio = (Dictionary<PlayerID, float>)null;
-        yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
+        yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
         var pledgeWithdrawalOrder = pledgeWithdrawalOrderPrio.OrderBy(pair => pair.Value).Select(pair => pair.Key);
 
         Dictionary<PlayerID, Dictionary<Resource, int>> ResourcesOfferedToBalancedGoal = new();
@@ -91,7 +91,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
         nextPhase.OfferedResources = ResourcesOfferedToBalancedGoal;
 
-        yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase, Game.ClientID));
+        yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase));
     }
     const int SecretTaskRewardResourceMultiplier = 2;
     const string UpdateResourcesHeader = "UpdateResources";

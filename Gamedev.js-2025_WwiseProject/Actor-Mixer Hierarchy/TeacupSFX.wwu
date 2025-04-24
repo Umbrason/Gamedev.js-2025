@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{A3F4FE7B-2FD1-45D3-8566-5A96A7C4685C}" SchemaVersion="123">
+	<AudioObjects>
+		<WorkUnit Name="TeacupSFX" ID="{A3F4FE7B-2FD1-45D3-8566-5A96A7C4685C}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="4_popup_opens" ID="{0B810840-9382-452B-963A-66581B84B87E}" ShortID="878260771">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="4_popup_opens" ID="{A76C4F7B-B185-4EEA-B005-3A7BBD335DC0}">
+							<Language>SFX</Language>
+							<AudioFile>4_popup_opens.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="234880162"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="4_popup_opens" ID="{A76C4F7B-B185-4EEA-B005-3A7BBD335DC0}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="19_round_start" ID="{A49DF4EB-B691-4573-90E5-B0E3DD9699FE}" ShortID="31821880">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="19_round_start" ID="{0F87985A-87FD-4A36-9B2D-E76766D388DF}">
+							<Language>SFX</Language>
+							<AudioFile>19_round_start.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="780665078"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="19_round_start" ID="{0F87985A-87FD-4A36-9B2D-E76766D388DF}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="21_build_voting_time_start" ID="{CF351BFE-3438-49D7-86C7-9E3F7DBEC75D}" ShortID="515908510">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="21_build_voting_time_start" ID="{93A9705E-E229-4D36-A859-176C9CF4D2E0}">
+							<Language>SFX</Language>
+							<AudioFile>21_build_voting_time_start.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="207307364"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="21_build_voting_time_start" ID="{93A9705E-E229-4D36-A859-176C9CF4D2E0}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="22_build_voting_time_end" ID="{C6F497C5-C4BE-4EA3-A6F9-D89DCC7D3430}" ShortID="827247029">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="22_build_voting_time_end" ID="{5A26F200-B77F-4BAE-AA9C-548EEADE095B}">
+							<Language>SFX</Language>
+							<AudioFile>22_build_voting_time_end.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="738084105"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="22_build_voting_time_end" ID="{5A26F200-B77F-4BAE-AA9C-548EEADE095B}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="3_general_button_click" ID="{CC4DEC9F-E741-46D2-B666-B97D4D1D483D}" ShortID="598329745">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="3_general_button_click" ID="{6972F14B-2070-46A9-92AD-E79F0809922E}">
+							<Language>SFX</Language>
+							<AudioFile>3_general_button_click.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="127743887"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="3_general_button_click" ID="{6972F14B-2070-46A9-92AD-E79F0809922E}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="23_sus_voting_time_start" ID="{09D2728A-94A6-4B6D-BB19-9BEFAE1F2D70}" ShortID="744426633">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="23_sus_voting_time_start" ID="{5AADCBE0-6CC6-477F-A051-89BBF311C720}">
+							<Language>SFX</Language>
+							<AudioFile>23_sus_voting_time_start.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="759092647"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="23_sus_voting_time_start" ID="{5AADCBE0-6CC6-477F-A051-89BBF311C720}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="12_Gumbi_leaves" ID="{87F34E14-189B-4088-9879-DB86E94E46E8}" ShortID="391475181">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="12_Gumbi_leaves" ID="{0F080AC5-2812-4CAC-A749-89ABE7FA6CB7}">
+							<Language>SFX</Language>
+							<AudioFile>12_Gumbi_leaves.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="771806572"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="12_Gumbi_leaves" ID="{0F080AC5-2812-4CAC-A749-89ABE7FA6CB7}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="2_shared_goal_progresses" ID="{3457E797-1251-49AC-99B7-ECC6F2B23B11}" ShortID="1033073773">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="2_shared_goal_progresses" ID="{D1F86995-D6B7-436C-B208-0CFB3F3F8F39}">
+							<Language>SFX</Language>
+							<AudioFile>2_shared_goal_progresses.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="335959964"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="2_shared_goal_progresses" ID="{D1F86995-D6B7-436C-B208-0CFB3F3F8F39}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="30_look_at_Gumbi_island" ID="{4F7536D7-67E0-4562-967E-E02CB4936396}" ShortID="491068035">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="30_look_at_Gumbi_island" ID="{57BE055F-5FA2-495C-BBBF-56DEC03F86CC}">
+							<Language>SFX</Language>
+							<AudioFile>30_look_at_Gumbi_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="185291143"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="30_look_at_Gumbi_island" ID="{57BE055F-5FA2-495C-BBBF-56DEC03F86CC}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="16_PomPom_leaves" ID="{81B92A42-86A9-4F63-8DBA-36C2B9736060}" ShortID="337978475">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="16_PomPom_leaves" ID="{EC7C4E00-221D-4F97-8875-10CE6D2EA4FE}">
+							<Language>SFX</Language>
+							<AudioFile>16_PomPom_leaves.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="487866986"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="16_PomPom_leaves" ID="{EC7C4E00-221D-4F97-8875-10CE6D2EA4FE}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="28_look_at_Lyki_island" ID="{1C4B0571-2251-4D03-9D9C-AAC1ABE1CF83}" ShortID="276413235">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="28_look_at_Lyki_island" ID="{9C013286-0927-41EC-80C1-26BEFBBE05A1}">
+							<Language>SFX</Language>
+							<AudioFile>28_look_at_Lyki_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="251288576"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="28_look_at_Lyki_island" ID="{9C013286-0927-41EC-80C1-26BEFBBE05A1}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="18_sus_side_wins" ID="{8039D41E-6987-443E-A7D1-352E90167ECC}" ShortID="487386421">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="18_sus_side_wins" ID="{04F2CE16-8DB5-4B09-95E6-BA8FF6B49E6F}">
+							<Language>SFX</Language>
+							<AudioFile>18_sus_side_wins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="1011186403"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="18_sus_side_wins" ID="{04F2CE16-8DB5-4B09-95E6-BA8FF6B49E6F}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="27_look_at_Bumbi_island" ID="{CB8388B9-E994-48FE-A92B-77ADD0D630F1}" ShortID="347361908">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="27_look_at_Bumbi_island" ID="{E3FBEE25-943D-4569-999F-23FC75B5E7F7}">
+							<Language>SFX</Language>
+							<AudioFile>27_look_at_Bumbi_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="1067414358"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="27_look_at_Bumbi_island" ID="{E3FBEE25-943D-4569-999F-23FC75B5E7F7}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="7_Lyki_joins" ID="{684C5B76-72D4-48F6-807D-BA3AA86419C3}" ShortID="339993502">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="7_Lyki_joins" ID="{FEB4B63C-6CDE-4EC4-9799-18C11181A0A6}">
+							<Language>SFX</Language>
+							<AudioFile>7_Lyki_joins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="16139638"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="7_Lyki_joins" ID="{FEB4B63C-6CDE-4EC4-9799-18C11181A0A6}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="34_opening_dropdown" ID="{03C6C9B3-F026-43AC-BBCC-76372F7B556C}" ShortID="330204025">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="34_opening_dropdown" ID="{9567F3F7-3098-44E9-866C-34EEC4A14364}">
+							<Language>SFX</Language>
+							<AudioFile>34_opening_dropdown.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="141931726"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="34_opening_dropdown" ID="{9567F3F7-3098-44E9-866C-34EEC4A14364}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="32_look_at_PomPom_island" ID="{9A61BE2A-FDDD-4B9A-A102-B3817D9272B5}" ShortID="420717017">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="32_look_at_PomPom_island" ID="{202C1A4B-B3FB-4017-A747-C19B3F887BF7}">
+							<Language>SFX</Language>
+							<AudioFile>32_look_at_PomPom_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="315981561"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="32_look_at_PomPom_island" ID="{202C1A4B-B3FB-4017-A747-C19B3F887BF7}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="20_round_end" ID="{3E437A1E-067D-44D8-949A-903DF8037351}" ShortID="179408490">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="20_round_end" ID="{56B843C5-97D2-4DC1-A48E-31CF134AE997}">
+							<Language>SFX</Language>
+							<AudioFile>20_round_end.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="499636826"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="20_round_end" ID="{56B843C5-97D2-4DC1-A48E-31CF134AE997}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="40_main_menu_nav_buttons" ID="{13DA1498-BFB6-49F2-B686-6713122E2AC5}" ShortID="236465296">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="40_main_menu_nav_buttons" ID="{3C3DEE58-13B8-485D-AC86-3CDC0B8E0FEB}">
+							<Language>SFX</Language>
+							<AudioFile>40_main_menu_nav_buttons.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="828528024"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="40_main_menu_nav_buttons" ID="{3C3DEE58-13B8-485D-AC86-3CDC0B8E0FEB}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="13_Seltas_joins" ID="{47E4C379-3BDF-4D95-8983-703BC6BD560F}" ShortID="314833731">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="13_Seltas_joins" ID="{3A10C7C0-8858-490A-8703-1C263204C60A}">
+							<Language>SFX</Language>
+							<AudioFile>13_Seltas_joins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="742680830"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="13_Seltas_joins" ID="{3A10C7C0-8858-490A-8703-1C263204C60A}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="11_Gumbi_joins" ID="{02FCC85D-D546-4E7C-BEB3-CCEAA3550B37}" ShortID="1010099142">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="11_Gumbi_joins" ID="{9B2B0D22-89D5-4A01-ABCE-63E1DDE5F138}">
+							<Language>SFX</Language>
+							<AudioFile>11_Gumbi_joins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="356856608"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="11_Gumbi_joins" ID="{9B2B0D22-89D5-4A01-ABCE-63E1DDE5F138}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="37_vote_sus_button" ID="{08F8D3B9-5CA8-4A60-9A6F-224BCEE1D33E}" ShortID="172438549">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="37_vote_sus_button" ID="{169EA889-0A32-4B80-94C9-D0E71777CE3A}">
+							<Language>SFX</Language>
+							<AudioFile>37_vote_sus_button.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="61599083"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="37_vote_sus_button" ID="{169EA889-0A32-4B80-94C9-D0E71777CE3A}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="29_look_at_Pygin_island" ID="{7D434055-4CE4-4FA4-BB53-BB2A32D78425}" ShortID="680108537">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="29_look_at_Pygin_island" ID="{F5D1E688-26A2-48A6-9651-E111C8E81BC9}">
+							<Language>SFX</Language>
+							<AudioFile>29_look_at_Pygin_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="137118093"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="29_look_at_Pygin_island" ID="{F5D1E688-26A2-48A6-9651-E111C8E81BC9}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="39_pause_button" ID="{1F1F98FC-DA57-41CF-A217-C45A466EE516}" ShortID="190880608">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="39_pause_button" ID="{9E4E4C70-7960-44CE-AB8A-BEB848D2C09A}">
+							<Language>SFX</Language>
+							<AudioFile>39_pause_button.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="255385518"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="39_pause_button" ID="{9E4E4C70-7960-44CE-AB8A-BEB848D2C09A}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="31_look_at_Seltas_island" ID="{F641C648-492D-4148-A52F-C07E7F6F7960}" ShortID="206552974">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="31_look_at_Seltas_island" ID="{115C2F87-2756-40A1-91B2-1C500B7477DE}">
+							<Language>SFX</Language>
+							<AudioFile>31_look_at_Seltas_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="35627516"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="31_look_at_Seltas_island" ID="{115C2F87-2756-40A1-91B2-1C500B7477DE}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="24_sus_voting_time_end" ID="{3249F1CD-8B9D-49EB-BB86-A4E9D8129343}" ShortID="620596434">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="24_sus_voting_time_end" ID="{1BCEA7F2-802A-48DF-BB1C-49F8D15DBCE4}">
+							<Language>SFX</Language>
+							<AudioFile>24_sus_voting_time_end.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="970750791"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="24_sus_voting_time_end" ID="{1BCEA7F2-802A-48DF-BB1C-49F8D15DBCE4}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="6_Bumbi_leaves" ID="{D2A660A9-C3A2-42E6-B90A-90EB7DE3592E}" ShortID="1017594090">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="6_Bumbi_leaves" ID="{AC67AD59-D9CE-4DE2-B4B7-334A9A93F88D}">
+							<Language>SFX</Language>
+							<AudioFile>6_Bumbi_leaves.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="825526484"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="6_Bumbi_leaves" ID="{AC67AD59-D9CE-4DE2-B4B7-334A9A93F88D}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="8_Lyki_leaves" ID="{F59C46D0-B41B-4002-8892-92BCED948171}" ShortID="631921822">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="8_Lyki_leaves" ID="{1C534DFA-9794-4EB8-A797-671B83FBB610}">
+							<Language>SFX</Language>
+							<AudioFile>8_Lyki_leaves.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="1013825066"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="8_Lyki_leaves" ID="{1C534DFA-9794-4EB8-A797-671B83FBB610}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="5_Bumbi_joins" ID="{9A59AB59-AB56-424E-AC37-0B732A4170B4}" ShortID="1032066285">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="5_Bumbi_joins" ID="{9F2B0CF5-77D3-46DF-9B91-D69BCF9ABD9A}">
+							<Language>SFX</Language>
+							<AudioFile>5_Bumbi_joins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="773598734"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="5_Bumbi_joins" ID="{9F2B0CF5-77D3-46DF-9B91-D69BCF9ABD9A}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="38_next_island" ID="{BC7C9AB1-33A6-4087-B057-70B941BB7C7A}" ShortID="178455912">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="38_next_island" ID="{E7CBDFAA-96B9-45B5-92C6-28D04F0C2C84}">
+							<Language>SFX</Language>
+							<AudioFile>38_next_island.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="482931993"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="38_next_island" ID="{E7CBDFAA-96B9-45B5-92C6-28D04F0C2C84}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="25_timer_ticking" ID="{9CD71E87-9400-4BB6-9A75-1C5E48C273A0}" ShortID="1071310536">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="25_timer_ticking" ID="{798966EC-DAD7-499D-96A6-F9B020BB446B}">
+							<Language>SFX</Language>
+							<AudioFile>25_timer_ticking.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="372164354"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="25_timer_ticking" ID="{798966EC-DAD7-499D-96A6-F9B020BB446B}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="35_number_ticker" ID="{E57FAC42-643D-43ED-81B4-BF236E4DCC50}" ShortID="449978056">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="35_number_ticker" ID="{60835CD4-B1AA-4A19-86AF-75C90A23A498}">
+							<Language>SFX</Language>
+							<AudioFile>35_number_ticker.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="350097180"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="35_number_ticker" ID="{60835CD4-B1AA-4A19-86AF-75C90A23A498}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="14_Seltas_leaves" ID="{60058AF3-1195-4D88-B2EA-E42441131D49}" ShortID="607809019">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="14_Seltas_leaves" ID="{519D3471-7458-4C42-94F6-07E460A40504}">
+							<Language>SFX</Language>
+							<AudioFile>14_Seltas_leaves.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="224824961"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="14_Seltas_leaves" ID="{519D3471-7458-4C42-94F6-07E460A40504}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="17_good_side_wins" ID="{8FEDF79B-45A6-4EB2-8225-F3BC38659F44}" ShortID="164609608">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="17_good_side_wins" ID="{FDDA0F99-D46E-455A-94DB-BDC19BF17DCC}">
+							<Language>SFX</Language>
+							<AudioFile>17_good_side_wins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="1063177679"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="17_good_side_wins" ID="{FDDA0F99-D46E-455A-94DB-BDC19BF17DCC}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="9_Pigyn_joins" ID="{2726E1DD-730A-4EBA-AE50-7F8ADF8FDE6F}" ShortID="777897511">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="9_Pigyn_joins" ID="{B005DAA2-9ADC-47F8-9C8E-DB371F0F5E85}">
+							<Language>SFX</Language>
+							<AudioFile>9_Pigyn_joins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="982263358"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="9_Pigyn_joins" ID="{B005DAA2-9ADC-47F8-9C8E-DB371F0F5E85}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="10_Pigyn_leaves" ID="{E68264B0-FFFE-4699-AA68-4287DC0BBD53}" ShortID="698329281">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="10_Pigyn_leaves" ID="{BCA7DFEE-D7B4-4B84-B89A-89CADA2DF88E}">
+							<Language>SFX</Language>
+							<AudioFile>10_Pigyn_leaves.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="839074542"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="10_Pigyn_leaves" ID="{BCA7DFEE-D7B4-4B84-B89A-89CADA2DF88E}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="36_confirm_button" ID="{B05CE229-9B1E-48FC-BDA1-A0EBD2198D5B}" ShortID="399543179">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="36_confirm_button" ID="{C4B85C78-F74B-4528-BC9B-71FB38606D54}">
+							<Language>SFX</Language>
+							<AudioFile>36_confirm_button.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="309668760"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="36_confirm_button" ID="{C4B85C78-F74B-4528-BC9B-71FB38606D54}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="15_PomPom_joins" ID="{D576D5CB-211F-4FC4-8CBF-973FCDD5EDC7}" ShortID="926084018">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="15_PomPom_joins" ID="{47FAFCA0-AB01-4E5E-90BD-2C5BB25643F1}">
+							<Language>SFX</Language>
+							<AudioFile>15_PomPom_joins.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="349371574"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="15_PomPom_joins" ID="{47FAFCA0-AB01-4E5E-90BD-2C5BB25643F1}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="26_creatures_walking_around" ID="{824226E7-2313-4D6E-98F6-0E17F972FBCD}" ShortID="145168739">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="26_creatures_walking_around" ID="{1FE93296-AE01-4760-B82E-0415B7C4BE11}">
+							<Language>SFX</Language>
+							<AudioFile>26_creatures_walking_around.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="851588701"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="26_creatures_walking_around" ID="{1FE93296-AE01-4760-B82E-0415B7C4BE11}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+				<Sound Name="33_drop_building" ID="{8EE38BD3-E40C-4810-A602-CECD223B4358}" ShortID="22372852">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{E67C3244-6E23-48B3-82DC-F98DC5B33FAE}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{C80495CA-8B8C-4FCB-A1FD-011F65BCFA5B}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="33_drop_building" ID="{9283DBAF-3A3F-4B1E-8F43-4D9560821295}">
+							<Language>SFX</Language>
+							<AudioFile>33_drop_building.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="18644980"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="33_drop_building" ID="{9283DBAF-3A3F-4B1E-8F43-4D9560821295}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

@@ -3,15 +3,18 @@ using UnityEngine;
 
 public class AIPlayer : MonoBehaviour
 {
-    [SerializeField] private GameInstance GameInstance;
+    [SerializeField] private GameInstance gameInstance;
 
     [SerializeField] private AIConfigData config;
+
+    public GameInstance GameInstance => gameInstance;
+    public AIConfigData Config => config;
 
     private Coroutine _playingPhaseCoroutine;
 
     private void OnEnable()
     {
-        if(GameInstance == null)
+        if(gameInstance == null)
         {
             Debug.LogError("Missing GameInstance");
             return;
@@ -23,16 +26,16 @@ public class AIPlayer : MonoBehaviour
             return;
         }
 
-        GameInstance.OnPhaseChanged += OnGamePhaseChanged;
+        gameInstance.OnPhaseChanged += OnGamePhaseChanged;
 
-        OnGamePhaseChanged(GameInstance.CurrentPhase);
+        OnGamePhaseChanged(gameInstance.CurrentPhase);
     }
 
     private void OnDisable()
     {
-        if (GameInstance == null) return;
+        if (gameInstance == null) return;
 
-        GameInstance.OnPhaseChanged -= OnGamePhaseChanged;
+        gameInstance.OnPhaseChanged -= OnGamePhaseChanged;
 
         if(_playingPhaseCoroutine != null) StopCoroutine(_playingPhaseCoroutine);
     }
@@ -41,9 +44,15 @@ public class AIPlayer : MonoBehaviour
     {
         if (_playingPhaseCoroutine != null) StopCoroutine(_playingPhaseCoroutine);
 
-        IEnumerator playingPhase = config.PlayingPhase(phase, GameInstance);
+        IEnumerator playingPhase = config.PlayingPhase(phase, this);
 
         if(playingPhase != null)
             _playingPhaseCoroutine = StartCoroutine(playingPhase);
+    }
+
+    public void Log(string message)
+    {
+        if (!config.LogActions) return;
+        Debug.Log(string.Format("AI {0} {1} ", gameInstance.ClientID, message));
     }
 }

@@ -321,6 +321,8 @@ public class LobbyManager : Singleton<LobbyManager>
                 SceneManager.UnloadSceneAsync(gameObject.scene);
             };
         }
+
+        SoundAndMusicController.Instance.EnsureSingleAudioListener();
     }
 
     //TODO VALIDATE SUCCESS
