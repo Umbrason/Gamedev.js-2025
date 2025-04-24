@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 public class LoadScenes : MonoBehaviour
 {
     // Scene Names
-    const string LOGIN = "Login";
+    const string LOBBY = "Lobby";
     const string MAIN_MENU = "Main Menu";
-    const string GAME_SCENE = "Game";
+    const string GAME_SCENE = "PlayerGame";
 
-    public void Logout()
+    public void GoToLobby()
     {
         // do the logout
         // PlayerPrefs.DeleteKey("JWT");
-        SceneManager.LoadScene(LOGIN);
+        SceneManager.LoadScene(LOBBY);
     }
 
     public void GoToMainMenu()
