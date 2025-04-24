@@ -25,17 +25,18 @@ namespace UnityEngine.UI
 
         public override float minWidth { get { return 0; } }
         public override float minHeight { get { return 0; } }
-        
+
 
         public override float preferredWidth
         {
             get
             {
-                var activeChildren = (from i in System.Linq.Enumerable.Range(0, rectTransform.childCount) where rectTransform.GetChild(i).gameObject.activeSelf && rectTransform.GetChild(i).GetComponent<LayoutElement>() != null select rectTransform.GetChild(i).GetComponent<LayoutElement>()).ToList();
-                var rowList = new List<List<LayoutElement>>();
+                var layoutChildren = rectChildren.Select(child => child.GetComponent<ILayoutElement>()).ToList();
+                if (layoutChildren.Count == 0) return 0;
+                var rowList = new List<List<ILayoutElement>>();
                 for (int i = 0; i < rows; i++)
-                    rowList.Add(activeChildren.GetRange(i * columns, Mathf.Min(columns, activeChildren.Count - i * columns)));
-                var maxPreferredChildWidth = rowList.Select((x) => x.Sum(layout => layout.preferredWidth)).Max();
+                    rowList.Add(layoutChildren.GetRange(i * columns, Mathf.Min(columns, layoutChildren.Count - i * columns)));
+                var maxPreferredChildWidth = rowList.Select((x) => x.Sum(layout => layout?.preferredWidth ?? 0)).Max();
                 return (columns - 1) * spacing.x + maxPreferredChildWidth;
             }
         }
@@ -43,11 +44,12 @@ namespace UnityEngine.UI
         {
             get
             {
-                var activeChildren = (from i in System.Linq.Enumerable.Range(0, rectTransform.childCount) where rectTransform.GetChild(i).gameObject.activeSelf && rectTransform.GetChild(i).GetComponent<LayoutElement>() != null select rectTransform.GetChild(i).GetComponent<LayoutElement>()).ToList();
-                var columnList = new List<List<LayoutElement>>();
+                var layoutChildren = rectChildren.Select(child => child.GetComponent<ILayoutElement>()).ToList();
+                if (layoutChildren.Count == 0) return 0;
+                var columnList = new List<List<ILayoutElement>>();
                 for (int i = 0; i < columns; i++)
-                    columnList.Add(activeChildren.GetRange(i * rows, Mathf.Min(rows, activeChildren.Count - i * rows)));
-                var maxPreferredChildHeight = columnList.Select((x) => x.Sum(layout => layout.preferredHeight)).Max();                
+                    columnList.Add(layoutChildren.GetRange(i * rows, Mathf.Min(rows, layoutChildren.Count - i * rows)));
+                var maxPreferredChildHeight = columnList.Select((x) => x.Sum(layout => layout?.preferredHeight ?? 0)).Max();
                 return (rows - 1) * spacing.y + maxPreferredChildHeight;
             }
         }

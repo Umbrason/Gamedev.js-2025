@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
-using static System.Net.Mime.MediaTypeNames;
-using static LobbyManager;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
@@ -53,7 +51,7 @@ public class LobbyManager : Singleton<LobbyManager>
         panelLobby.SetActive(false);
         panelJoinRoom.SetActive(false);
 
-        inputUsername.text = "_default";
+        //inputUsername.text = "_default";
     }
 
     void OnCreateClicked()
@@ -150,6 +148,7 @@ public class LobbyManager : Singleton<LobbyManager>
         yield return www.SendWebRequest();
     }
 
+    /*
     IEnumerator GetPlayers(string roomCode)
     {
         UnityWebRequest www = UnityWebRequest.Get(serverBaseURL + "get_players.php?room_code=" + roomCode);
@@ -177,6 +176,52 @@ public class LobbyManager : Singleton<LobbyManager>
         else
         {
             Debug.LogError("GetPlayers Error: " + www.error);
+        }
+    }*/
+
+    IEnumerator GetPlayers(string roomCode)
+    {
+        yield return StartCoroutine(FetchPlayerList(
+            roomCode,
+            (fetchedPlayerList) =>
+            {
+                playerList = fetchedPlayerList;
+                UpdatePlayerListUI(playerList.players);
+
+                if (playerList.game_started && !gameLoaded)
+                {
+                    LoadGameScene();
+                }
+            },
+            (errorMsg) =>
+            {
+                Debug.LogError(errorMsg);
+            }
+        ));
+    }
+
+    public static IEnumerator FetchPlayerList(string roomCode, Action<PlayerListWrapper> onSuccess, Action<string> onError)
+    {
+        UnityWebRequest www = UnityWebRequest.Get(serverBaseURL + "get_players.php?room_code=" + roomCode);
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.Success)
+        {
+            string json = www.downloadHandler.text;
+
+            try
+            {
+                PlayerListWrapper playerList = JsonUtility.FromJson<PlayerListWrapper>(json);
+                onSuccess?.Invoke(playerList);
+            }
+            catch (Exception ex)
+            {
+                onError?.Invoke("JSON Parsing Error: " + ex.Message);
+            }
+        }
+        else
+        {
+            onError?.Invoke("GetPlayers Error: " + www.error);
         }
     }
 
@@ -260,32 +305,25 @@ public class LobbyManager : Singleton<LobbyManager>
 
     void LoadGameScene()
     {
-        gameLoaded = true;
-        Debug.Log(myPlayerID);
-        GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
+        if (!gameLoaded)
+        {
+            gameLoaded = true;
+            Debug.Log(myPlayerID);
+            GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
 
-        AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
-
-        
-
-        ao.completed += _ => {
-            if (isHost)
+            AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
+            ao.completed += _ =>
             {
-                /*
-                for (int i = NetworkUtils.playerCount - playerList.players.Count; i > 0; i--)
+                if (isHost)
                 {
-                    GameNetworkManager.Instance.availableChannels[(PlayerID)i] (new ProductionNetwork((PlayerID)i, currentRoomCode, -1));
-                }*/
-                GameNetworkManager.Instance.Add_AI(currentRoomCode, NetworkUtils.playerCount - playerList.players.Count);
-            }
-
-
-            SceneManager.UnloadSceneAsync(gameObject.scene);
-        };
-
+                    GameNetworkManager.Instance.Add_AI(currentRoomCode, NetworkUtils.playerCount - playerList.players.Count);
+                }
+                SceneManager.UnloadSceneAsync(gameObject.scene);
+            };
+        }
     }
 
-     //TODO VALIDATE SUCCESS
+    //TODO VALIDATE SUCCESS
     /*public IEnumerator RegisterAiOnServer(string userName, string roomCode, PlayerID playerID)
     {
         WWWForm form = new WWWForm();
@@ -322,6 +360,7 @@ public class LobbyManager : Singleton<LobbyManager>
     {
         public int player_id;
         public string player_name;
+        public int player_gameID;
     }
 
     [System.Serializable]

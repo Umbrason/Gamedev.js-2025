@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public enum Building
 {
@@ -15,7 +16,7 @@ public enum Building
     Composter,              // Earth + Leaves
     InkGrinder,             // Leaves + Dewdrops
     MushroomsFarm,          // Dewdrops + Wood
-    LanternWeavingStation,  // Wood + Fireflies
+    FirebugCradle,  // Wood + Fireflies
     WispNursery,            // Fireflies + Mana
     ManaSolidifier,         // Mana + Earth
 }
@@ -24,67 +25,51 @@ public static class BuildingExtensions
 {
     // TODO: define Resource values
     public static Dictionary<Resource, int> ConstructionCosts(this Building building)
-    => building switch
-    {
-        Building.DewCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.LeafCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.EarthCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.ManaCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.WoodCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.FireflyCollector => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.Composter => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.InkGrinder => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.MushroomsFarm => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.LanternWeavingStation => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.WispNursery => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        Building.ManaSolidifier => new() { { Resource.Wood, 1 }, { Resource.Leaves, 1 } },
-        _ => new()
-    };
+    => GameSettings.ConstructionCosts.GetValueOrDefault(building);
 
     public static Dictionary<Resource, int> OperationCosts(this Building building)
-     => building switch
-     {
-         Building.InkGrinder => new() { { Resource.Leaves, 1 }, { Resource.Dewdrops, 1 } },
-         Building.MushroomsFarm => new() { { Resource.Dewdrops, 1 }, { Resource.Wood, 1 } },
-         Building.LanternWeavingStation => new() { { Resource.Wood, 1 }, { Resource.Fireflies, 1 } },
-         Building.WispNursery => new() { { Resource.Fireflies, 1 }, { Resource.Mana, 1 } },
-         Building.ManaSolidifier => new() { { Resource.Mana, 1 }, { Resource.Earth, 1 } },
-         Building.Composter => new() { { Resource.Leaves, 1 }, { Resource.Earth, 1 } },
-         _ => new()
-     };
+     => GameSettings.OperationCosts.GetValueOrDefault(building);
 
     public static Resource ResourceYieldType(this Building building) => (Resource)building;
 
-    private const float percentagePerTile = 0.15f;
-    public static float YieldChanceAt(this Building building, PlayerIsland island, HexPosition position)
+
+    /// <summary>
+    /// Produced .3333 resources per tile. 3 tiles => 1, 6 tiles => 2. partial yield is decided by a coin toss (i.e. 0.3 yield => 30% chance to gain +1)
+    /// </summary>
+    public static float ExpectedYield(this Building building, PlayerIsland island, HexPosition position)
     {
-        if ((int)building > 6) return .8f; //yield chance for
-        float percentage = 0f;
-        foreach (HexPosition pos in position.GetSurrounding())
-            if (island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) percentage += percentagePerTile;
-        return percentage;
+        if ((int)building > 6) return 1;
+        const float yieldPerTile = 1 / 3f;
+        var yield = position.GetSurrounding().Count(pos => island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) * yieldPerTile;
+        return yield;
     }
 
-   public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float yieldChance)
+    public static HexPosition FindBestPosition(this Building building, PlayerIsland island, out float averageYield)
     {
-        yieldChance = -1f;
+        averageYield = -10f;
         HexPosition bestPosition = default;
 
         foreach (HexPosition pos in island.Tiles.Keys)
         {
             if (island.Buildings.GetValueOrDefault(pos) != Building.None) continue;
 
-            float yield = YieldChanceAt(building, island, pos);
+            float yield = ExpectedYield(building, island, pos);
 
-            foreach(HexPosition adj in pos.GetSurrounding())
+            foreach (HexPosition adj in pos.GetSurrounding())
             {
-                if (island.Buildings.GetValueOrDefault(adj) != Building.None)
-                    yield -= percentagePerTile;//Takes into account the loss of yield of other buildings
+                Building other = island.Buildings.GetValueOrDefault(adj);
+
+                if (island.Buildings.GetValueOrDefault(adj) == Building.None) continue;
+                if (island.Buildings.GetValueOrDefault(adj) >= Building.Composter) continue;//crafters don't care about occupied tiles
+
+                yield -= 1;//Takes into account the loss of yield of other buildings
             }
 
-            if (yield <= yieldChance) continue;
+            yield *= 0.5f;//average yield is half the maximum yield
 
-            yieldChance = yield;
+            if (yield <= averageYield) continue;
+
+            averageYield = yield;
             bestPosition = pos;
         }
 

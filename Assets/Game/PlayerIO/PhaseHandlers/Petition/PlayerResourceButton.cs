@@ -8,8 +8,8 @@ using UnityEngine.UI;
 public class PlayerResourceButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public PlayerID TargetPlayer { get; set; }
-    private PlayerFactions m_PlayerFaction;
-    public PlayerFactions PlayerFaction
+    private PlayerFaction m_PlayerFaction;
+    public PlayerFaction PlayerFaction
     {
         get => m_PlayerFaction;
         set

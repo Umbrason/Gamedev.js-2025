@@ -34,4 +34,8 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
     {
         yield return null;
     }
+
+    public void Skip() { }
+
+    public bool CanSkip() => false;
 }

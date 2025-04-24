@@ -12,6 +12,7 @@ public abstract class AIBuildPhaseData : AIPhaseData<BuildPhase>
 
         foreach (Building building in Enum.GetValues(typeof(Building)))
         {
+            if (building == Building.None) continue;
             if (Phase.CanAffordBuilding(building))
                 affordableBuildings.Add(building);
         }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,16 @@ public class BuildPhase : IGamePhase, ITimedPhase
         set;
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
-    const float BuildPhaseDurationSeconds = 3;
+    const float BuildPhaseDurationSeconds = 60;
     private float startTime;
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
     private PledgeSummaryPhase nextPhase;
 
+    public event Action<HexPosition, Building, Resource, int> OnConsumeResource;
+    public event Action<HexPosition, Building, Resource, int> OnHarvestResource;
+    public event Action<SharedGoalID, Resource, int> OnPledgeResource;
 
     public readonly Dictionary<PlayerID, ResourcePledge> PledgedResources = new();
-
 
     public float TimeRemaining => startTime - Time.unscaledTime + BuildPhaseDurationSeconds;
     public float Duration => BuildPhaseDurationSeconds;
@@ -55,15 +58,13 @@ public class BuildPhase : IGamePhase, ITimedPhase
     public IEnumerator OnExit()
     {
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
-        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
+        Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID] ?? new());
         void OnPledgeResources(NetworkMessage message) { PledgedResources[message.sender] = (ResourcePledge)message.content; }
         Game.NetworkChannel.StartListening(ShareResourcePledge, OnPledgeResources);
         yield return new WaitUntil(() => PledgedResources.Count >= NetworkUtils.playerCount);
         Game.NetworkChannel.StopListening(UpdateIslandHeader);
         Game.NetworkChannel.StopListening(UpdateResourcesHeader);
         Game.NetworkChannel.StopListening(ShareResourcePledge);
-
-
 
         var pledgeWithdrawalOrderPrio = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, Game.ClientID, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
@@ -83,8 +84,8 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
                 goalID.GetGoal(Game).Collect(resources, receipt);
 
-                foreach (var (resource, amount) in resources) //add back remainder
-                    Game.PlayerData[playerID].Resources[resource] += amount;
+                foreach (var (resource, amount) in resources.ToArray()) //add back remainder
+                    Game.PlayerData[playerID][resource] += amount;
             }
         }
 
@@ -92,23 +93,28 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase, Game.ClientID));
     }
-
+    const int SecretTaskRewardResourceMultiplier = 2;
     const string UpdateResourcesHeader = "UpdateResources";
     private void HarvestResources()
     {
+        var multiplier = Game.ClientPlayerData.SecretGoal.Evaluate(Game.ClientPlayerData) ? SecretTaskRewardResourceMultiplier : 1;
         foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings.OrderBy(_ => UnityEngine.Random.value + ((int)_.Value >= 7 ? 1 : 0)))
         {
-            var yieldChance = building.YieldChanceAt(Game.ClientPlayerData.Island, position);
-            if (UnityEngine.Random.value > yieldChance) continue;
+            var expectedYield = building.ExpectedYield(Game.ClientPlayerData.Island, position);
+            var actualYield = Mathf.FloorToInt(expectedYield) + (UnityEngine.Random.value <= (expectedYield % 1f) ? 1 : 0);
             #region refined resources
             var opCosts = building.OperationCosts();
-            if (!opCosts.Select(pair => (pair.Key, pair.Value)).All(((Resource resource, int amount) cost) => Game.ClientPlayerData.Resources.GetValueOrDefault(cost.resource) >= cost.amount))
+            if (!opCosts.Select(pair => (pair.Key, pair.Value)).All(((Resource resource, int amount) cost) => Game.ClientPlayerData[cost.resource] >= cost.amount))
                 continue;
             foreach (var (resource, amount) in opCosts)
-                Game.ClientPlayerData.Resources[resource] -= amount;
+            {
+                OnConsumeResource?.Invoke(position, building, resource, amount);
+                Game.ClientPlayerData[resource] -= amount;
+            }
             #endregion
             var resourceYieldType = building.ResourceYieldType();
-            Game.ClientPlayerData.Resources[resourceYieldType]++;
+            Game.ClientPlayerData[resourceYieldType] += actualYield;
+            OnHarvestResource?.Invoke(position, building, resourceYieldType, actualYield);
         }
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
     }
@@ -127,7 +133,10 @@ public class BuildPhase : IGamePhase, ITimedPhase
         if (skipping) return;
         if (!CanPlaceBuilding(position, building)) return;
         foreach (var (resource, cost) in building.ConstructionCosts())
-            Game.ClientPlayerData.Resources[resource] -= cost;
+        {
+            Game.ClientPlayerData[resource] -= cost;
+            OnConsumeResource?.Invoke(position, building, resource, cost);
+        }
         Game.ClientPlayerData.Island = Game.ClientPlayerData.Island.WithBuildings((position, building));
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
@@ -144,7 +153,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
             clientPledgedResources = PledgedResources[Game.ClientID] = new();
         clientPledgedResources ??= PledgedResources[Game.ClientID] = new();//if key exists but value is null
 
-        amount = Mathf.Min(Game.ClientPlayerData.Resources[resource], amount); //cap to the max the player actually has
+        amount = Mathf.Min(Game.ClientPlayerData[resource], amount); //cap to the max the player actually has
         if (targetGoalID.TargetRole > Game.ClientPlayerData.Role) return; //either has no role or is balanced and tried to pledge to selfish goal.
 
         if (!clientPledgedResources.goalPledges.ContainsKey(targetGoalID))
@@ -160,7 +169,9 @@ public class BuildPhase : IGamePhase, ITimedPhase
             amount = Mathf.Max(amount, -clientPledgedResources.goalPledges[targetGoalID].GetValueOrDefault(resource));
         }
         else return; //doesnt have any resources pledged but tried to withdraw some
-        Game.ClientPlayerData.Resources[resource] -= amount;
+        if (amount == 0) return;
+        OnPledgeResource?.Invoke(targetGoalID, resource, amount);
+        Game.ClientPlayerData[resource] -= amount;
         if (!clientPledgedResources.goalPledges[targetGoalID].ContainsKey(resource))
             clientPledgedResources.goalPledges[targetGoalID][resource] = amount;
         else
@@ -169,4 +180,5 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
     }
 
+    public bool CanSkip() => true;
 }

@@ -1,4 +1,4 @@
-public struct SharedGoalID
+public struct SharedGoalID : ISerializable<SharedGoalID>
 {
     public PlayerRole TargetRole;
     public int SubgoalIndex;
@@ -18,5 +18,18 @@ public struct SharedGoalID
             _ => null
         };
         return list[SubgoalIndex];
+    }
+
+    SharedGoalID ISerializable<SharedGoalID>.Deserialize(IDeserializer deserializer)
+    {
+        PlayerRole role = deserializer.ReadEnum<PlayerRole>(nameof(TargetRole));
+        int index = deserializer.ReadInt(nameof(SubgoalIndex));
+        return new SharedGoalID(role, index);
+    }
+
+    void ISerializable<SharedGoalID>.Serialize(ISerializer serializer)
+    {
+        serializer.WriteEnum(nameof(TargetRole), TargetRole);
+        serializer.WriteInt(nameof(SubgoalIndex), SubgoalIndex);
     }
 }

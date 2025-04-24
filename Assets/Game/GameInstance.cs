@@ -6,29 +6,27 @@ using UnityEngine;
 
 public class GameInstance : MonoBehaviour
 {
-    public PlayerID ClientID => NetworkChannel.PlayerID;
-    [field: SerializeField] public FactionData[] Factions { get; private set; }
+    public PlayerID ClientID => NetworkChannel?.PlayerID ?? PlayerID.None;
+    [field: SerializeField] public GameSettings Settings { get; private set; }
     public INetworkChannel NetworkChannel { get; set; }
     public Dictionary<PlayerID, PlayerData> PlayerData { get; set; }
     public PlayerData ClientPlayerData { get => PlayerData?.GetValueOrDefault(ClientID); }
+
     public IReadOnlyList<SharedGoal> BalancedFactionGoals { get; set; }
     public IReadOnlyList<SharedGoal> SelfishFactionGoals { get; set; }
+    /* public event Action<IGamePhase> OnGoalsProgressed; */
+
     public IGamePhase CurrentPhase { get; private set; }
     public event Action<IGamePhase> OnPhaseChanged;
+
 
     private IGamePhase RequestedTransition = new InitGamePhase();//new LobbyPhase();
 
     public void Start()
     {
-        if(GameNetworkManager.Instance.availableChannels.Count >= 1)
-        {
-            NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
-        }
-        else
-        {
-            NetworkChannel = LocalDummyNetwork.availableDummyNetworks.Dequeue();
-            Debug.LogWarning("Using Dummy Network");
-        }
+        Settings.Use();
+        if (GameNetworkManager.Instance.availableChannels.Count >= 1) NetworkChannel = GameNetworkManager.Instance.availableChannels.Dequeue();
+        else Debug.LogError("Network manager has no more network channels to distribute. Try starting the game via the lobby?");
         StartCoroutine(Loop());
     }
 

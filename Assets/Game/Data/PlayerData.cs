@@ -6,13 +6,33 @@ public class PlayerData
 {
     public string Nickname { get; set; }
     public PlayerRole Role { get; set; }
-    public PlayerFactions Faction { get; set; }
+    public PlayerFaction Faction { get; set; }
     private PlayerIsland m_Island;
     public PlayerIsland Island { get => m_Island; set { m_Island = value; OnIslandChanged?.Invoke(m_Island); } }
-    public Dictionary<Resource, int> Resources { get; set; }
+    private readonly Dictionary<Resource, int> m_Resources = new();
+    public IReadOnlyDictionary<Resource, int> Resources
+    {
+        get => m_Resources; set
+        {
+            foreach (var (resource, amount) in value)
+                this[resource] = amount;
+        }
+    }
     public SecretTask SecretGoal { get; set; }
 
+    public int this[Resource resource]
+    {
+        get => Resources.GetValueOrDefault(resource);
+        set
+        {
+            if (this[resource] == value) return;
+            m_Resources[resource] = value;
+            OnResourceChanged?.Invoke(resource, value);
+        }
+    }
+
     public event Action<PlayerIsland> OnIslandChanged;
+    public event Action<Resource, int> OnResourceChanged;
 
     public bool HasResources(Dictionary<Resource, int> required)
     {

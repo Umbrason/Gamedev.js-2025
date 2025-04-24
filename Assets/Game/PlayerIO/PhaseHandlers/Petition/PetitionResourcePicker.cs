@@ -33,6 +33,7 @@ public class PetitionResourcePicker : MonoBehaviour
         {
             buttonInstances[playerID] = Instantiate(PlayerButtonTemplate, buttonContainer);
             buttonInstances[playerID].PlayerFaction = petitionPhaseHandler.Game.PlayerData[playerID].Faction;
+            buttonInstances[playerID].TargetPlayer = playerID;
             var pID = playerID;
             void OnResourceCounterChanged(Resource resource, int amount)
             {
