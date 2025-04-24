@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 407237414583033373, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 302cf1c20646062448947bf74287d337, type: 3}
     - target: {fileID: 1923149051816986206, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5438353388465041466, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
       propertyPath: m_Name
-      value: PlayerIsland
+      value: Gumbi
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
