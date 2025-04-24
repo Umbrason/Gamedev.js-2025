@@ -1552,9 +1552,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 753af1b44c20e034a981e140c2621486, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveAmount: 0.2
-  smoothSpeed: 2
-  moveThreshold: {x: 0.2, y: 0.15}
+  moveAmount: 0.5
+  smoothSpeed: 3
+  moveThreshold: {x: 1, y: 0.5}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,19 +2165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fc9a1c90b9d4ac4a1171c7d3e4d40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitializationSettings: {fileID: 11400000, guid: 03c511a1c3f4b4e058db13dbc7de136c, type: 2}
-  basePath: 
-  language: 
-  defaultPoolSize: 0
-  lowerPoolSize: 0
-  streamingPoolSize: 0
-  memoryCutoffThreshold: 0
-  monitorPoolSize: 0
-  monitorQueuePoolSize: 0
-  callbackManagerBufferSize: 0
-  spatialAudioPoolSize: 0
-  maxSoundPropagationDepth: 0
-  engineLogging: 0
 --- !u!4 &1307873335
 Transform:
   m_ObjectHideFlags: 0
@@ -7800,7 +7787,7 @@ MonoBehaviour:
   sceneLoader: {fileID: 1932830592}
   optionsGameObj: {fileID: 74892624}
   optionsPanel: {fileID: 2136135457}
-  optionsMenuContent: {fileID: 1447446502}
+  optionsMenuContent: {fileID: 354603370}
 --- !u!1 &2081134740
 GameObject:
   m_ObjectHideFlags: 0

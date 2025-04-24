@@ -22,7 +22,7 @@ public class MainMenuManager : MonoBehaviour
     public void BtnPlay()
     {
         // show Singleplayer/Multiplayer options using DoTweens
-
+        sceneLoader.GoToLobby();
     }
 
     public void BtnOptions()
@@ -52,7 +52,8 @@ public class MainMenuManager : MonoBehaviour
 
     public void BtnQuit()
     {
-        Application.Quit();
+        Application.OpenURL("https://www.wikihow.com/Close-Tabs");  // funny easter egg
+        // Application.Quit();  won't work in web
     }
 
     public void BtnSingleplayer()
