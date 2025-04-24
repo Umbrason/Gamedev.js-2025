@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d6711555cc23f4191cb39501cd12ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameInstance: {fileID: 633265560}
+  gameInstance: {fileID: 633265560}
   config: {fileID: 11400000, guid: 28b5106c5d07e5f439f103848a26dc3c, type: 2}
 --- !u!1 &633265558
 GameObject:
