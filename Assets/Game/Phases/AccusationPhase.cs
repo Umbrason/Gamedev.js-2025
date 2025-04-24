@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,9 @@ public class AccusationPhase : IGamePhase, ITimedPhase
 
     public float TimeRemaining => Mathf.Max(0, Duration - (Time.unscaledTime - SubphaseStart));
     private float SubphaseStart;
-    public float Duration { get; private set; }
+    public float Duration { get; private set; } = 1f;
 
+    public event Action<PlayerID[]> OnAccusationVoteStarted;
     public IEnumerator OnEnter()
     {
         yield return null;
@@ -19,11 +21,9 @@ public class AccusationPhase : IGamePhase, ITimedPhase
 
     public float AccusationDuration = 10f;
     public float AccusationVoteDuration = 30f;
-    bool accusationMade = false;
     public void Accuse(PlayerID[] Accusation = null)
     {
-        if (accusationMade) return;
-        accusationMade = true;
+        if (Accusations.ContainsKey(Game.ClientID)) return;
         Accusations[Game.ClientID] = Accusation;
         Game.NetworkChannel.BroadcastMessage(AccusationMade, Accusation);
     }
@@ -36,10 +36,12 @@ public class AccusationPhase : IGamePhase, ITimedPhase
     {
         SubphaseStart = Time.unscaledTime;
         Duration = AccusationDuration;
-        if(TimeRemaining <= 0) Accuse(null);
+        yield return new WaitUntil(() => TimeRemaining <= 0 || Accusations.ContainsKey(Game.ClientID));
+        if (!Accusations.ContainsKey(Game.ClientID)) Accuse(null);
+        Game.NetworkChannel.StartListening(AccusationMade, (message) => Accusations[message.sender] = (PlayerID[])message.content);
         yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
 
-        var accusationOrder = new Dictionary<PlayerID, float>();
+        var accusationOrder = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(AccusationsOrder, ref accusationOrder));
 
         foreach (var (accuser, AccusedPlayers) in Accusations.OrderBy(p => accusationOrder[p.Key]))
@@ -47,12 +49,13 @@ public class AccusationPhase : IGamePhase, ITimedPhase
             Duration = AccusationVoteDuration;
             SubphaseStart = Time.unscaledTime;
             if (AccusedPlayers == null) continue;
-
+            canVote = true;
+            OnAccusationVoteStarted?.Invoke(AccusedPlayers);
             void OnVoteRecieved(NetworkMessage message) => currentVotes[message.sender] = (bool)message.content;
             Game.NetworkChannel.StartListening(ShareVoteHeader, OnVoteRecieved);
-
             if (AccusedPlayers.Contains(Game.ClientID)) Vote(true); //accused players can't vote
-
+            yield return new WaitUntil(() => TimeRemaining <= 0 || currentVotes.ContainsKey(Game.ClientID));
+            if (!currentVotes.ContainsKey(Game.ClientID)) Vote(false);
             yield return new WaitUntil(() => currentVotes.Count >= NetworkUtils.playerCount);
 
             if (currentVotes.Values.All(v => v))

@@ -1,24 +1,41 @@
+using System;
 using UnityEngine;
 
 public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
 {
     [SerializeField] private AccusationPickerDialogue accusationPickerDialogue;
 
+    [SerializeField] private AccusationVoteDialogue accusationVoteDialogue;
+
     public override void OnPhaseEntered()
     {
         accusationPickerDialogue.gameObject.SetActive(true);
         accusationPickerDialogue.OnAccusationMade += OnAccusationMade;
+        accusationVoteDialogue.OnVote += OnVoteForAccusation;
+        Phase.OnAccusationVoteStarted += OnAccusationVoteStarted;
     }
 
     public override void OnPhaseExited()
     {
         accusationPickerDialogue.gameObject.SetActive(false);
+        accusationVoteDialogue.gameObject.SetActive(false);
         accusationPickerDialogue.OnAccusationMade -= OnAccusationMade;
+        accusationVoteDialogue.OnVote -= OnVoteForAccusation;
+        Phase.OnAccusationVoteStarted -= OnAccusationVoteStarted;
     }
 
-    void OnVoteForAccusation(PlayerID[] Accusation)
+    private void OnAccusationVoteStarted(PlayerID[] obj)
     {
+        voted = false;
+        accusationVoteDialogue.Show(obj);
+    }
 
+    bool voted = false;
+    public void OnVoteForAccusation(bool vote)
+    {
+        if (voted) return;
+        voted = true;
+        Phase.Vote(vote);
     }
 
     void OnAccusationMade(PlayerID[] Accusation)
