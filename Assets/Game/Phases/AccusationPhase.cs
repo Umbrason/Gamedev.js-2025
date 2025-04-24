@@ -55,7 +55,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
         {
             Duration = AccusationVoteDuration;
             SubphaseStart = Time.unscaledTime;
-            if (AccusedPlayers == null) continue;
+            if ((AccusedPlayers?.Length ?? 0)  == 0) continue;
             canVote = true;
             OnAccusationVoteStarted?.Invoke(AccusedPlayers);
             void OnVoteRecieved(NetworkMessage message) => currentVotes[message.sender] = (bool)message.content;
