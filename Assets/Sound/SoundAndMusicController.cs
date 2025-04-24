@@ -10,17 +10,21 @@ public class SoundAndMusicController : Singleton<SoundAndMusicController>
     public SFXClipCollection SfxClips { get => sfxClips; }
 
     private AudioSource musicSource;
+    private AudioSource ambienceSource;
     private AudioSource sfxSource;
 
     private void Start()
     {
         musicSource = gameObject.AddComponent<AudioSource>();
+        ambienceSource = gameObject.AddComponent<AudioSource>();
         sfxSource = gameObject.AddComponent<AudioSource>();
 
         musicSource.loop = true;
+        ambienceSource.loop = true;
         sfxSource.loop = false;
 
         musicSource.playOnAwake = false;
+        ambienceSource.playOnAwake = false;
         sfxSource.playOnAwake = false;
 
         EnsureSingleAudioListener();
@@ -31,6 +35,13 @@ public class SoundAndMusicController : Singleton<SoundAndMusicController>
         if (clip == null) return;
         musicSource.clip = clip;
         musicSource.Play();
+    }
+
+    public void PlayAmbience(AudioClip clip)
+    {
+        if (clip == null) return;
+        ambienceSource.clip = clip;
+        ambienceSource.Play();
     }
 
     public void PlaySFX(AudioClip clip)
@@ -44,7 +55,7 @@ public class SoundAndMusicController : Singleton<SoundAndMusicController>
         musicSource.Stop();
     }
 
-    private void EnsureSingleAudioListener()
+    public void EnsureSingleAudioListener()
     {
         AudioListener[] audioListeners = FindObjectsOfType<AudioListener>();
 

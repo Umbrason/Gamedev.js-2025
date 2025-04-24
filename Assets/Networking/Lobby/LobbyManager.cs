@@ -128,8 +128,6 @@ public class LobbyManager : Singleton<LobbyManager>
         buttonStartGame.gameObject.SetActive(isHost);
 
         StartCoroutine(UpdatePlayerListLoop());
-
-        SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackSusLoopable);
     }
 
     IEnumerator UpdatePlayerListLoop()
@@ -323,6 +321,8 @@ public class LobbyManager : Singleton<LobbyManager>
                 SceneManager.UnloadSceneAsync(gameObject.scene);
             };
         }
+
+        SoundAndMusicController.Instance.EnsureSingleAudioListener();
     }
 
     //TODO VALIDATE SUCCESS
