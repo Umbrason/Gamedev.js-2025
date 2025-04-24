@@ -19,7 +19,10 @@ public class AIPetitionPhaseRandomData : AIPetitionPhaseData
         PlayerID targetIslandPlayerId = GetPlayerIDs(AI.GameInstance).GetRandom();
         PlayerIsland targetIsland = AI.GameInstance.PlayerData[targetIslandPlayerId].Island;
 
-        Building building = System.Enum.GetValues(typeof(Building)).Cast<Building>().ToArray().GetRandom();
+        List<Building> buildings = System.Enum.GetValues(typeof(Building)).Cast<Building>().ToList();
+        buildings.Remove(Building.None);
+
+        Building building = buildings.GetRandom();
 
         HexPosition targetPosition = GetFreeTiles(targetIsland).GetRandom();
 
