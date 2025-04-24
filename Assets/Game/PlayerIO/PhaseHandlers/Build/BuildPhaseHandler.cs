@@ -13,7 +13,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     [Header("Visiting")]
     [SerializeField] private PlayerDisplay playerDisplayProvider;
     private const string VisitingHeader = "Visiting";
-    private PlayerID targetPlayer = PlayerID.None;               // who we are spectating! Also reflected in viewer.TargetPlayer
+    private PlayerID currentTargetPlayer = PlayerID.None;               // who we are spectating! Also reflected in viewer.TargetPlayer
     private bool visiting = false;
 
     public override void OnPhaseEntered()
@@ -100,24 +100,24 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
 
     #region Visiting
-    public void SetTargetPlayer(PlayerID playerID)
+    public void SetTargetPlayer(PlayerID newTargetPlayer)
     {
-        if (targetPlayer == playerID) return;
-        visiting = playerID != Game.ClientID && playerID != PlayerID.None;
-        var isClient = playerID == Game.ClientID;
-        var isAnyPlayer = playerID != PlayerID.None;
-        var isOtherPlayer = isAnyPlayer && playerID != Game.ClientID;
+        if (currentTargetPlayer == newTargetPlayer) return;
+        visiting = newTargetPlayer != Game.ClientID && newTargetPlayer != PlayerID.None;
+        var isClient = newTargetPlayer == Game.ClientID;
+        var isAnyPlayer = newTargetPlayer != PlayerID.None;
+        var isOtherPlayer = isAnyPlayer && newTargetPlayer != Game.ClientID;
 
-        playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(playerID)?.Faction ?? PlayerFaction.None;
+        playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(newTargetPlayer)?.Faction ?? PlayerFaction.None;
 
         #region send notification to other player when visiting them
         if (isOtherPlayer)
         {
-            Game.NetworkChannel.SendMessage(VisitingHeader, false, targetPlayer);
-            if (playerID != PlayerID.None && playerID != Game.ClientID)
-                Game.NetworkChannel.SendMessage(VisitingHeader, true, targetPlayer);
+            Game.NetworkChannel.SendMessage(VisitingHeader, false, currentTargetPlayer);
+            if (newTargetPlayer != PlayerID.None && newTargetPlayer != Game.ClientID)
+                Game.NetworkChannel.SendMessage(VisitingHeader, true, newTargetPlayer);
         }
-        targetPlayer = playerID;
+        currentTargetPlayer = newTargetPlayer;
         #endregion
         #region reset visitors
         foreach (var visitor in otherVisitingPlayers)
@@ -139,7 +139,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         #endregion
 
         buildingMenu.gameObject.SetActive(!visiting);
-        viewer.TargetPlayer = playerID;
+        viewer.TargetPlayer = newTargetPlayer;
     }
 
     private List<PlayerFaction> otherVisitingPlayers = new();
@@ -150,12 +150,12 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         if (isPresent)
         {
             otherVisitingPlayers.Add(faction);
-            if (targetPlayer == Game.ClientID) playerDisplayProvider.Show(faction, true);
+            if (currentTargetPlayer == Game.ClientID) playerDisplayProvider.Show(faction, true);
         }
         else
         {
             otherVisitingPlayers.Remove(faction);
-            if (targetPlayer == Game.ClientID) playerDisplayProvider.Hide(faction);
+            if (currentTargetPlayer == Game.ClientID) playerDisplayProvider.Hide(faction);
         }
     }
     #endregion
