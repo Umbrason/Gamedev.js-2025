@@ -39,6 +39,9 @@ public class BuildPhase : IGamePhase, ITimedPhase
         => Game.PlayerData[message.sender].Resources = (Dictionary<Resource, int>)message.content;
         Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
         PledgedResources[Game.ClientID] = null;
+
+        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.roundStart);
+
         yield return null;
     }
 

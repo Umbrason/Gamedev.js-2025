@@ -9,7 +9,6 @@ public class ButtonClickSound : MonoBehaviour
         GeneralButtonClick,
         ConfirmButton,
         VoteSusButton,
-        PauseButton,
         MainMenuNavButtons
     }
 
@@ -35,7 +34,6 @@ public class ButtonClickSound : MonoBehaviour
             SFXType.GeneralButtonClick => sfx.generalButtonClick,
             SFXType.ConfirmButton => sfx.confirmButton,
             SFXType.VoteSusButton => sfx.voteSusButton,
-            SFXType.PauseButton => sfx.pauseButton,
             SFXType.MainMenuNavButtons => sfx.mainMenuNavButtons,
             _ => null,
         };

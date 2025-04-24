@@ -47,7 +47,7 @@ public class AIAccusationPhaseRandomData : AIAccusationPhaseData
             yield return new WaitForSeconds(AI.Config.ActionDelay);
 
             bool vote = UnityEngine.Random.value <= AgreeProbability;
-            AI.Log("votes " + (vote ? "yes" : "no"));
+            //AI.Log("votes " + (vote ? "yes" : "no"));
             Phase.Vote(vote);
         }
 
