@@ -14,8 +14,8 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0.09178755, g: 0.083214656, b: 0.09433961, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -1178,6 +1178,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -2021178655527167927, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
@@ -1191,15 +1199,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.49056602
+      value: 0.03773582
       objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.33428144
+      value: 0.033362128
       objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.21520111
+      value: 0.030081857
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_Name
@@ -4489,8 +4497,8 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -0.1
-      minScalar: 0.1
+      scalar: -0.2
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4595,8 +4603,8 @@ ParticleSystem:
     z:
       serializedVersion: 2
       minMaxState: 3
-      scalar: -0.1
-      minScalar: 0.1
+      scalar: -0.2
+      minScalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
