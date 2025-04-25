@@ -12,7 +12,7 @@ public class BuildingMenu : MonoBehaviour
     public event Action<HexPosition, Building> OnPlaceBuilding;
     public Func<Building, bool> CanBuildBuilding;
 
-    [SerializeField] BuildingView BuildingPreview;
+    [SerializeField] GhostBuildingView BuildingPreview;
 
     void Start()
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PetitionBuildingPreview : MonoBehaviour
 {
-    [SerializeField] private BuildingView buildingView;
+    [SerializeField] private GhostBuildingView buildingView;
     private BuildingPetition m_Petition;
     public BuildingPetition Petition
     {

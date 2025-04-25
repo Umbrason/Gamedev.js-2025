@@ -13,13 +13,16 @@ namespace DataView
         private Dictionary<HexPosition, TileView> _tileViews = new();
         private Dictionary<HexPosition, BuildingView> _buildingViews = new();
 
-        protected override void Refresh(PlayerIsland oldData, PlayerIsland newData)
+        protected override void Refresh(PlayerIsland _, PlayerIsland newData)
         {
-            RefreshAtPositions<Tile, TileView>(newData.Tiles, tileViewPrefab, _tileViews);
-            RefreshAtPositions<Building, BuildingView>(newData.Buildings, buildingViewPrefab, _buildingViews);
+            var newTiles = newData.Tiles.ToDictionary(p => p.Key, p => !newData.Buildings.ContainsKey(p.Key) ? p.Value : Tile.None);
+            var newBuildings = newData.Buildings;
+
+            RefreshAtPositions<Tile, TileView>(newTiles, tileViewPrefab, _tileViews);
+            RefreshAtPositions<Building, BuildingView>(newBuildings, buildingViewPrefab, _buildingViews);
 
             void RefreshAtPositions<T, TView>(IReadOnlyDictionary<HexPosition, T> newValues, TView prefab, Dictionary<HexPosition, TView> views)
-                where TView : View<T>
+                where TView : EnumView<T> where T : struct, System.Enum
             {
                 // null-safe initialisierung (für den Fall, dass newValues intern null ist)
                 HashSet<HexPosition> newPositions = newValues?.Keys.ToHashSet() ?? new();
