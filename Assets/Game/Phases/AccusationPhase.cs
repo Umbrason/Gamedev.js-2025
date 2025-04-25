@@ -8,8 +8,8 @@ public class AccusationPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game { private get; set; }
 
-    public float TimeRemaining => Mathf.Max(0, Duration - (Time.unscaledTime - SubphaseStart));
-    private float SubphaseStart;
+    public float TimeRemaining => Mathf.Max(0, Duration - (Time.unscaledTime - startTime));
+    public float startTime { get; set; }
     public float Duration { get; private set; } = 1f;
 
     public event Action<PlayerID[]> OnAccusationVoteStarted;
@@ -35,7 +35,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
     Dictionary<PlayerID, bool> currentVotes = new();
     public IEnumerator Loop()
     {
-        SubphaseStart = Time.unscaledTime;
+        startTime = Time.unscaledTime;
         Duration = AccusationDuration;
         yield return new WaitUntil(() => TimeRemaining <= 0 || Accusations.ContainsKey(Game.ClientID));
         if (!Accusations.ContainsKey(Game.ClientID)) Accuse(null);
@@ -54,7 +54,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
         foreach (var (accuser, AccusedPlayers) in Accusations.OrderBy(p => accusationOrder[p.Key]))
         {
             Duration = AccusationVoteDuration;
-            SubphaseStart = Time.unscaledTime;
+            startTime = Time.unscaledTime;
             if ((AccusedPlayers?.Length ?? 0)  == 0) continue;
             canVote = true;
             OnAccusationVoteStarted?.Invoke(AccusedPlayers);
