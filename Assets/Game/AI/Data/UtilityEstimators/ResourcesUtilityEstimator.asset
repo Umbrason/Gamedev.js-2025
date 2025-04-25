@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36269f7bb3ac51842ac2c7c9d1f57206, type: 3}
-  m_Name: VotePhaseRandom
+  m_Script: {fileID: 11500000, guid: 477a5a290e2c1ff4886b6a9a0a4273a4, type: 3}
+  m_Name: ResourcesUtilityEstimator
   m_EditorClassIdentifier: 
-  balanceProbabilityToAccept: 0.6
-  balanceAlwaysVoteForSelf: 1
-  selfishProbabilityToAccept: 0.4
-  selfishAlwaysVoteForSelf: 1
+  basicResourcesBaseUtility: 1
+  combinedResourcesBaseUtility: 3
+  basicResourcesBaseProductionUtility: 5
+  combinedResourcesBaseProductionUtility: 15

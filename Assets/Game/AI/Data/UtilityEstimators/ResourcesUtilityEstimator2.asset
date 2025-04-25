@@ -16,7 +16,7 @@ MonoBehaviour:
   combinedResourcesBaseUtility: 3
   basicResourcesBaseProductionUtility: 5
   combinedResourcesBaseProductionUtility: 15
-  basicResourceProductionImpact: 0.1
+  basicResourceProductionImpact: 0.15
   combinedResourceProductionImpact: 0.3
   GoalProgressFactorBasicResources: {x: 1.5, y: 1}
   GoalProgressFactorCombinedResources: {x: 1, y: -0.1}

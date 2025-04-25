@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 676e0199c919846449fa6bcf63e58a05, type: 3}
-  m_Name: BuildPhaseOptimizeUtility
+  m_Name: BuildPhaseUtility
   m_EditorClassIdentifier: 
   ResourcesUtilitiesEstimator: {fileID: 11400000, guid: cc1b83e66fa1fd44a8dcc20e22b0d7f3, type: 2}
   BaseOfferingProportion: {x: -0.1, y: 0.3}

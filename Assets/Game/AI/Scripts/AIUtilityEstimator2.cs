@@ -58,25 +58,12 @@ public class AIUtilityEstimator2 : AIUtilityEstimator
         return utilities;
 
         void FactorProduction(ResourcesUtilities utilities){
-            foreach((Resource res, float prod) in GetProduction(Game.ClientPlayerData.Island))
+            foreach((Resource res, float prod) in Game.ClientPlayerData.Island.GetAverageProduction())
             {
                 float productionImpact = res.IsBasic() ? basicResourceProductionImpact : combinedResourceProductionImpact;
 
                 utilities.Prodution[res] *= Mathf.Pow(1f - productionImpact, prod);
             }
-        }
-
-        Dictionary<Resource, float> GetProduction(PlayerIsland island)
-        {
-            Dictionary<Resource, float> production = new();
-            foreach (var (position, building) in Game.ClientPlayerData.Island.Buildings)
-            {
-                float yield = building.ExpectedYield(Game.ClientPlayerData.Island, position);
-                Resource res = building.ResourceYieldType();
-
-                production[res] = production.GetValueOrDefault(res) + yield;
-            }
-            return production;
         }
 
         void FactorGoals(ResourcesUtilities utilities)
@@ -87,7 +74,7 @@ public class AIUtilityEstimator2 : AIUtilityEstimator
             {
                 Dictionary<Resource, float> SelfishGoalsProgress = GetGoalsProgres(Game, PlayerRole.Selfish);
 
-                foreach((Resource res, float progress) in GoalsProgress)
+                foreach(Resource res in GoalsProgress.Keys.ToList())
                 {
                     GoalsProgress[res] = Mathf.Lerp(GoalsProgress[res], SelfishGoalsProgress[res], selfishGoalWeight);
                 }
@@ -138,14 +125,25 @@ public class AIUtilityEstimator2 : AIUtilityEstimator
         }
     }
 
-    public override BuildingUtility GetBestBuilding(BuildPhase Phase, GameInstance Game, ResourcesUtilities ResourcesUtilities)
+    public override BuildingUtility GetBestBuilding(GameInstance Game, ResourcesUtilities ResourcesUtilities, bool onlyAffordable = true)
     {            
         BuildingAmount SecretTask = Game.ClientPlayerData.SecretGoal as BuildingAmount;
-        float secretTaskUtility = SecretTask != null ? secretTaskUtility = GetAllBuildingsProductionUtility() * BuildPhase.SecretTaskRewardResourceMultiplier : 0f;
+        float secretTaskUtility = SecretTask != null ? GetAllBuildingsProductionUtility() * BuildPhase.SecretTaskRewardResourceMultiplier : 0f;
 
 
         BuildingUtility BestBuilding = null;
-        foreach (Building building in AIBuildPhaseData.GetAffordableBuildings(Phase))
+
+        List<Building> Buildings = new();
+        if (onlyAffordable) Buildings = AIBuildPhaseData.GetAffordableBuildings(Game);
+        else
+        {
+            foreach (Building building in Enum.GetValues(typeof(Building)))
+            {
+                if (building != Building.None) Buildings.Add(building);
+            }
+        }
+
+        foreach (Building building in Buildings)
         {
             BuildingUtility Building = GetBuildingUtility(Game, ResourcesUtilities, SecretTask, secretTaskUtility, building);
 

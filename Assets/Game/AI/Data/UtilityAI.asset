@@ -15,7 +15,7 @@ MonoBehaviour:
   minActionDelay: 0.3
   maxActionDelay: 0.5
   AIBuildPhase: {fileID: 11400000, guid: 321eaf2ea8c7e1344a10c78fc687c997, type: 2}
-  AIPetitionPhase: {fileID: 11400000, guid: 17f823a068d045b4693c233d3e967dae, type: 2}
+  AIPetitionPhase: {fileID: 11400000, guid: 296013b77bd482d42abac9300d7168ff, type: 2}
   AIVotePhase: {fileID: 11400000, guid: 7535a87f489c0d24e9dc48dba668892f, type: 2}
-  AIAccusationPhase: {fileID: 11400000, guid: 70faa8182f7c1d2409d5e8780ccb2dab, type: 2}
-  LogActions: 1
+  AIAccusationPhase: {fileID: 11400000, guid: c047b1ec104d5a445a1b9c6a3f585b49, type: 2}
+  LogActions: 0
