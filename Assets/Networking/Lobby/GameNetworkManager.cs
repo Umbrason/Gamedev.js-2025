@@ -33,6 +33,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     [SerializeField]
     private TMPro.TMP_Text playerDisconnctedInformationText;
 
+    private bool gamePausedBecauseOfDisconnect;
+    public bool GamePausedBecauseOfDisconnect { get => gamePausedBecauseOfDisconnect; }
+
     public INetworkChannel Channels(PlayerID playerID)
     {
         return channels[playerID];
@@ -224,14 +227,16 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                         if (missingPlayers.Count > 0)
                         {
                             otherPlayerDisconnectedPanel.SetActive(true);
+                            gamePausedBecauseOfDisconnect = true;
 
                             string infoText = string.Join(", ", missingPlayers.Select(p => p.player_name));
                             string verb = missingPlayers.Count == 1 ? "has" : "have";
-                            playerDisconnctedInformationText.text = $"{infoText} {verb} lost the connection to the server.";
+                            playerDisconnctedInformationText.text = $"{infoText} {verb} lost the connection to the server.\nThe game will continue when the player reconnects";
                         }
                         else
                         {
                             otherPlayerDisconnectedPanel.SetActive(false);
+                            gamePausedBecauseOfDisconnect = false;
                         }
                     }
 
@@ -265,10 +270,12 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!success)
         {
             selfDisconnectedPanel.SetActive(true);
+            gamePausedBecauseOfDisconnect = true;
         }
         else
         {
             selfDisconnectedPanel.SetActive(false);
+            gamePausedBecauseOfDisconnect = false;
         }
     }
 

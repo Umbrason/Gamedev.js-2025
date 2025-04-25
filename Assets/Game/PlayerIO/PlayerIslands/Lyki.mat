@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FogSprite
+  m_Name: Lyki
   m_Shader: {fileID: -6465566751694194690, guid: bc0aa4e1f637ded34bd04a8decae4e9e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -61,8 +61,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.088465646, g: 0.20702827, b: 0.26415092, a: 1}
-    - _Color_Dark: {r: 0, g: 0.1595454, b: 0.234, a: 1}
+    - _Color: {r: 0.26666668, g: 0.30980393, b: 0.1764706, a: 1}
+    - _Color_Dark: {r: 0.1882353, g: 0.23529412, b: 0.1764706, a: 1}
     - _Direction: {r: -0.09, g: -0.05, b: 0, a: 0}
     - _Tint: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

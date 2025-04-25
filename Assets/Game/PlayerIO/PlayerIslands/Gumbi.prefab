@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3618783484284663670, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3fb97db915f102713aac7f484f19c4f0, type: 2}
     - target: {fileID: 5438353388465041466, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
       propertyPath: m_Name
       value: Gumbi
