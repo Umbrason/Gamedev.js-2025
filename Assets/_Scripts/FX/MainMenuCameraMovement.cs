@@ -14,10 +14,11 @@ public class MainMenuCameraMovement : MonoBehaviour
     void Start()
     {
         float currentAspect = (float)Screen.width / Screen.height;
-        float xOffset = (currentAspect - baseAspectRatio) * aspectOffsetMultiplier;
+        float yOffset = (currentAspect - baseAspectRatio) * aspectOffsetMultiplier;
 
         // Adjust initial position based on screen width
-        initialPosition = transform.localPosition + new Vector3(xOffset, 0f, 0f);
+        initialPosition = transform.localPosition + new Vector3(0f, yOffset, 0f);
+        transform.localPosition = initialPosition;
     }
 
     void Update()
