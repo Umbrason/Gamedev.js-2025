@@ -110,6 +110,16 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
         playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(newTargetPlayer)?.Faction ?? PlayerFaction.None;
 
+        switch (playerDisplayProvider.IslandOwner)
+        {
+            case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lookAtBumbiIsland); break;
+            case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lookAtGumbiIsland); break;
+            case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lookAtLykiIsland); break;
+            case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lookAtPigynIsland); break;
+            case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lookAtPomPomIsland); break;
+            case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lookAtSeltasIsland); break;
+        }
+
         #region send notification to other player when visiting them
         if (isOtherPlayer)
         {
@@ -151,11 +161,31 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         {
             otherVisitingPlayers.Add(faction);
             if (currentTargetPlayer == Game.ClientID) playerDisplayProvider.Show(faction, true);
+
+            switch (faction)
+            {
+                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.bumbiJoins); break;
+                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.gumbiJoins); break;
+                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lykiJoins); break;
+                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.pigynJoins); break;
+                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.pomPomJoins); break;
+                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.seltasJoins); break;
+            }
         }
         else
         {
             otherVisitingPlayers.Remove(faction);
             if (currentTargetPlayer == Game.ClientID) playerDisplayProvider.Hide(faction);
+
+            switch (faction)
+            {
+                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.bumbiLeaves); break;
+                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.gumbiLeaves); break;
+                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.lykiLeaves); break;
+                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.pigynLeaves); break;
+                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.pomPomLeaves); break;
+                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.seltasLeaves); break;
+            }
         }
     }
     #endregion

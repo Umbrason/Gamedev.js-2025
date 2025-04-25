@@ -1,4 +1,5 @@
 //#define JakobTest
+//#define NetworkDebug
 
 using UnityEngine;
 using System.Collections;
@@ -9,6 +10,7 @@ using UnityEngine.Networking;
 using System;
 using System.IO;
 using static LobbyManager;
+using UnityEngine.UI;
 
 public class GameNetworkManager : Singleton<GameNetworkManager>
 {
@@ -22,7 +24,14 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private Dictionary<PlayerID, INetworkChannel> channels = new();
 
-    PlayerListWrapper playerList;
+    List<Player> allTimePlayers = new List<Player>();
+
+    [SerializeField]
+    private GameObject selfDisconnectedPanel, otherPlayerDisconnectedPanel;
+    [SerializeField]
+    private Button backToMainMenu_selfDisconnect, backToMainMenu_otherPlayerDisconnect;
+    [SerializeField]
+    private TMPro.TMP_Text playerDisconnctedInformationText;
 
     public INetworkChannel Channels(PlayerID playerID)
     {
@@ -42,11 +51,15 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 #endif
 
         availableChannels.Enqueue(channels[playerID]);
-
-        Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
+#if NetworkDebug
+        Debug.Log($"[GameNetworkManager] Initialized with Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
+#endif
         StartPulling();
 
         StartCoroutine(CheckPlayerConnectedLoop());
+
+        backToMainMenu_selfDisconnect.onClick.AddListener(GoBackToMainMenu);
+        backToMainMenu_otherPlayerDisconnect.onClick.AddListener(GoBackToMainMenu);
     }
 
     public void Add_AI(string roomCode, int amount)
@@ -113,7 +126,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         {
             if (www.result != UnityWebRequest.Result.Success)
             {
+#if NetworkDebug
                 Debug.LogError("Multi-Pull Error: " + www.error);
+#endif
                 return;
             }
 
@@ -127,7 +142,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     Type type = Type.GetType(msg.MessageType);
                     if (type == null)
                     {
+#if NetworkDebug
                         Debug.LogError($"Unknown type: {msg.MessageType}");
+#endif
                         continue;
                     }
 
@@ -143,7 +160,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                     if (deserialized == null)
                     {
+#if NetworkDebug
                         Debug.LogError($"Failed to deserialize: {msg.Message}");
+#endif
                         continue;
                     }
 
@@ -155,13 +174,17 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     }
                     else
                     {
+#if NetworkDebug
                         Debug.LogWarning($"No channel found for Receiver {msg.Receiver}");
+#endif
                     }
                 }
             }
             catch (Exception ex)
             {
+#if NetworkDebug
                 Debug.LogError("Deserialization error: " + ex.Message);
+#endif
             }
         };
     }
@@ -182,43 +205,49 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 {
                     PlayerListWrapper newPlayerList = fetchedPlayerList;
 
-                    if (playerList != null && newPlayerList != null)
+                    if (newPlayerList != null)
                     {
-                        // Finde Spieler, die vorher da waren, aber jetzt fehlen
-                        List<Player> removedPlayers = playerList.players
-                            .Where(oldPlayer => !newPlayerList.players.Any(newPlayer => newPlayer.player_id == oldPlayer.player_id))
+                        // Speichere alle neuen Spieler in allTimePlayers
+                        foreach (var newPlayer in newPlayerList.players)
+                        {
+                            if (!allTimePlayers.Any(p => p.player_id == newPlayer.player_id))
+                            {
+                                allTimePlayers.Add(newPlayer);
+                            }
+                        }
+
+                        // Finde alle Spieler, die jemals da waren, aber aktuell fehlen
+                        List<Player> missingPlayers = allTimePlayers
+                            .Where(savedPlayer => !newPlayerList.players.Any(p => p.player_id == savedPlayer.player_id))
                             .ToList();
 
-                        if (removedPlayers.Count > 0)
+                        if (missingPlayers.Count > 0)
                         {
-                            foreach (var removed in removedPlayers)
-                            {
-                                channels[(PlayerID)removed.player_gameID] = new ProductionNetwork((PlayerID)removed.player_gameID, roomCode, -1, $"AI_{removed.player_gameID}");
+                            otherPlayerDisconnectedPanel.SetActive(true);
 
-                                availableChannels.Enqueue(channels[(PlayerID)removed.player_gameID]);
-                                SceneManager.LoadScene("Main Menu");
-
-                                Debug.Log($"Player missing: {removed.player_name} (ID: {removed.player_gameID})");
-
-                                Destroy(gameObject);
-                            }
+                            string infoText = string.Join(", ", missingPlayers.Select(p => p.player_name));
+                            string verb = missingPlayers.Count == 1 ? "has" : "have";
+                            playerDisconnctedInformationText.text = $"{infoText} {verb} lost the connection to the server.";
+                        }
+                        else
+                        {
+                            otherPlayerDisconnectedPanel.SetActive(false);
                         }
                     }
 
-                    // Update der aktuellen Liste
-                    playerList = newPlayerList;
                     success = true;
                     done = true;
                 },
                 (errorMsg) =>
                 {
+#if NetworkDebug
                     Debug.LogError($"{errorMsg}");
+#endif
                     retryCount++;
                     done = true;
                 }
             ));
 
-            // Warte, bis der Callback den Vorgang abgeschlossen hat
             while (!done)
             {
                 yield return null;
@@ -226,18 +255,29 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (!success && retryCount < maxRetries)
             {
+#if NetworkDebug
                 Debug.LogWarning($"Reconnecting {retryCount}/{maxRetries}...");
-                yield return new WaitForSeconds(checkPlayerConnectedInterval); // optional kleine Pause zwischen Versuchen
+#endif
+                yield return new WaitForSeconds(checkPlayerConnectedInterval);
             }
         }
 
         if (!success)
         {
-            Debug.LogError("Connecting lost. Game ending");
-            SceneManager.LoadScene("Main Menu");
-            Destroy(gameObject);
+            selfDisconnectedPanel.SetActive(true);
+        }
+        else
+        {
+            selfDisconnectedPanel.SetActive(false);
         }
     }
+
+    private void GoBackToMainMenu()
+    {
+        SceneFader.Instance.FadeToScene("Main Menu");
+        Destroy(gameObject);
+    }
+
     public void RunCoroutine(IEnumerator coroutine)
     {
         StartCoroutine(coroutine);

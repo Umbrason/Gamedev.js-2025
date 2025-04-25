@@ -1,3 +1,5 @@
+//#define NetworkDebug
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +8,7 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
@@ -34,7 +37,10 @@ public class LobbyManager : Singleton<LobbyManager>
     private bool isHost = false;
     private PlayerID myPlayerID = PlayerID.None;
 
+    private Coroutine playerListCoroutine;
+
     PlayerListWrapper playerList;
+    private Dictionary<int, GameObject> currentPlayerEntries = new Dictionary<int, GameObject>();
 
     bool gameLoaded;
 
@@ -83,7 +89,9 @@ public class LobbyManager : Singleton<LobbyManager>
 
         if (www.result == UnityWebRequest.Result.Success)
         {
+            #if NetworkDebug
             Debug.Log("Create Room Response: " + www.downloadHandler.text);
+            #endif
             RoomJoinResponse response = JsonUtility.FromJson<RoomJoinResponse>(www.downloadHandler.text);
             currentRoomCode = response.room_code;
             playerId = response.player_id;
@@ -94,7 +102,9 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
+            #if NetworkDebug
             Debug.LogError("Create Room Error: " + www.error);
+            #endif
         }
     }
 
@@ -117,7 +127,9 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
+#if NetworkDebug
             Debug.LogError("Join Room Error: " + www.downloadHandler.text);
+#endif
         }
     }
 
@@ -134,12 +146,12 @@ public class LobbyManager : Singleton<LobbyManager>
         roomCodeAsCopyableIF.text = currentRoomCode.ToString();
         buttonStartGame.gameObject.SetActive(isHost);
 
-        StartCoroutine(UpdatePlayerListLoop());
+        playerListCoroutine = StartCoroutine(UpdatePlayerListLoop());
     }
 
     IEnumerator UpdatePlayerListLoop()
     {
-        while (panelLobby.activeSelf)
+        while (true)
         {
             StartCoroutine(SendHeartbeat());
             yield return GetPlayers(currentRoomCode);
@@ -154,37 +166,6 @@ public class LobbyManager : Singleton<LobbyManager>
         UnityWebRequest www = UnityWebRequest.Post(serverBaseURL + "heartbeat.php", form);
         yield return www.SendWebRequest();
     }
-
-    /*
-    IEnumerator GetPlayers(string roomCode)
-    {
-        UnityWebRequest www = UnityWebRequest.Get(serverBaseURL + "get_players.php?room_code=" + roomCode);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success)
-        {
-            string json = www.downloadHandler.text;
-
-            try
-            {
-                playerList = JsonUtility.FromJson<PlayerListWrapper>(json);
-                UpdatePlayerListUI(playerList.players);
-
-                if (playerList.game_started && !gameLoaded)
-                {
-                    LoadGameScene();
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError("JSON Parsing Error: " + ex.Message);
-            }
-        }
-        else
-        {
-            Debug.LogError("GetPlayers Error: " + www.error);
-        }
-    }*/
 
     IEnumerator GetPlayers(string roomCode)
     {
@@ -202,7 +183,9 @@ public class LobbyManager : Singleton<LobbyManager>
             },
             (errorMsg) =>
             {
+#if NetworkDebug
                 Debug.LogError(errorMsg);
+#endif
             }
         ));
     }
@@ -234,16 +217,36 @@ public class LobbyManager : Singleton<LobbyManager>
 
     void UpdatePlayerListUI(List<Player> players)
     {
-        foreach (Transform child in playerListContainer)
+        HashSet<int> newPlayerIds = new HashSet<int>(players.Select(p => p.player_id));
+
+        var oldPlayerIds = currentPlayerEntries.Keys.ToList();
+        foreach (int oldId in oldPlayerIds)
         {
-            Destroy(child.gameObject);
+            if (!newPlayerIds.Contains(oldId))
+            {
+                Destroy(currentPlayerEntries[oldId]);
+                currentPlayerEntries.Remove(oldId);
+            }
         }
 
         for (int i = 0; i < players.Count; i++)
         {
             Player player = players[i];
-            GameObject entry = Instantiate(playerEntryPrefab, playerListContainer);
-            entry.GetComponentInChildren<TMP_Text>().text = player.player_name;
+
+            if (currentPlayerEntries.TryGetValue(player.player_id, out GameObject entry))
+            {
+                TMP_Text text = entry.GetComponentInChildren<TMP_Text>();
+                if (text != null && text.text != player.player_name)
+                {
+                    text.text = player.player_name;
+                }
+            }
+            else
+            {
+                GameObject newEntry = Instantiate(playerEntryPrefab, playerListContainer);
+                newEntry.GetComponentInChildren<TMP_Text>().text = player.player_name;
+                currentPlayerEntries[player.player_id] = newEntry;
+            }
 
             if (player.player_id == this.playerId)
             {
@@ -259,6 +262,12 @@ public class LobbyManager : Singleton<LobbyManager>
 
     IEnumerator LeaveRoomCoroutine()
     {
+        if (playerListCoroutine != null)
+        {
+            StopCoroutine(playerListCoroutine);
+            playerListCoroutine = null;
+        }
+
         WWWForm form = new WWWForm();
         form.AddField("player_id", playerId);
 
@@ -275,23 +284,7 @@ public class LobbyManager : Singleton<LobbyManager>
     void OnStartGameClicked()
     {
         StartCoroutine(SetRoomStarted());
-        //StartCoroutine(OnGameStarteClicked_async());
     }
-
-    /*
-    IEnumerator OnGameStarteClicked_async()
-    {
-       
-        if (isHost)
-        {
-            for (int i = NetworkUtils.playerCount - playerList.players.Count; i < NetworkUtils.playerCount; i++)
-            {
-                yield return StartCoroutine(RegisterAiOnServer($"AI_{i}", currentRoomCode, (PlayerID)i));
-            }
-        }
-        
-        StartCoroutine(SetRoomStarted());
-    }*/
 
     IEnumerator SetRoomStarted()
     {
@@ -306,7 +299,9 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
+#if NetworkDebug
             Debug.LogError("Start Game Error: " + www.error);
+#endif
         }
     }
 
@@ -331,31 +326,6 @@ public class LobbyManager : Singleton<LobbyManager>
 
         SoundAndMusicController.Instance.EnsureSingleAudioListener();
     }
-
-    //TODO VALIDATE SUCCESS
-    /*public IEnumerator RegisterAiOnServer(string userName, string roomCode, PlayerID playerID)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("room_code", roomCode);
-        form.AddField("player_name", userName);
-
-        UnityWebRequest www = UnityWebRequest.Post(LobbyManager.serverBaseURL + "join_room.php", form);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success && !www.downloadHandler.text.Contains("error"))
-        {
-            RoomJoinResponse response = JsonUtility.FromJson<RoomJoinResponse>(www.downloadHandler.text);
-            int playerID_fromServer = response.player_id;
-
-            GameNetworkManager.Instance.availableAIChannels.Enqueue(new ProductionNetwork(playerID, roomCode, playerID_fromServer));
-
-            Debug.Log($"[AI NETWORK] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {playerID_fromServer}, Host: {isHost}, GamePlayerID: {playerID}");
-        }
-        else
-        {
-            Debug.LogError("Join Room Error: " + www.downloadHandler.text);
-        }
-    }*/
 
     [System.Serializable]
     public class RoomJoinResponse
