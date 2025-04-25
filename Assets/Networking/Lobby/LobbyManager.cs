@@ -14,15 +14,17 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField] private Button buttonCreate;
     [SerializeField] private Button buttonJoin;
     [SerializeField] private GameObject panelJoinRoom;
-    [SerializeField] private TMP_InputField inputJoinRoomCode;
     [SerializeField] private Button buttonConfirmJoin;
     [SerializeField] private GameObject panelLobby;
-    [SerializeField] private TMP_Text textRoomCode;
-    [SerializeField] private TMP_InputField roomCodeAsCopyableIF;
     [SerializeField] private Transform playerListContainer;
     [SerializeField] private GameObject playerEntryPrefab;
     [SerializeField] private Button buttonLeave;
     [SerializeField] private Button buttonStartGame;
+    [SerializeField] private GameObject mainRoom;
+
+    [Header("RoomCode Refs")]
+    [SerializeField] private TMP_InputField roomCodeAsCopyableIF;
+    [SerializeField] private TMP_InputField inputJoinRoomCode;
 
     public const string serverBaseURL = "https://jamapi.heggie.dev/";
 
@@ -121,9 +123,14 @@ public class LobbyManager : Singleton<LobbyManager>
 
     void OpenLobbyPanel()
     {
-        panelJoinRoom.SetActive(false);
-        panelLobby.SetActive(true);
-        textRoomCode.text = "Room Code: " + currentRoomCode;
+        //Fade between activations.
+        SceneFader.Instance.FadeAction(() => {
+            mainRoom.SetActive(false);
+            panelJoinRoom.SetActive(false);
+            panelLobby.SetActive(true);
+        });
+
+        //Get room code
         roomCodeAsCopyableIF.text = currentRoomCode.ToString();
         buttonStartGame.gameObject.SetActive(isHost);
 
@@ -261,7 +268,7 @@ public class LobbyManager : Singleton<LobbyManager>
         if (www.result == UnityWebRequest.Result.Success)
         {
             panelLobby.SetActive(false);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneFader.Instance.FadeToScene(SceneManager.GetActiveScene().name);
         }
     }
 
