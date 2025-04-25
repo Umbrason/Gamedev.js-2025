@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using System.Linq;
 
 public class LobbyManager : Singleton<LobbyManager>
 {
@@ -37,6 +38,7 @@ public class LobbyManager : Singleton<LobbyManager>
     private Coroutine playerListCoroutine;
 
     PlayerListWrapper playerList;
+    private Dictionary<int, GameObject> currentPlayerEntries = new Dictionary<int, GameObject>();
 
     bool gameLoaded;
 
@@ -205,16 +207,36 @@ public class LobbyManager : Singleton<LobbyManager>
 
     void UpdatePlayerListUI(List<Player> players)
     {
-        foreach (Transform child in playerListContainer)
+        HashSet<int> newPlayerIds = new HashSet<int>(players.Select(p => p.player_id));
+
+        var oldPlayerIds = currentPlayerEntries.Keys.ToList();
+        foreach (int oldId in oldPlayerIds)
         {
-            Destroy(child.gameObject);
+            if (!newPlayerIds.Contains(oldId))
+            {
+                Destroy(currentPlayerEntries[oldId]);
+                currentPlayerEntries.Remove(oldId);
+            }
         }
 
         for (int i = 0; i < players.Count; i++)
         {
             Player player = players[i];
-            GameObject entry = Instantiate(playerEntryPrefab, playerListContainer);
-            entry.GetComponentInChildren<TMP_Text>().text = player.player_name;
+
+            if (currentPlayerEntries.TryGetValue(player.player_id, out GameObject entry))
+            {
+                TMP_Text text = entry.GetComponentInChildren<TMP_Text>();
+                if (text != null && text.text != player.player_name)
+                {
+                    text.text = player.player_name;
+                }
+            }
+            else
+            {
+                GameObject newEntry = Instantiate(playerEntryPrefab, playerListContainer);
+                newEntry.GetComponentInChildren<TMP_Text>().text = player.player_name;
+                currentPlayerEntries[player.player_id] = newEntry;
+            }
 
             if (player.player_id == this.playerId)
             {
