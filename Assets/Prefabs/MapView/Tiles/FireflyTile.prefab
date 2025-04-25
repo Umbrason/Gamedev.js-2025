@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: ffc5b883982dc7f4fbf40471943042d5, type: 3}
+    - target: {fileID: 4926625585551032191, guid: fc3df9b50d6c185fcbc3a91066f7563e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926625585551032191, guid: fc3df9b50d6c185fcbc3a91066f7563e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926625585551032191, guid: fc3df9b50d6c185fcbc3a91066f7563e, type: 3}
+      propertyPath: m_Color.r
+      value: 0.735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926625585551032191, guid: fc3df9b50d6c185fcbc3a91066f7563e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8617210371585351519, guid: fc3df9b50d6c185fcbc3a91066f7563e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 90
