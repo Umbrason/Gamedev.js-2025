@@ -61,8 +61,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.5283019, g: 0.3795305, b: 0.05731578, a: 1}
-    - _Color_Dark: {r: 0.3962264, g: 0.22133985, b: 0.03551085, a: 1}
+    - _Color: {r: 0.11320752, g: 0.081358366, b: 0.024029901, a: 1}
+    - _Color_Dark: {r: 0.05660379, g: 0.04859382, b: 0.044588834, a: 1}
     - _Direction: {r: -0.09, g: -0.05, b: 0, a: 0}
     - _Tint: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
