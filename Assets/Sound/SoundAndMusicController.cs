@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SoundAndMusicController : Singleton<SoundAndMusicController>
 {
@@ -58,7 +59,8 @@ public class SoundAndMusicController : Singleton<SoundAndMusicController>
 
     private bool CanPlay(PlayerID id)
     {
-        if(GameNetworkManager.Instance != null)
+        if (id == PlayerID.None) return true;
+        if (GameNetworkManager.Instance != null)
         {
             return id == GameNetworkManager.Instance.PlayerID;
         }
