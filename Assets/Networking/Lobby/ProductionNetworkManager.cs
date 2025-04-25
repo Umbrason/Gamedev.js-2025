@@ -1,3 +1,5 @@
+//#define NetworkDebug
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,7 +32,9 @@ public class ProductionNetwork : INetworkChannel
     {
         if(receiver == PlayerID)
         {
+#if NetworkDebug
             Debug.Log("Receiver cannot be same as sender");
+#endif
             return;
         }
         SendToServer("sendMessage_v2.php", header, message, ((int)receiver).ToString());
@@ -63,7 +67,9 @@ public class ProductionNetwork : INetworkChannel
         if (receiver != null)
             form.AddField("receiver_game_id", receiver);
 
+#if NetworkDebug
         Debug.Log($"Sending: {header}, {dataToSend}, as {PlayerID}");
+#endif
 
         SendRequestWithRetry(BaseUrl + endpoint, form, 3f);
     }
@@ -80,7 +86,9 @@ public class ProductionNetwork : INetworkChannel
 
                 if (www.result != UnityWebRequest.Result.Success)
                 {
+#if NetworkDebug
                     Debug.LogWarning("Netzwerkfehler: " + www.error);
+#endif
                 }
                 else
                 {
@@ -91,22 +99,30 @@ public class ProductionNetwork : INetworkChannel
                         if (result != null && result.success)
                         {
                             success = true;
-                            Debug.Log("Nachricht erfolgreich gesendet:");
+#if NetworkDebug
+                            Debug.Log("Message sended succesfully:");
+#endif
                         }
                         else
                         {
-                            Debug.LogWarning("Serverantwort ohne Erfolg: " + json);
+#if NetworkDebug
+                            Debug.LogWarning("Server response error: " + json);
+#endif
                         }
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning("Fehler beim Parsen der Serverantwort: " + e.Message);
+#if NetworkDebug
+                        Debug.LogWarning("Error parsing serverreply: " + e.Message);
+#endif
                     }
                 }
 
                 if (!success)
                 {
-                    Debug.Log("Wiederhole in " + retryDelay + " Sekunden...");
+#if NetworkDebug
+                    Debug.Log("Retry in " + retryDelay + " seconds...");
+#endif
                     yield return new WaitForSeconds(retryDelay);
                 }
             }
@@ -122,7 +138,9 @@ public class ProductionNetwork : INetworkChannel
         {
             if (www.result != UnityWebRequest.Result.Success)
             {
+#if NetworkDebug
                 Debug.LogError("Message Polling Error: " + www.error);
+#endif
                 return;
             }
 
@@ -137,7 +155,9 @@ public class ProductionNetwork : INetworkChannel
                     Type type = Type.GetType(msg.MessageType);
                     if (type == null)
                     {
+#if NetworkDebug
                         Debug.LogError($"Unknown type: {msg.MessageType}");
+#endif
                         continue;
                     }
 
@@ -160,7 +180,9 @@ public class ProductionNetwork : INetworkChannel
 
                     if (deserialized == null)
                     {
+#if NetworkDebug
                         Debug.LogError($"Failed to deserialize message: {msg.Message}");
+#endif
                         continue;
                     }
 
@@ -169,14 +191,18 @@ public class ProductionNetwork : INetworkChannel
             }
             catch (Exception ex)
             {
+#if NetworkDebug
                 Debug.Log("JSON Deserialization Error: " + ex.Message);
+#endif
             }
         };
     }
 
     public void Recieve(NetworkMessage message)
     {
+#if NetworkDebug
         Debug.Log($"Received Message {message.header}, {message.content}, From: {message.sender}");
+#endif
 
         if (MessageListeners.ContainsKey(message.header))
         {

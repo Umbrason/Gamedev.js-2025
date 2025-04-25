@@ -1,4 +1,5 @@
 //#define JakobTest
+//#define NetworkDebug
 
 using UnityEngine;
 using System.Collections;
@@ -50,8 +51,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 #endif
 
         availableChannels.Enqueue(channels[playerID]);
-
-        Debug.Log($"[GameNetworkManager] Initialisiert mit Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
+#if NetworkDebug
+        Debug.Log($"[GameNetworkManager] Initialized with Username: {username}, Room: {roomCode}, PlayerID: {serverPlayerId}, Host: {isHost}, GamePlayerID: {playerID}");
+#endif
         StartPulling();
 
         StartCoroutine(CheckPlayerConnectedLoop());
@@ -124,7 +126,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         {
             if (www.result != UnityWebRequest.Result.Success)
             {
+#if NetworkDebug
                 Debug.LogError("Multi-Pull Error: " + www.error);
+#endif
                 return;
             }
 
@@ -138,7 +142,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     Type type = Type.GetType(msg.MessageType);
                     if (type == null)
                     {
+#if NetworkDebug
                         Debug.LogError($"Unknown type: {msg.MessageType}");
+#endif
                         continue;
                     }
 
@@ -154,7 +160,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                     if (deserialized == null)
                     {
+#if NetworkDebug
                         Debug.LogError($"Failed to deserialize: {msg.Message}");
+#endif
                         continue;
                     }
 
@@ -166,13 +174,17 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                     }
                     else
                     {
+#if NetworkDebug
                         Debug.LogWarning($"No channel found for Receiver {msg.Receiver}");
+#endif
                     }
                 }
             }
             catch (Exception ex)
             {
+#if NetworkDebug
                 Debug.LogError("Deserialization error: " + ex.Message);
+#endif
             }
         };
     }
@@ -228,7 +240,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                 },
                 (errorMsg) =>
                 {
+#if NetworkDebug
                     Debug.LogError($"{errorMsg}");
+#endif
                     retryCount++;
                     done = true;
                 }
@@ -241,7 +255,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
             if (!success && retryCount < maxRetries)
             {
+#if NetworkDebug
                 Debug.LogWarning($"Reconnecting {retryCount}/{maxRetries}...");
+#endif
                 yield return new WaitForSeconds(checkPlayerConnectedInterval);
             }
         }

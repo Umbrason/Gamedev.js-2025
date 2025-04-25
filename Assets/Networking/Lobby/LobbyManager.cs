@@ -1,3 +1,5 @@
+//#define NetworkDebug
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -89,7 +91,9 @@ public class LobbyManager : Singleton<LobbyManager>
 
         if (www.result == UnityWebRequest.Result.Success)
         {
+            #if NetworkDebug
             Debug.Log("Create Room Response: " + www.downloadHandler.text);
+            #endif
             RoomJoinResponse response = JsonUtility.FromJson<RoomJoinResponse>(www.downloadHandler.text);
             currentRoomCode = response.room_code;
             playerId = response.player_id;
@@ -100,7 +104,9 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
+            #if NetworkDebug
             Debug.LogError("Create Room Error: " + www.error);
+            #endif
         }
     }
 
@@ -123,7 +129,9 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
+#if NetworkDebug
             Debug.LogError("Join Room Error: " + www.downloadHandler.text);
+#endif
         }
     }
 
@@ -178,7 +186,9 @@ public class LobbyManager : Singleton<LobbyManager>
             },
             (errorMsg) =>
             {
+#if NetworkDebug
                 Debug.LogError(errorMsg);
+#endif
             }
         ));
     }
@@ -292,7 +302,9 @@ public class LobbyManager : Singleton<LobbyManager>
         }
         else
         {
+#if NetworkDebug
             Debug.LogError("Start Game Error: " + www.error);
+#endif
         }
     }
 
