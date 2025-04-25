@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4882985727976830789, guid: bc620f9943009f84293024ddd6bd29d8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9afb088171684df49834cc1465f8aabb, type: 3}
     - target: {fileID: 5997734711886788902, guid: bc620f9943009f84293024ddd6bd29d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7765633971799529544, guid: bc620f9943009f84293024ddd6bd29d8, type: 3}
       propertyPath: m_Name
-      value: Building
+      value: Wood Collector
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

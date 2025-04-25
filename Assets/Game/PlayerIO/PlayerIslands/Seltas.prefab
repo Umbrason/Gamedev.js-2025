@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3618783484284663670, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7fdc28ba92a3360818e9e55419ca4092, type: 2}
     - target: {fileID: 5438353388465041466, guid: 9bb11ab572d3675229588ac0fe4025f6, type: 3}
       propertyPath: m_Name
       value: Seltas
