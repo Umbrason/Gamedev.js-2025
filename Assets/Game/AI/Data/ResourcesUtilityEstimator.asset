@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 477a5a290e2c1ff4886b6a9a0a4273a4, type: 3}
   m_Name: ResourcesUtilityEstimator
   m_EditorClassIdentifier: 
-  basicResourcesBaseValue: 1
-  combinedResourcesBaseValue: 4
-  basicResourcesBaseUtility: 10
-  combinedResourcesBaseUtility: 30
+  basicResourcesBaseUtility: 1
+  combinedResourcesBaseUtility: 3
+  basicResourcesBaseProductionUtility: 10
+  combinedResourcesBaseProductionUtility: 30

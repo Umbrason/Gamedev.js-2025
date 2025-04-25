@@ -14,5 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicResourcesBaseUtility: 1
   combinedResourcesBaseUtility: 3
-  basicResourcesBaseProductionUtility: 10
-  combinedResourcesBaseProductionUtility: 30
+  basicResourcesBaseProductionUtility: 5
+  combinedResourcesBaseProductionUtility: 15
+  basicResourceProductionImpact: 0.1
+  combinedResourceProductionImpact: 0.3
+  GoalProgressFactorBasicResources: {x: 1.5, y: 1}
+  GoalProgressFactorCombinedResources: {x: 1, y: -0.1}
+  selfishGoalWeight: 0.8
+  noiseStrength: 0
