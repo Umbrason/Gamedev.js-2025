@@ -1,18 +1,18 @@
 using UnityEngine;
 using System;
 
-[CreateAssetMenu(fileName = "ResourcesUtilityEstimator", menuName = "Scriptable Objects/ResourcesUtilityEstimator")]
+[CreateAssetMenu(fileName = "ResourcesUtilityEstimator", menuName = "Scriptable Objects/AI/ResourcesUtilityEstimator")]
 public partial class AIUtilityEstimator : ScriptableObject
 {
-    [SerializeField, Min(0f)] private float basicResourcesBaseValue = 1f;
-    [SerializeField, Min(0f)] private float combinedResourcesBaseValue = 3f;
+    [SerializeField, Min(0f)] private float basicResourcesBaseUtility = 1f; 
+    [SerializeField, Min(0f)] private float combinedResourcesBaseUtility = 3f; 
 
-    
-    [SerializeField, Min(0f), Tooltip("How much is valued increasing the production by one")]
-    private float basicResourcesBaseUtility = 10f;
 
     [SerializeField, Min(0f), Tooltip("How much is valued increasing the production by one")]
-    private float combinedResourcesBaseUtility = 30f;
+    private float basicResourcesBaseProductionUtility = 10f; 
+
+    [SerializeField, Min(0f), Tooltip("How much is valued increasing the production by one")]
+    private float combinedResourcesBaseProductionUtility = 30f; 
 
     public virtual ResourcesUtilities GetResourcesUtilities(GameInstance Game)
     {
@@ -22,11 +22,60 @@ public partial class AIUtilityEstimator : ScriptableObject
         {
             bool basic = (int)res <= 6;
 
-            values.Stock[res] = basic ? basicResourcesBaseValue : combinedResourcesBaseValue;
+            values.Stock[res] = basic ? basicResourcesBaseUtility : combinedResourcesBaseUtility;
 
-            values.Prodution[res] = basic ? basicResourcesBaseUtility : combinedResourcesBaseUtility;
+            values.Prodution[res] = basic ? basicResourcesBaseProductionUtility : combinedResourcesBaseProductionUtility;
         }
 
         return values;
     }
+
+    public virtual BuildingUtility GetBestBuilding(BuildPhase Phase, GameInstance Game, ResourcesUtilities ResourcesUtilities)
+    {
+        BuildingUtility BestBuilding = null;
+        foreach (Building building in AIBuildPhaseData.GetAffordableBuildings(Phase))
+        {
+            BuildingUtility Building = new BuildingUtility(building, ResourcesUtilities, Game);
+            if (Building.Utility <= 0f) continue;//Dont build useless buildings
+            if (BestBuilding == null || BestBuilding.Utility < Building.Utility)
+            {
+                BestBuilding = Building;
+            }
+        }
+
+        return BestBuilding;
+    }
+
+    public class BuildingUtility
+    {
+        public Building Building { get; private set; }
+        public float Utility { get; set; }
+        public HexPosition Position { get; private set; }
+
+        public BuildingUtility(Building building, ResourcesUtilities ResourcesUtilities, GameInstance Game)
+        {
+            Building = building;
+            Utility = -1000f;
+            Position = default;
+
+            if (!building.FindBestPosition(Game.ClientPlayerData.Island, out HexPosition pos, out float yield)) return;
+
+            Position = pos;
+            Utility = 0f;
+
+            foreach ((Resource res, int quantity) in building.ConstructionCosts())
+            {
+                Utility -= ResourcesUtilities.Stock[res] * quantity;
+            }
+            foreach ((Resource res, int quantity) in building.OperationCosts())
+            {
+                Utility -= ResourcesUtilities.Prodution[res] * quantity;
+            }
+            Utility += ResourcesUtilities.Prodution[building.ResourceYieldType()] * yield;
+        }
+
+    }
+
+
+
 }

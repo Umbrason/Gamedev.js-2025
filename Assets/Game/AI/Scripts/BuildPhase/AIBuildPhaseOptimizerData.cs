@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEditor.Playables;
+using static AIUtilityEstimator;
 
 [CreateAssetMenu(fileName = "AIBuildPhaseOptimizerData", menuName = "Scriptable Objects/AIBuildPhaseOptimizerData")]
 public class AIBuildPhaseOptimizerData : AIBuildPhaseData
@@ -45,29 +44,16 @@ public class AIBuildPhaseOptimizerData : AIBuildPhaseData
         #region BUILDING
         ResourcesUtilities ResourcesUtilities = ResourcesUtilitiesEstimator.GetResourcesUtilities(AI.GameInstance);
 
-        BuildingUtility BestBuilding;
-
         while(true)
         {
-            BestBuilding = null;
+            BuildingUtility BestBuilding = ResourcesUtilitiesEstimator.GetBestBuilding(Phase, AI.GameInstance, ResourcesUtilities);
 
-            foreach (Building building in GetAffordableBuildings(Phase))
-            {
-                BuildingUtility Building = new BuildingUtility(building, ResourcesUtilities, AI.GameInstance);
-                if (Building.Utility <= 0f) continue;//Dont build useless buildings
-                if (BestBuilding == null || BestBuilding.Utility < Building.Utility)
-                {
-                    BestBuilding = Building;
-                }
-            }
-
-            if(BestBuilding == null) break;
+            if (BestBuilding == null) break;
 
             AI.Log("builds " + BestBuilding.Building);
             Phase.PlaceBuilding(BestBuilding.Position, BestBuilding.Building);
 
             yield return new WaitForSeconds(AI.Config.ActionDelay);
-
         }
 
         #endregion
@@ -116,6 +102,8 @@ public class AIBuildPhaseOptimizerData : AIBuildPhaseData
             float prop = UnityEngine.Random.Range(range.x, range.y);
             return Mathf.Max(0f, prop);
         }
+
+
     }
 
     private void PledgeCommonGoals(PlayerRole faction, BuildPhase Phase, AIPlayer AI, float resourcesProportion)
@@ -150,33 +138,6 @@ public class AIBuildPhaseOptimizerData : AIBuildPhaseData
         }
     }
 
-    private class BuildingUtility
-    {
-        public Building Building { get; private set; }
-        public float Utility { get; private set; }
-        public HexPosition Position { get; private set; }
 
-        public BuildingUtility(Building building, ResourcesUtilities ResourcesUtilities, GameInstance Game)
-        {
-            Building = building;
-            Utility = -1000f;
-            Position = default;
 
-            if (!building.FindBestPosition(Game.ClientPlayerData.Island, out HexPosition pos, out float yield)) return;
-            
-            Position = pos;
-            Utility = 0f;
-
-            foreach ((Resource res, int quantity) in building.ConstructionCosts())
-            {
-                Utility -= ResourcesUtilities.Stock[res] * quantity;
-            }
-            foreach((Resource res, int quantity) in building.OperationCosts())
-            {
-                Utility -= ResourcesUtilities.Prodution[res] * quantity;
-            }
-            Utility += ResourcesUtilities.Prodution[building.ResourceYieldType()] * yield;
-        }
-
-    }
 }

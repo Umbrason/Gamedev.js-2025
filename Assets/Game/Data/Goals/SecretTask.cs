@@ -27,6 +27,17 @@ public class BuildingAmount : SecretTask
             if (data.CountBuilding(building) < amount) return false;
         return true;
     }
+
+    //for AI
+    public float ProgressIfBuilt(Building building)
+    {
+        if (!requiredBuildings.ContainsKey(building)) return 0f;
+
+        int n = 0;
+        foreach ((Building _, int amount) in requiredBuildings) n += amount;
+
+        return 1f / n;
+    }
 }
 
 

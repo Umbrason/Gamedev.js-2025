@@ -29,6 +29,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
     public IEnumerator OnEnter()
     {
+        Game.Turn++;
 
         HarvestResources();
         startTime = Time.unscaledTime;
@@ -97,7 +98,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
 
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase));
     }
-    const int SecretTaskRewardResourceMultiplier = 2;
+    public const int SecretTaskRewardResourceMultiplier = 2;
     const string UpdateResourcesHeader = "UpdateResources";
     private void HarvestResources()
     {

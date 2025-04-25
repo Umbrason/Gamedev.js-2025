@@ -18,3 +18,9 @@ public enum Resource
     Wisps,
     ManaStones,
 }
+
+public static class ResourceExtention
+{
+    public static bool IsBasic(this Resource resource) => resource != Resource.None && resource < Resource.Compost;
+    public static bool IsCombined(this Resource resource) => resource >= Resource.Compost;
+}

@@ -39,6 +39,11 @@ public static class BuildingExtensions
     /// </summary>
     public static float ExpectedYield(this Building building, PlayerIsland island, HexPosition position)
     {
+        /* 
+            Note: the AI use this method. It should returns the average amount produced. 
+            If this changes, please make also a method that estimates the average and make the AI call it.
+        */
+
         if ((int)building > 6) return 1;
         var yield = position.GetSurrounding().Count(pos => island.Tiles.GetValueOrDefault(pos) == (Tile)building && island.Buildings.GetValueOrDefault(pos) == Building.None) * YIELD_PER_TILE;
         return yield;

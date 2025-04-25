@@ -5,7 +5,7 @@ using System.Linq;
 
 public abstract class AIBuildPhaseData : AIPhaseData<BuildPhase>
 {
-    static protected List<Building> GetAffordableBuildings(BuildPhase Phase)
+    static public List<Building> GetAffordableBuildings(BuildPhase Phase)
     {
         List<Building> affordableBuildings = new();
 
