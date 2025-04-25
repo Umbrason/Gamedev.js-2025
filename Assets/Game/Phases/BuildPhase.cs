@@ -42,8 +42,6 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
         PledgedResources[Game.ClientID] = null;
 
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.roundStart);
-
         yield return null;
     }
 

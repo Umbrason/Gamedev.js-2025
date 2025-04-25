@@ -12,50 +12,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcc43c4d9cf5b4e25a8940a05ed8242e, type: 3}
   m_Name: SFXClips
   m_EditorClassIdentifier: 
-  generalButtonClick: {fileID: 8300000, guid: a437579665d934f5b84bb6b639cc2320, type: 3}
-  popupOpens: {fileID: 8300000, guid: c2e40adc11c134289b7f943c8c367f22, type: 3}
-  bumbiJoins: {fileID: 8300000, guid: 92979cd811aa24223a8bd3e0e3b8e58b, type: 3}
-  bumbiLeaves: {fileID: 8300000, guid: 84178e089be554aa0a3ac4dadac715a8, type: 3}
-  lykiJoins: {fileID: 8300000, guid: 75a9fb0423a414d4eae12fdfc6503e27, type: 3}
-  lykiLeaves: {fileID: 8300000, guid: f26c62680d97548f094c74bdaf3a0e76, type: 3}
-  pigynJoins: {fileID: 8300000, guid: c85aa8b35e29b47eb994abafe9bc40ba, type: 3}
-  pigynLeaves: {fileID: 8300000, guid: a3294e192dfac4e2ba72b89a327e42ae, type: 3}
-  gumbiJoins: {fileID: 8300000, guid: 684597035863840b1a2c07eee1927109, type: 3}
-  gumbiLeaves: {fileID: 8300000, guid: 3fb5d79d21a33486c81a93b8bc498562, type: 3}
-  seltasJoins: {fileID: 8300000, guid: d72af716a9683462cbc9fbb4470160ea, type: 3}
-  seltasLeaves: {fileID: 8300000, guid: bf1ccf7efc19849f89a3e48dc48b44a7, type: 3}
-  pomPomJoins: {fileID: 8300000, guid: 8a091f60c915f408a88db75e9cdc8f5b, type: 3}
-  pomPomLeaves: {fileID: 8300000, guid: eeb8d0da9efe741358b233b3a5e4feae, type: 3}
-  goodSideWins: {fileID: 8300000, guid: 89c0cbc189f8b412990b2bb95db45798, type: 3}
-  susSideWins: {fileID: 8300000, guid: 5c688cb4bd15844e6936b98aa1fbeb6e, type: 3}
-  roundStart: {fileID: 8300000, guid: 900e2438dbe4f45e2af4dac3ffa34544, type: 3}
-  roundEnd: {fileID: 8300000, guid: e5ec4c57c188e42c8852c8a779cc16e0, type: 3}
-  buildVotingTimeStart: {fileID: 8300000, guid: c790fa39d5e244d18ac71e8bb35189a6, type: 3}
-  buildVotingTimeEnd: {fileID: 8300000, guid: b4907a767240249bf92442357ea28321, type: 3}
-  susVotingTimeStart: {fileID: 8300000, guid: 212c998a78b4c458987b94054790215b, type: 3}
-  susVotingTimeEnd: {fileID: 8300000, guid: a4cbc18cdfbcb4e4db41c4cd8eb116fe, type: 3}
-  timerTicking: {fileID: 8300000, guid: cf3b2e682a91d462089d527c13bb7888, type: 3}
-  lookAtBumbiIsland: {fileID: 8300000, guid: f1d4c3bde940647e3bbe10e0c45bb593, type: 3}
-  lookAtLykiIsland: {fileID: 8300000, guid: 95d0a20cc4a384dff923db04646a7417, type: 3}
-  lookAtPigynIsland: {fileID: 8300000, guid: d836e8051c45348f58b9143cceb09030, type: 3}
-  lookAtGumbiIsland: {fileID: 8300000, guid: a27d7b6b65df343a085fb2531362b6c9, type: 3}
-  lookAtSeltasIsland: {fileID: 8300000, guid: 9006c28299a0844c89ce402765a33a46, type: 3}
-  lookAtPomPomIsland: {fileID: 8300000, guid: 0e9124800f17a4925bb5d954260054b0, type: 3}
-  dropBuilding: {fileID: 8300000, guid: 90db77bb1c6b64a5b8a17ee1d57ad5a9, type: 3}
-  numberTicker: {fileID: 8300000, guid: 5ef757e05dad84866a6dd1b6dd018e5e, type: 3}
-  confirmButton: {fileID: 8300000, guid: adc6f1359348449acb86d85d8910588e, type: 3}
-  voteSusButton: {fileID: 8300000, guid: 7d7cb03ecb5204e53aa58782c76d6c83, type: 3}
-  nextIsland: {fileID: 8300000, guid: 5fe5332e497b9440e8721cdf09e291db, type: 3}
-  mainMenuNavButtons: {fileID: 8300000, guid: b37be4c3c596d4beb875f94f7726306f, type: 3}
-  MainMenuNavHover: {fileID: 8300000, guid: e21685ee18fa04b67aadc1ef06cdc587, type: 3}
-  MainMenuGameStart: {fileID: 8300000, guid: e1d31174957234323ae152fd6d227908, type: 3}
-  PopUpCloses: {fileID: 8300000, guid: 67e0b0620cb5b48db9406403fcd6b3e7, type: 3}
-  TimerTicking_SusVersion: {fileID: 8300000, guid: 412d54a387a474a508a2ade76030f01c, type: 3}
-  GoodWins_SusVersion: {fileID: 8300000, guid: ea3a8bdd0cbc94c2690c47539235a31c, type: 3}
-  SusWins_SusVersion: {fileID: 8300000, guid: fca16d114f98b4614898ffb3baceb65d, type: 3}
-  RoundStart_SusVersion: {fileID: 8300000, guid: ca58acec32bee46199cd258bb9e03d8c, type: 3}
-  RoundEnd_SusVersion: {fileID: 8300000, guid: 18d82e88c416d4020832a80834d9566c, type: 3}
-  SusVote_start_SusVersion: {fileID: 8300000, guid: 5c4c75ab3bf97425d9beb56f2a2765e9, type: 3}
-  SusVoteEnd_SusVersion: {fileID: 8300000, guid: 196fc4f07f9104b7ebfab67bac4644c8, type: 3}
-  BuildVoteStart_SusVersion: {fileID: 8300000, guid: b14d0fa9be1c24a6387498402cef556a, type: 3}
-  BuildVoteEnd_SusVersion: {fileID: 8300000, guid: ca140aa450ce44273bb353b93884ecf6, type: 3}
+  _02_SharedGoalProgresses: {fileID: 0}
+  _03_GeneralButtonClicks: {fileID: 8300000, guid: a437579665d934f5b84bb6b639cc2320, type: 3}
+  _04_PopUpOpens: {fileID: 8300000, guid: c2e40adc11c134289b7f943c8c367f22, type: 3}
+  _05_BumbiJoinsLobby: {fileID: 0}
+  _06_BumbiLeavesLobby: {fileID: 0}
+  _07_LykiJoinsLobby: {fileID: 0}
+  _08_LykiLeavesLobby: {fileID: 0}
+  _09_PigynJoinsLobby: {fileID: 0}
+  _10_PigynLeavesLobby: {fileID: 0}
+  _11_GumbiJoinsLobby: {fileID: 0}
+  _12_GumbiLeavesLobby: {fileID: 0}
+  _13_SeltasJoinsLobby: {fileID: 0}
+  _14_SeltasLeavesLobby: {fileID: 0}
+  _15_PomPomJoinsLobby: {fileID: 0}
+  _16_PomPomLeavesLobby: {fileID: 0}
+  _17_GoodWins_GoodVersion: {fileID: 8300000, guid: 89c0cbc189f8b412990b2bb95db45798, type: 3}
+  _18_SusWins_GoodVersion: {fileID: 8300000, guid: 5c688cb4bd15844e6936b98aa1fbeb6e, type: 3}
+  _19_RoundStart_GoodVersion: {fileID: 8300000, guid: 900e2438dbe4f45e2af4dac3ffa34544, type: 3}
+  _20_RoundEnd_GoodVersion: {fileID: 0}
+  _21_BuildVoteStart_GoodVersion: {fileID: 8300000, guid: c790fa39d5e244d18ac71e8bb35189a6, type: 3}
+  _22_BuildVoteEnd_GoodVersion: {fileID: 0}
+  _23_SusVoteStart_GoodVersion: {fileID: 8300000, guid: 212c998a78b4c458987b94054790215b, type: 3}
+  _24_SusVoteEnd_GoodVersion: {fileID: 0}
+  _25_TimerTicking_GoodVersion: {fileID: 8300000, guid: cf3b2e682a91d462089d527c13bb7888, type: 3}
+  _26_CreaturesWalkingAround: {fileID: 0}
+  _27_LookAtBumbiIsland: {fileID: 0}
+  _28_LookAtLykiIsland: {fileID: 0}
+  _29_LookAtPigynIsland: {fileID: 0}
+  _30_LookAtGumbiIsland: {fileID: 0}
+  _31_LookAtSeltasIsland: {fileID: 0}
+  _32_LookAtPomPomIsland: {fileID: 0}
+  _33_DropBuildingOnMap: {fileID: 8300000, guid: 90db77bb1c6b64a5b8a17ee1d57ad5a9, type: 3}
+  _34_OpeningDropdown: {fileID: 0}
+  _35_NumberTicker: {fileID: 8300000, guid: 5ef757e05dad84866a6dd1b6dd018e5e, type: 3}
+  _36_ConfirmButton: {fileID: 0}
+  _37_VoteSusButton: {fileID: 8300000, guid: 7d7cb03ecb5204e53aa58782c76d6c83, type: 3}
+  _38_NextIsland: {fileID: 8300000, guid: 5fe5332e497b9440e8721cdf09e291db, type: 3}
+  _39_PauseButton: {fileID: 0}
+  _40_MainMenuNavigationButtons: {fileID: 8300000, guid: b37be4c3c596d4beb875f94f7726306f, type: 3}
+  _41_MainMenuNavHover: {fileID: 8300000, guid: e21685ee18fa04b67aadc1ef06cdc587, type: 3}
+  _42_MainMenuGameStart: {fileID: 8300000, guid: e1d31174957234323ae152fd6d227908, type: 3}
+  _43_PopUpCloses: {fileID: 8300000, guid: 67e0b0620cb5b48db9406403fcd6b3e7, type: 3}
+  _44_TimerTicking_SusVersion: {fileID: 8300000, guid: 412d54a387a474a508a2ade76030f01c, type: 3}
+  _45_GoodWins_SusVersion: {fileID: 8300000, guid: ea3a8bdd0cbc94c2690c47539235a31c, type: 3}
+  _46_SusWins_SusVersion: {fileID: 8300000, guid: fca16d114f98b4614898ffb3baceb65d, type: 3}
+  _47_RoundStart_SusVersion: {fileID: 8300000, guid: ca58acec32bee46199cd258bb9e03d8c, type: 3}
+  _48_RoundEnd_SusVersion: {fileID: 0}
+  _49_SusVoteStart_SusVersion: {fileID: 8300000, guid: 5c4c75ab3bf97425d9beb56f2a2765e9, type: 3}
+  _50_SusVoteEnd_SusVersion: {fileID: 0}
+  _51_BuildVoteStart_SusVersion: {fileID: 8300000, guid: b14d0fa9be1c24a6387498402cef556a, type: 3}
+  _52_BuildVoteEnd_SusVersion: {fileID: 0}

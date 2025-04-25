@@ -30,24 +30,39 @@ public class SoundAndMusicController : Singleton<SoundAndMusicController>
         EnsureSingleAudioListener();
     }
 
-    public void PlayMusic(AudioClip clip)
+    public void PlayMusic(AudioClip clip, PlayerID id)
     {
+        if (!CanPlay(id)) return;
         if (clip == null) return;
         musicSource.clip = clip;
         musicSource.Play();
     }
 
-    public void PlayAmbience(AudioClip clip)
+    public void PlayAmbience(AudioClip clip, PlayerID id)
     {
-        if (clip == null) return;
+        if (!CanPlay(id)) return;
+        if (clip == null)
+        {
+            ambienceSource.Stop();
+        }
         ambienceSource.clip = clip;
         ambienceSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip, PlayerID id)
     {
+        if (!CanPlay(id)) return;
         if (clip == null) return;
         sfxSource.PlayOneShot(clip);
+    }
+
+    private bool CanPlay(PlayerID id)
+    {
+        if(GameNetworkManager.Instance != null)
+        {
+            return id == GameNetworkManager.Instance.PlayerID;
+        }
+        return true;
     }
 
     public void StopMusic()
@@ -67,7 +82,6 @@ public class SoundAndMusicController : Singleton<SoundAndMusicController>
             }
         }
 
-        // Wenn kein AudioListener vorhanden ist, einen hinzufügen (optional)
         if (audioListeners.Length == 0)
         {
             gameObject.AddComponent<AudioListener>();
