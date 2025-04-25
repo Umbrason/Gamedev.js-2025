@@ -9,9 +9,9 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
 
     public Dictionary<PlayerID, Dictionary<Resource, int>> OfferedResources;
 
-    public float TimeRemaining => _startTime - Time.unscaledTime + Duration;
+    public float TimeRemaining => startTime - Time.unscaledTime + Duration;
     public float Duration => 10f;
-    private float _startTime = -1000f;
+    public float startTime { get; set; } = -1000f;
 
     public IEnumerator OnEnter()
     {
@@ -21,7 +21,7 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
     const bool BalancedTeamHasPriority = false;
     public IEnumerator Loop()
     {
-        _startTime = Time.unscaledTime;
+        startTime = Time.unscaledTime;
         yield return new WaitForSecondsRealtime(Duration);
         if (Game.BalancedFactionGoals.All(goal => goal.Complete) || Game.SelfishFactionGoals.All(goal => goal.Complete))
             Game.TransitionPhase(new GameOverPhase(BalancedTeamHasPriority ?

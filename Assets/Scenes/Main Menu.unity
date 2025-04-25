@@ -1146,9 +1146,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: 0
+  soundEffect: 1
   playHoverSound: 1
-  hoverSoundEffect: 35
+  hoverSoundEffect: 39
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1356,7 +1356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: far clip plane
-      value: 3
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
+      propertyPath: near clip plane
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -1853094968961178454, guid: 226c12f0e23c7a10db9f9e75655b92b6, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -1954,9 +1958,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: 0
+  soundEffect: 1
   playHoverSound: 1
-  hoverSoundEffect: 35
+  hoverSoundEffect: 39
 --- !u!1 &1087083708
 GameObject:
   m_ObjectHideFlags: 0
@@ -2911,9 +2915,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e48b23895dbb4554b41ee48859c48f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffect: 0
+  soundEffect: 1
   playHoverSound: 1
-  hoverSoundEffect: 35
+  hoverSoundEffect: 39
 --- !u!1 &1578258089
 GameObject:
   m_ObjectHideFlags: 0

@@ -34,6 +34,10 @@ public class PhaseCountdown : MonoBehaviour
     private void Update()
     {
         if (_phase == null) return;
+        if (GameNetworkManager.Instance.GamePausedBecauseOfDisconnect)
+        {
+            _phase.startTime += Time.unscaledDeltaTime;
+        }
         Progress.Invoke(_phase.Progress);
         TimeRemaining.Invoke(Mathf.Max(Mathf.CeilToInt(_phase.TimeRemaining), 0).ToString());
     }
@@ -43,7 +47,6 @@ public class PhaseCountdown : MonoBehaviour
         if (_phase?.CanSkip() ?? false)
         {
             _phase?.Skip();
-            SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.generalButtonClick);
         }
     }
 }

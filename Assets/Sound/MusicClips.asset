@@ -16,3 +16,4 @@ MonoBehaviour:
   ambienceSusLoopable: {fileID: 8300000, guid: ad3081e6e47954569a73dd52a86cbd65, type: 3}
   soundtrackGoodLoopable: {fileID: 8300000, guid: a9e0a875545224e6d91407f2ecdb5e8c, type: 3}
   soundtrackSusLoopable: {fileID: 8300000, guid: ae7c785e6f65d40c9a945733f43d67e7, type: 3}
+  mainMenuLoopable: {fileID: 8300000, guid: c0e57a52963d64c65a5576c2f47bf058, type: 3}

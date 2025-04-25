@@ -13,7 +13,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
     const float BuildPhaseDurationSeconds = 60;
-    private float startTime;
+    public float startTime { get; set; }
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
     private PledgeSummaryPhase nextPhase;
 
@@ -41,8 +41,6 @@ public class BuildPhase : IGamePhase, ITimedPhase
         => Game.PlayerData[message.sender].Resources = (Dictionary<Resource, int>)message.content;
         Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
         PledgedResources[Game.ClientID] = null;
-
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.roundStart);
 
         yield return null;
     }

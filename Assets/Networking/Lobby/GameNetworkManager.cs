@@ -26,12 +26,21 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     List<Player> allTimePlayers = new List<Player>();
 
+    private PlayerID playerID;
+    public PlayerID PlayerID { get => playerID; }
+
     [SerializeField]
     private GameObject selfDisconnectedPanel, otherPlayerDisconnectedPanel;
     [SerializeField]
     private Button backToMainMenu_selfDisconnect, backToMainMenu_otherPlayerDisconnect;
     [SerializeField]
     private TMPro.TMP_Text playerDisconnctedInformationText;
+
+    public bool GamePausedBecauseOfDisconnect
+    {
+        get => (selfDisconnectedPanel != null && selfDisconnectedPanel.activeSelf) ||
+               (otherPlayerDisconnectedPanel != null && otherPlayerDisconnectedPanel.activeSelf);
+    }
 
     public INetworkChannel Channels(PlayerID playerID)
     {
@@ -41,7 +50,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
     {
         this.roomCode = roomCode;
-
+        this.playerID = playerID;
 #if JakobTest
         channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
 #elif UNITY_EDITOR
@@ -207,7 +216,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                     if (newPlayerList != null)
                     {
-                        // Speichere alle neuen Spieler in allTimePlayers
                         foreach (var newPlayer in newPlayerList.players)
                         {
                             if (!allTimePlayers.Any(p => p.player_id == newPlayer.player_id))
@@ -216,7 +224,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                             }
                         }
 
-                        // Finde alle Spieler, die jemals da waren, aber aktuell fehlen
                         List<Player> missingPlayers = allTimePlayers
                             .Where(savedPlayer => !newPlayerList.players.Any(p => p.player_id == savedPlayer.player_id))
                             .ToList();
@@ -227,7 +234,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                             string infoText = string.Join(", ", missingPlayers.Select(p => p.player_name));
                             string verb = missingPlayers.Count == 1 ? "has" : "have";
-                            playerDisconnctedInformationText.text = $"{infoText} {verb} lost the connection to the server.";
+                            playerDisconnctedInformationText.text = $"{infoText} {verb} lost the connection to the server.\nThe game will continue when the player reconnects";
                         }
                         else
                         {

@@ -15,7 +15,7 @@ public enum Building
     // Resource Combiners
     Composter,              // Earth + Leaves
     InkGrinder,             // Leaves + Dewdrops
-    MushroomsFarm,          // Dewdrops + Wood
+    MushroomFarm,          // Dewdrops + Wood
     FirebugCradle,  // Wood + Fireflies
     WispNursery,            // Fireflies + Mana
     ManaSolidifier,         // Mana + Earth
