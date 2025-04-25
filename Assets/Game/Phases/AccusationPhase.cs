@@ -23,6 +23,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
     public float AccusationVoteDuration = 30f;
     public void Accuse(PlayerID[] Accusation = null)
     {
+        if (Accusation == null) Accusation = new PlayerID[0];
         if (Accusations.ContainsKey(Game.ClientID)) return;
         Accusations[Game.ClientID] = Accusation;
         Game.NetworkChannel.BroadcastMessage(AccusationMade, Accusation);
@@ -38,9 +39,14 @@ public class AccusationPhase : IGamePhase, ITimedPhase
         Duration = AccusationDuration;
         yield return new WaitUntil(() => TimeRemaining <= 0 || Accusations.ContainsKey(Game.ClientID));
         if (!Accusations.ContainsKey(Game.ClientID)) Accuse(null);
-        Game.NetworkChannel.StartListening(AccusationMade, (message) => Accusations[message.sender] = (PlayerID[])message.content);
+        void OnMessageRecieved(NetworkMessage message)
+        {
+            Accusations[message.sender] = (PlayerID[])message.content;
+            if (Accusations.Count == NetworkUtils.playerCount)
+                Game.NetworkChannel.StopListening(AccusationMade);
+        }
+        Game.NetworkChannel.StartListening(AccusationMade, OnMessageRecieved);
         yield return new WaitUntil(() => Accusations.Count == NetworkUtils.playerCount);
-        Game.NetworkChannel.StopListening(AccusationMade);
 
         var accusationOrder = (Dictionary<PlayerID, float>)null;
         yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(AccusationsOrder, ref accusationOrder));
@@ -49,7 +55,7 @@ public class AccusationPhase : IGamePhase, ITimedPhase
         {
             Duration = AccusationVoteDuration;
             SubphaseStart = Time.unscaledTime;
-            if (AccusedPlayers == null) continue;
+            if ((AccusedPlayers?.Length ?? 0)  == 0) continue;
             canVote = true;
             OnAccusationVoteStarted?.Invoke(AccusedPlayers);
             void OnVoteRecieved(NetworkMessage message) => currentVotes[message.sender] = (bool)message.content;

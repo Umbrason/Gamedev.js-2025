@@ -13,12 +13,12 @@ public class LoadScenes : MonoBehaviour
     {
         // do the logout
         // PlayerPrefs.DeleteKey("JWT");
-        SceneManager.LoadScene(LOBBY);
+        SceneFader.Instance.FadeToScene(LOBBY); //Fades to black then goes to scene.
     }
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene(MAIN_MENU);
+        SceneFader.Instance.FadeToScene(MAIN_MENU);
     }
 
     public void GoToGame()
@@ -26,6 +26,6 @@ public class LoadScenes : MonoBehaviour
         // @Fabio how do we save the SP/MP state? Static StatsManager class? transfer it as bool here? idk
         // do we have seperate scenes for SP/MP?
 
-        SceneManager.LoadScene(GAME_SCENE);
+        SceneFader.Instance.FadeToScene(GAME_SCENE);
     }
 }

@@ -41,6 +41,9 @@ public class PhaseCountdown : MonoBehaviour
     public void SkipPhase()
     {
         if (_phase?.CanSkip() ?? false)
+        {
             _phase?.Skip();
+            SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.generalButtonClick);
+        }
     }
 }
