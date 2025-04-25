@@ -55,13 +55,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Distortion: 0.36
     - _Fog_Height: 0.5
     - _Fog_Thickness: 1.5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Color: {r: 0.15686275, g: 0.14117648, b: 0.23529412, a: 1}
-    - _Direction: {r: -0.5, g: -0.1, b: 0, a: 0}
+    - _Color: {r: 0.088465646, g: 0.20702827, b: 0.26415092, a: 1}
+    - _Color_Dark: {r: 0, g: 0.1595454, b: 0.234, a: 1}
+    - _Direction: {r: -0.09, g: -0.05, b: 0, a: 0}
     - _Tint: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

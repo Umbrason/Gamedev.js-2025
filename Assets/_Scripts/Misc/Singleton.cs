@@ -40,7 +40,8 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         else if (_instance.GetInstanceID() != GetInstanceID())
         {
             Destroy(gameObject);
-            throw new System.Exception(string.Format("Instance of {0} already exists, removing {1}", GetType().FullName, ToString()));
+            Debug.LogError(string.Format("Instance of {0} already exists, removing {1}", GetType().FullName, ToString()));
+            return;
         }
 
         if (dontDestroyOnLoad) DontDestroyOnLoad(gameObject);

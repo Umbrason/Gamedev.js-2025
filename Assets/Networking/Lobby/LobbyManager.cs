@@ -47,6 +47,7 @@ public class LobbyManager : Singleton<LobbyManager>
     public string CurrentRoomCode { get => currentRoomCode; set => currentRoomCode = value; }
     public int PlayerId { get => playerId; set => playerId = value; }
 
+    const string UserNamePlayerPrefsKey = "Username";
     private void Start()
     {
         buttonCreate.onClick.AddListener(OnCreateClicked);
@@ -58,8 +59,9 @@ public class LobbyManager : Singleton<LobbyManager>
 
         panelLobby.SetActive(false);
         panelJoinRoom.SetActive(false);
-
-        //inputUsername.text = "_default";
+        inputUsername.SetTextWithoutNotify(PlayerPrefs.GetString(UserNamePlayerPrefsKey));
+        inputUsername.onSubmit.AddListener(value => PlayerPrefs.SetString(UserNamePlayerPrefsKey, value.Trim()));
+        inputUsername.onEndEdit.AddListener(value => PlayerPrefs.SetString(UserNamePlayerPrefsKey, value.Trim()));
     }
 
     void OnCreateClicked()
@@ -136,7 +138,8 @@ public class LobbyManager : Singleton<LobbyManager>
     void OpenLobbyPanel()
     {
         //Fade between activations.
-        SceneFader.Instance.FadeAction(() => {
+        SceneFader.Instance.FadeAction(() =>
+        {
             mainRoom.SetActive(false);
             panelJoinRoom.SetActive(false);
             panelLobby.SetActive(true);
