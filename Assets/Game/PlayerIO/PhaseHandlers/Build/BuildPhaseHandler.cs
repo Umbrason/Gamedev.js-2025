@@ -31,6 +31,12 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         Phase.OnHarvestResource += OnHarvest;
         Phase.OnConsumeResource += OnConsume;
         Phase.OnPledgeResource += OnPledgeResource;
+
+        switch (Game.ClientPlayerData.Role)
+        {
+            case PlayerRole.Balanced: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._19_RoundStart_GoodVersion, Game.ClientID); break;
+            case PlayerRole.Selfish: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._47_RoundStart_SusVersion, Game.ClientID); break;
+        }
     }
 
     private void OnPledgeResource(SharedGoalID goalID, Resource resource, int amount)
