@@ -184,6 +184,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Game>k__BackingField: {fileID: 0}
   buildingNameText: {fileID: 6904043281430837860}
+  buildingIcon: {fileID: 6176346554176695564}
+  BuildingIcons: {fileID: 11400000, guid: 0dd4ff3315edcee6f978787b2441c186, type: 2}
   canvas: {fileID: 2953110407052596758}
   buildingPreview: {fileID: 4643636816506562219}
   playerDisplayProvider: {fileID: 0}

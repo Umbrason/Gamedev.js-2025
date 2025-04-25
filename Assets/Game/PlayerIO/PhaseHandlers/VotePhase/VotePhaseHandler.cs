@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +7,8 @@ using UnityEngine.UI;
 public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 {
     [SerializeField] private TMP_Text buildingNameText;
+    [SerializeField] private Image buildingIcon;
+    [SerializeField] private BuildingSpriteLib BuildingIcons;
     [SerializeField] private Canvas canvas;
     [SerializeField] private GhostBuildingView buildingPreview;
     [SerializeField] private PlayerDisplay playerDisplayProvider;
@@ -62,6 +63,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         SetDisplay(Phase.CurrentPetition?.PlayerID ?? PlayerID.None);
         if (!hasPetition) return;
         buildingNameText.text = Phase.CurrentPetition.Building.ToString();
+        buildingIcon.sprite = BuildingIcons[Phase.CurrentPetition.Building];
         buildingPreview.Data = Phase.CurrentPetition.Building;
         var resourceSources = Phase.CurrentPetition.ResourceSources;
         // TODO: replace this with icons
