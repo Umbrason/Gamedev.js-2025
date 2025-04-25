@@ -14,7 +14,7 @@ public class AIBuildPhaseRandomData : AIBuildPhaseData
         //BUILDING
         for (int i = 0; i < maxBuildingPerTurn; i++)
         {
-            List<Building> affordableBuildings = GetAffordableBuildings(Phase);
+            List<Building> affordableBuildings = GetAffordableBuildings(AI.GameInstance);
 
             if (affordableBuildings.Count == 0) break;
 

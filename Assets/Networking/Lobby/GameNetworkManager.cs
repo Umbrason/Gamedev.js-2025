@@ -26,6 +26,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     List<Player> allTimePlayers = new List<Player>();
 
+    private PlayerID playerID;
+    public PlayerID PlayerID { get => playerID; }
+
     [SerializeField]
     private GameObject selfDisconnectedPanel, otherPlayerDisconnectedPanel;
     [SerializeField]
@@ -47,7 +50,7 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
     {
         this.roomCode = roomCode;
-
+        this.playerID = playerID;
 #if JakobTest
         channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
 #elif UNITY_EDITOR

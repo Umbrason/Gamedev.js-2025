@@ -14,7 +14,7 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
         accusationVoteDialogue.OnVote += OnVoteForAccusation;
         Phase.OnAccusationVoteStarted += OnAccusationVoteStarted;
 
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.popupOpens);
+        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._04_PopUpOpens, Game.ClientID);
     }
 
     public override void OnPhaseExited()
@@ -25,15 +25,13 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
         accusationVoteDialogue.OnVote -= OnVoteForAccusation;
         Phase.OnAccusationVoteStarted -= OnAccusationVoteStarted;
 
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.PopUpCloses);
+        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._43_PopUpCloses, Game.ClientID);
     }
 
     private void OnAccusationVoteStarted(PlayerID[] obj)
     {
         voted = false;
         accusationVoteDialogue.Show(obj);
-
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.popupOpens);
     }
 
     bool voted = false;
@@ -48,7 +46,5 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
     {
         accusationPickerDialogue.gameObject.SetActive(false);
         Phase.Accuse(Accusation);
-
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.PopUpCloses);
     }
 }

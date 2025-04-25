@@ -1,0 +1,19 @@
+Balance tips:
+* AI is not building enough combiners:
+	=> increase combined resources base and base production utilities
+* AI is building too much and not pledging enough
+	=> increase base utility and/or reduce base production
+	=> Increase production impact so building more than a few buildings of each type will have low utility
+* AI is not focusing enough on producing resources for goals:
+	=> Increase goal progress factors X
+	Y should be left at 1 for basic resources, and at a small negative value for combined resources (no need to produce more if the goal is almost reached)
+* Evil AI is too obvious:
+	=> Reduce Selfish Goal weight
+* AI is too strong / rational:
+	=> Increase Noise Strength
+
+
+
+Combined resources utility should be at least 3 times basic resources utility because crafting one combined resource uses 2 basic ones.
+
+"ResourcesUtilityEstimator2 Petition" has high basic resources base production with high production impact so AI will try to get one basic building of each type before advanced buildings.

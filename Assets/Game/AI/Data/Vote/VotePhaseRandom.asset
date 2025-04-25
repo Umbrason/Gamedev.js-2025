@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36269f7bb3ac51842ac2c7c9d1f57206, type: 3}
   m_Name: VotePhaseRandom
   m_EditorClassIdentifier: 
-  probabilityToAccept: 0.5
+  balanceProbabilityToAccept: 0.6
+  balanceAlwaysVoteForSelf: 1
+  selfishProbabilityToAccept: 0.4
+  selfishAlwaysVoteForSelf: 1

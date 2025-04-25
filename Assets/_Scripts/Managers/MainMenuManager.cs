@@ -19,6 +19,12 @@ public class MainMenuManager : MonoBehaviour
         optionsGameObj.SetActive(false);
     }
 
+    private void Start()
+    {
+        SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.mainMenuLoopable, PlayerID.None);
+        SoundAndMusicController.Instance.PlayAmbience(null, PlayerID.None);
+    }
+
     public void BtnPlay()
     {
         // show Singleplayer/Multiplayer options using DoTweens

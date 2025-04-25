@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676e0199c919846449fa6bcf63e58a05, type: 3}
+  m_Name: BuildPhaseUtility
+  m_EditorClassIdentifier: 
+  ResourcesUtilitiesEstimator: {fileID: 11400000, guid: cc1b83e66fa1fd44a8dcc20e22b0d7f3, type: 2}
+  BaseOfferingProportion: {x: -0.1, y: 0.3}
+  OfferingIncreaseByTurn: {x: 0.1, y: 0.1}
+  BaseSelfishToBalanceOfferingProportion: {x: -0.2, y: 0.2}
+  SelfishToBalanceOfferingIncreaseByTurn: {x: 0.025, y: 0.05}
+  BaseSelfishOfferingProportion: {x: -0.1, y: 0.3}
+  SelfishOfferingIncreaseByTurn: {x: 0.1, y: 0.1}

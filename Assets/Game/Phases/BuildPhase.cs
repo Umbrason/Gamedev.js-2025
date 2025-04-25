@@ -42,8 +42,6 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.StartListening(UpdateResourcesHeader, OnUpdatePlayerResources);
         PledgedResources[Game.ClientID] = null;
 
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips.roundStart);
-
         yield return null;
     }
 
@@ -145,6 +143,8 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.ClientPlayerData.Island = Game.ClientPlayerData.Island.WithBuildings((position, building));
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
+
+        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._33_DropBuildingOnMap, Game.ClientID);
     }
 
     [PlayerAction]

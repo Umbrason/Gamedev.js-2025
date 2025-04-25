@@ -46,7 +46,7 @@ public class AIBuildPhaseOptimizerData : AIBuildPhaseData
 
         while(true)
         {
-            BuildingUtility BestBuilding = ResourcesUtilitiesEstimator.GetBestBuilding(Phase, AI.GameInstance, ResourcesUtilities);
+            BuildingUtility BestBuilding = ResourcesUtilitiesEstimator.GetBestBuilding(AI.GameInstance, ResourcesUtilities);
 
             if (BestBuilding == null) break;
 
@@ -126,9 +126,9 @@ public class AIBuildPhaseOptimizerData : AIBuildPhaseData
 
             foreach ((Resource res, int required) in goal.Required)
             {
-                int pledge = Mathf.Min(MaxOffering.GetValueOrDefault(res), required);
+                int pledge = Mathf.Min(MaxOffering.GetValueOrDefault(res), required - goal.Collected.GetValueOrDefault(res));
 
-                if (pledge == 0) continue;
+                if (pledge <= 0) continue;
 
                 MaxOffering[res] -= pledge;
 

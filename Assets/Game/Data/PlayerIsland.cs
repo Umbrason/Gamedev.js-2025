@@ -79,4 +79,18 @@ public readonly struct PlayerIsland : ISerializable<PlayerIsland>
         }
         return cpy;
     }
+
+    //For AI
+    public Dictionary<Resource, float> GetAverageProduction()
+    {
+        Dictionary<Resource, float> production = new();
+        foreach (var (position, building) in this.Buildings)
+        {
+            float yield = building.ExpectedYield(this, position);
+            Resource res = building.ResourceYieldType();
+
+            production[res] = production.GetValueOrDefault(res) + yield;
+        }
+        return production;
+    }
 }

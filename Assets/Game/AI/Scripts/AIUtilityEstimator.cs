@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "ResourcesUtilityEstimator", menuName = "Scriptable Objects/AI/ResourcesUtilityEstimator")]
 public partial class AIUtilityEstimator : ScriptableObject
@@ -30,10 +32,20 @@ public partial class AIUtilityEstimator : ScriptableObject
         return values;
     }
 
-    public virtual BuildingUtility GetBestBuilding(BuildPhase Phase, GameInstance Game, ResourcesUtilities ResourcesUtilities)
+    public virtual BuildingUtility GetBestBuilding(GameInstance Game, ResourcesUtilities ResourcesUtilities, bool onlyAffordable = true)
     {
         BuildingUtility BestBuilding = null;
-        foreach (Building building in AIBuildPhaseData.GetAffordableBuildings(Phase))
+
+        List<Building> Buildings = new();
+        if (onlyAffordable) Buildings = AIBuildPhaseData.GetAffordableBuildings(Game);
+        else
+        {
+            foreach(Building building in Enum.GetValues(typeof(Building))){
+                if(building != Building.None) Buildings.Add(building);
+            }
+        }
+
+        foreach (Building building in Buildings)
         {
             BuildingUtility Building = new BuildingUtility(building, ResourcesUtilities, Game);
             if (Building.Utility <= 0f) continue;//Dont build useless buildings

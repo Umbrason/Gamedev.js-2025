@@ -7,4 +7,6 @@ public class MusicClipCollection : ScriptableObject
     public AudioClip ambienceSusLoopable;
     public AudioClip soundtrackGoodLoopable;
     public AudioClip soundtrackSusLoopable;
+
+    public AudioClip mainMenuLoopable;
 }
