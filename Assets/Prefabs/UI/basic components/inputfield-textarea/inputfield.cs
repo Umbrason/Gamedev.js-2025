@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using TMPro;
 
-public class buttonL : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class inputfield : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [Header("Button Size")]
     private RectTransform rectTransform;
@@ -31,11 +30,6 @@ public class buttonL : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
 
     private int leftSpriteIndex = 0;
     private int rightSpriteIndex = 0;
-
-    [Header("Button Text Settings")]
-    public bool changeTextOnClick = false;
-    public string newText;
-    public TextMeshProUGUI buttonText; // Or use UnityEngine.UI.Text if using legacy UI
 
     void Awake()
     {
@@ -100,14 +94,12 @@ public class buttonL : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         {
             LeanTween.move(leftImage.rectTransform, leftStartPos + new Vector3(-sideOffset, 0, 0), animationTime).setEaseOutBack();
             LeanTween.scale(leftImage.rectTransform, Vector3.one * 1.2f, animationTime).setEaseOutBack();
-            LeanTween.alpha(leftImage.rectTransform, 1f, animationTime).setEaseOutQuad();
         }
 
         if (rightImage != null)
         {
             LeanTween.move(rightImage.rectTransform, rightStartPos + new Vector3(sideOffset, 0, 0), animationTime).setEaseOutBack();
             LeanTween.scale(rightImage.rectTransform, Vector3.one * 1.2f, animationTime).setEaseOutBack();
-            LeanTween.alpha(rightImage.rectTransform, 1f, animationTime).setEaseOutQuad();
         }
     }
 
@@ -122,38 +114,12 @@ public class buttonL : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler,
         {
             LeanTween.move(leftImage.rectTransform, leftStartPos, animationTime).setEaseOutQuad();
             LeanTween.scale(leftImage.rectTransform, Vector3.one, animationTime).setEaseOutBack();
-            LeanTween.alpha(leftImage.rectTransform, 0f, animationTime).setEaseOutQuad();
         }
 
         if (rightImage != null)
         {
             LeanTween.move(rightImage.rectTransform, rightStartPos, animationTime).setEaseOutQuad();
             LeanTween.scale(rightImage.rectTransform, Vector3.one, animationTime).setEaseOutBack();
-            LeanTween.alpha(rightImage.rectTransform, 0f, animationTime).setEaseOutQuad();
         }
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        LeanTween.scale(rectTransform, originalScale * 0.95f, animationTime / 2).setEaseInQuad().setOnComplete(() =>
-        {
-            bool stillHovering = RectTransformUtility.RectangleContainsScreenPoint(rectTransform, Input.mousePosition);
-            Vector3 targetScale = stillHovering ? originalScale * hoverScale : originalScale;
-            LeanTween.scale(rectTransform, targetScale, animationTime).setEaseOutBack();
-        });
-
-        if (leftImage != null)
-        {
-            LeanTween.scale(leftImage.rectTransform, Vector3.one * 1.1f, animationTime / 2).setEaseInQuad();
-        }
-
-        if (rightImage != null)
-        {
-            LeanTween.scale(rightImage.rectTransform, Vector3.one * 1.1f, animationTime / 2).setEaseInQuad();
-        }
-
-        // ✅ Text change logic
-        if (changeTextOnClick && buttonText != null)
-        buttonText.text = newText;
     }
 }
