@@ -9,7 +9,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
 {
     [SerializeField] private TMP_Text buildingNameText;
     [SerializeField] private Canvas canvas;
-    [SerializeField] private BuildingView buildingPreview;
+    [SerializeField] private GhostBuildingView buildingPreview;
     [SerializeField] private PlayerDisplay playerDisplayProvider;
     [SerializeField] private PlayerIslandViewer islandViewer;
     [SerializeField] private ResourceSourceDisplay resourceSourceDisplay;

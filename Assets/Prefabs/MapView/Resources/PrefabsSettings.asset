@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PrefabsSettings
   m_EditorClassIdentifier: 
   tilesPrefabs:
-  - {fileID: 0}
+  - {fileID: 2342572894568158351, guid: fc3df9b50d6c185fcbc3a91066f7563e, type: 3}
   - {fileID: 8343872988606774381, guid: 3080faa17ddc7ba3d9848ee0a90bf720, type: 3}
   - {fileID: 8343872988606774381, guid: 55162ab83b530e1f3b947b3b34326acf, type: 3}
   - {fileID: 8343872988606774381, guid: 824528aeaff5bed99a125078da9a59ed, type: 3}
