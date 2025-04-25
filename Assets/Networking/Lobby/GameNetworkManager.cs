@@ -33,8 +33,11 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
     [SerializeField]
     private TMPro.TMP_Text playerDisconnctedInformationText;
 
-    private bool gamePausedBecauseOfDisconnect;
-    public bool GamePausedBecauseOfDisconnect { get => gamePausedBecauseOfDisconnect; }
+    public bool GamePausedBecauseOfDisconnect
+    {
+        get => (selfDisconnectedPanel != null && selfDisconnectedPanel.activeSelf) ||
+               (otherPlayerDisconnectedPanel != null && otherPlayerDisconnectedPanel.activeSelf);
+    }
 
     public INetworkChannel Channels(PlayerID playerID)
     {
@@ -210,7 +213,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
                     if (newPlayerList != null)
                     {
-                        // Speichere alle neuen Spieler in allTimePlayers
                         foreach (var newPlayer in newPlayerList.players)
                         {
                             if (!allTimePlayers.Any(p => p.player_id == newPlayer.player_id))
@@ -219,7 +221,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                             }
                         }
 
-                        // Finde alle Spieler, die jemals da waren, aber aktuell fehlen
                         List<Player> missingPlayers = allTimePlayers
                             .Where(savedPlayer => !newPlayerList.players.Any(p => p.player_id == savedPlayer.player_id))
                             .ToList();
@@ -227,7 +228,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                         if (missingPlayers.Count > 0)
                         {
                             otherPlayerDisconnectedPanel.SetActive(true);
-                            gamePausedBecauseOfDisconnect = true;
 
                             string infoText = string.Join(", ", missingPlayers.Select(p => p.player_name));
                             string verb = missingPlayers.Count == 1 ? "has" : "have";
@@ -236,7 +236,6 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
                         else
                         {
                             otherPlayerDisconnectedPanel.SetActive(false);
-                            gamePausedBecauseOfDisconnect = false;
                         }
                     }
 
@@ -270,12 +269,10 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         if (!success)
         {
             selfDisconnectedPanel.SetActive(true);
-            gamePausedBecauseOfDisconnect = true;
         }
         else
         {
             selfDisconnectedPanel.SetActive(false);
-            gamePausedBecauseOfDisconnect = false;
         }
     }
 
