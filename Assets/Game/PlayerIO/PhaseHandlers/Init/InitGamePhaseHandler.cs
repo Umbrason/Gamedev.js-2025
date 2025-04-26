@@ -29,11 +29,11 @@ public class InitGamePhaseHandler : GamePhaseHandler<InitGamePhase>
         switch (Game.PlayerData[Game.ClientID].Role)
         {
             case PlayerRole.Balanced:
-                SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackGoodLoopable, Game.ClientID);
-                SoundAndMusicController.Instance.PlayAmbience(SoundAndMusicController.Instance.MusicClips.ambienceGoodLoopable, Game.ClientID); break;
+                SoundAndMusicController.Instance.PlayMusic(MusicType.soundtrackGoodLoopable, Game.ClientID);
+                SoundAndMusicController.Instance.PlayAmbience(MusicType.ambienceGoodLoopable, Game.ClientID); break;
             case PlayerRole.Selfish:
-                SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.soundtrackSusLoopable, Game.ClientID);
-                SoundAndMusicController.Instance.PlayAmbience(SoundAndMusicController.Instance.MusicClips.ambienceSusLoopable, Game.ClientID); break;
+                SoundAndMusicController.Instance.PlayMusic(MusicType.soundtrackSusLoopable, Game.ClientID);
+                SoundAndMusicController.Instance.PlayAmbience(MusicType.ambienceSusLoopable, Game.ClientID); break;
         }
     }
 }
