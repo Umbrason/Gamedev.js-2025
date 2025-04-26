@@ -15,4 +15,4 @@ MonoBehaviour:
   BalanceAccuseProbability: 0.03
   BalanceAgreeProbability: 0.4
   SelfishAccuseProbability: 0.06
-  SelfishAgreeProbability: 0.8
+  SelfishAgreeProbability: 1

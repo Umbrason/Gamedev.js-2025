@@ -12,6 +12,8 @@ public class AIPlayer : MonoBehaviour
 
     private Coroutine _playingPhaseCoroutine;
 
+    public bool accused = false;
+
     private void OnEnable()
     {
         if(gameInstance == null)

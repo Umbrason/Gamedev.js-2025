@@ -5,6 +5,8 @@ using UnityEngine.Events;
 public class GhostBuildingView : EnumView<Building>
 {
     [SerializeField] StringEvent OnYieldChange;
+    [SerializeField] BoolEvent OnShow;
+
     [SerializeField] GameInstance Game;
 
     [SerializeField] Material GhostMaterial;
@@ -16,9 +18,16 @@ public class GhostBuildingView : EnumView<Building>
         foreach (var sr in srs) sr.material = GhostMaterial;
     }
 
+    private void Start()
+    {
+        OnShow.Invoke(false);
+    }
+
     private void Update()
     {
-        if(data == null) return;
+        OnShow.Invoke(data != null && Game != null);
+
+        if (data == null) return;
         if(Game == null) return;
 
         float yield = BuildingExtensions.ExpectedYield((Building)data, Game.ClientPlayerData.Island, HexOrientation.Active * transform.position);

@@ -26,8 +26,10 @@ public class AIAccusationPhaseImprovedRandom : AIAccusationPhaseData
         float AccuseProbability = selfish ? SelfishAccuseProbability : BalanceAccuseProbability;
         float AgreeProbability = selfish ? SelfishAgreeProbability : BalanceAgreeProbability;
 
-        if (AccuseProbability > UnityEngine.Random.value)
+        if (!AI.accused && AccuseProbability > UnityEngine.Random.value)
         {
+            AI.accused = true;
+
             List<PlayerID> ids = new();
             foreach (PlayerID id in Enum.GetValues(typeof(PlayerID)))
             {
