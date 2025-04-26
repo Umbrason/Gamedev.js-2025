@@ -73,6 +73,7 @@ public class InitGamePhase : IGamePhase
 
 
 
+
         #region Roles
         var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
@@ -86,7 +87,11 @@ public class InitGamePhase : IGamePhase
                 Game.PlayerData[(PlayerID)i].Nickname = player.player_name;
             }
         }
+
+        foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
+        foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
         #endregion
+
 
         #region Factions
         var faction = 0;
