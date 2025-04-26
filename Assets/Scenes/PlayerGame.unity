@@ -369,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952bf73f31bf153da871f932707489a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Settings>k__BackingField: {fileID: 11400000, guid: e8e7955854b30d64085eaff2f12ab5b4, type: 2}
 --- !u!1 &794272383
 GameObject:
   m_ObjectHideFlags: 0
@@ -17468,6 +17467,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 794272384}
     m_Modifications:
+    - target: {fileID: 667534363113508573, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
+      propertyPath: Game
+      value: 
+      objectReference: {fileID: 633265560}
     - target: {fileID: 966804030156480919, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -17512,6 +17515,10 @@ PrefabInstance:
       propertyPath: instance
       value: 
       objectReference: {fileID: 633265560}
+    - target: {fileID: 5314370969681841581, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5829448884331686360, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
       propertyPath: m_Name
       value: BuildMenu
@@ -17519,7 +17526,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3669791656432252841, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
