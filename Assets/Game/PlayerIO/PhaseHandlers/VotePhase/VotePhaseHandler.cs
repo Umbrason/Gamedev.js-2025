@@ -63,6 +63,7 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
         SetDisplay(Phase.CurrentPetition?.PlayerID ?? PlayerID.None);
         if (!hasPetition) return;
         buildingNameText.text = Phase.CurrentPetition.Building.ToString();
+        buildingNameText.color = Color.white;
         buildingIcon.sprite = BuildingIcons[Phase.CurrentPetition.Building];
         buildingPreview.Data = Phase.CurrentPetition.Building;
         var resourceSources = Phase.CurrentPetition.ResourceSources;
@@ -105,8 +106,9 @@ public class VotePhaseHandler : GamePhaseHandler<VotePhase>
     {
         if (!phaseActive) return;
         Phase.SubmitVote(vote);
-        votedAccept.SetActive(vote > 0);
-        votedRefuse.SetActive(vote < 0);
+        buildingNameText.color = vote > 0 ? Color.green : Color.red;
+        //votedAccept.SetActive(vote > 0);
+        //votedRefuse.SetActive(vote < 0);
         Buttons.gameObject.SetActive(false);
         voteDisplayParent.gameObject.SetActive(true);
     }

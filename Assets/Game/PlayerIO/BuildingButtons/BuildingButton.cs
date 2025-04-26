@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
@@ -29,6 +30,7 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     [SerializeField] private BuildingSpriteLib buildingIcons;
     [SerializeField] private Image image;
     [SerializeField] private OfferingView tooltip;
+    [SerializeField] private BuildingOverview buildingOverview;
     [SerializeField] private Color cantBuild;
 
     public event Action<Building> OnStartDrag;
@@ -36,10 +38,6 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     public event Action OnStopDrag;
     public event Action<HexPosition> OnDrop;
 
-    private void Update()
-    {
-        
-    }
 
     private bool dragging;
     private bool active;
@@ -72,6 +70,7 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     public void OnPointerEnter(PointerEventData eventData)
     {
         tooltip.gameObject.SetActive(true);
+        buildingOverview.ChangeBuilding(Building, buildingIcons[Building]);
     }
 
     public void OnPointerExit(PointerEventData eventData)

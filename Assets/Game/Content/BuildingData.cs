@@ -6,4 +6,5 @@ public class BuildingData : ScriptableObject
     public Building Building;
     public ResourcesQuantities Cost;
     public ResourcesQuantities OperationCost;
+    public string Description;
 }
