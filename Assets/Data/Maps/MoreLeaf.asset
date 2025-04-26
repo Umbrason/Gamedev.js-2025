@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TilesFrequencies:
   - Tile: 2
-    MinFrequency: 35
-    MaxFrequency: 53
+    MinFrequency: 30
+    MaxFrequency: 45
     Layout: {fileID: 11400000, guid: bcab10f4104508c42bf1b7772f889c9c, type: 2}
   - Tile: 3
     MinFrequency: 13

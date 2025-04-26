@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e441bece66b0e9d41a4fb06b415bf1d8, type: 3}
   m_Name: AccusationPhaseImproved
   m_EditorClassIdentifier: 
-  BalanceAccuseProbability: 0.07
+  BalanceAccuseProbability: 0.03
   BalanceAgreeProbability: 0.4
-  SelfishAccuseProbability: 0.12
+  SelfishAccuseProbability: 0.06
   SelfishAgreeProbability: 0.8

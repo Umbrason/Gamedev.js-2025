@@ -69,7 +69,7 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     public void OnPointerEnter(PointerEventData eventData)
     {
         tooltip.gameObject.SetActive(true);
-        buildingOverview.ChangeBuilding(Building, buildingIcons[Building]);
+        buildingOverview?.ChangeBuilding(Building, buildingIcons[Building]);
     }
 
     public void OnPointerExit(PointerEventData eventData)

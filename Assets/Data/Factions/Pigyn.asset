@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: Pigyn
   m_EditorClassIdentifier: 
   faction: 3
-  mapGenerator: {fileID: 11400000, guid: 69b6a25766711ca47af246d6d6732ffc, type: 2}
+  mapGenerator: {fileID: 11400000, guid: 3e5e5936c0cf1c143aed21073c1efb8d, type: 2}
   startingResources:
-  - resource: 1
-    quantity: 2
-  - resource: 2
-    quantity: 2
-  - resource: 3
-    quantity: 5
   - resource: 4
-    quantity: 2
+    quantity: 3
+  - resource: 2
+    quantity: 1
   - resource: 5
-    quantity: 2
-  - resource: 6
-    quantity: 2
-  startingBuildings: 0300000003000000
+    quantity: 1
+  startingBuildings: 

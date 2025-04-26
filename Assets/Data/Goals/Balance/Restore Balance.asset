@@ -15,14 +15,14 @@ MonoBehaviour:
   Quantities:
     items:
     - res: 7
-      quantity: 15
+      quantity: 7
     - res: 8
-      quantity: 15
+      quantity: 7
     - res: 9
-      quantity: 15
+      quantity: 7
     - res: 10
-      quantity: 15
+      quantity: 7
     - res: 11
-      quantity: 15
+      quantity: 7
     - res: 12
-      quantity: 15
+      quantity: 7

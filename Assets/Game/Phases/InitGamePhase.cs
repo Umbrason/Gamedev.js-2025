@@ -110,6 +110,7 @@ public class InitGamePhase : IGamePhase
         foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
         #endregion
 
+
         #region Factions
         var faction = 0;
         var playerIDsByFactionIndex = RandomFactionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);

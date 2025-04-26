@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: Seltas
   m_EditorClassIdentifier: 
   faction: 5
-  mapGenerator: {fileID: 11400000, guid: 0ae1ecb099197e2458a3df6b4555ba0c, type: 2}
+  mapGenerator: {fileID: 11400000, guid: da20ddc52cd068f47aa95ffd1e621abe, type: 2}
   startingResources:
   - resource: 1
-    quantity: 2
+    quantity: 3
   - resource: 2
-    quantity: 2
+    quantity: 1
   - resource: 3
-    quantity: 2
-  - resource: 4
-    quantity: 2
-  - resource: 5
-    quantity: 5
-  - resource: 6
-    quantity: 2
-  startingBuildings: 0500000005000000
+    quantity: 1
+  startingBuildings: 
