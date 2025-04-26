@@ -11,6 +11,7 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
 
     public override void OnPhaseEntered()
     {
+        alredyMadeAnAccusation = false;
         accusationPickerDialogue.gameObject.SetActive(true);
         accusationPickerDialogue.OnAccusationMade += OnAccusationMade;
         accusationVoteDialogue.OnVote += OnVoteForAccusation;
