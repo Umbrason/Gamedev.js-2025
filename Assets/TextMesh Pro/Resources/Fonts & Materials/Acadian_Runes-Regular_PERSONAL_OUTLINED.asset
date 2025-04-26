@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - GLOW_ON
   - UNDERLAY_ON
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -120,7 +121,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Acadian_Runes-Regular_PERSONAL_USE SDF
+  m_Name: Acadian_Runes-Regular_PERSONAL_OUTLINED
   m_EditorClassIdentifier: 
   m_Version: 1.1.0
   m_FaceInfo:
