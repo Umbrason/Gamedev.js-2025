@@ -15,6 +15,8 @@ public class ResourceItem : MonoBehaviour
             if (value == resource) return;
             resourceIcon.sprite = ResourceIcons[value];
             resource = value;
+            // Set tooltip text to the resource name when the resource changes
+            tooltipTrigger.tooltipText = resource.ToString(); // Set the tooltip text to the resource name
         }
     }
 
@@ -33,4 +35,5 @@ public class ResourceItem : MonoBehaviour
     [SerializeField] private ResourceSpriteLib ResourceIcons;
     [SerializeField] private Image resourceIcon;
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private TooltipTrigger tooltipTrigger; // Reference to TooltipTrigger script
 }
