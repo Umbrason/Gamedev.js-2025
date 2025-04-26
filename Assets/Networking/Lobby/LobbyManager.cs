@@ -314,7 +314,7 @@ public class LobbyManager : Singleton<LobbyManager>
         {
             gameLoaded = true;
             Debug.Log(myPlayerID);
-            GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID);
+            GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID, playerList.players);
 
             AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
             ao.completed += _ =>

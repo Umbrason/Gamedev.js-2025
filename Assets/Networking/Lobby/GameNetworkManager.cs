@@ -24,7 +24,9 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
 
     private Dictionary<PlayerID, INetworkChannel> channels = new();
 
+    List<Player> players;
     List<Player> allTimePlayers = new List<Player>();
+    public List<Player> Players { get => players; set => players = value; }
 
     private PlayerID playerID;
     public PlayerID PlayerID { get => playerID; }
@@ -47,10 +49,11 @@ public class GameNetworkManager : Singleton<GameNetworkManager>
         return channels[playerID];
     }
 
-    public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID)
+    public void Initialize(string username, string roomCode, int serverPlayerId, bool isHost, PlayerID playerID, List<Player> players)
     {
         this.roomCode = roomCode;
         this.playerID = playerID;
+        this.players = players;
 #if JakobTest
         channels[playerID] = new ProductionNetwork(playerID, roomCode, serverPlayerId, username);
 #elif UNITY_EDITOR
