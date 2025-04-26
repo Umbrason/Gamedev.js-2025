@@ -369,7 +369,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 952bf73f31bf153da871f932707489a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Settings>k__BackingField: {fileID: 11400000, guid: e8e7955854b30d64085eaff2f12ab5b4, type: 2}
 --- !u!1 &794272383
 GameObject:
   m_ObjectHideFlags: 0
@@ -17515,6 +17514,10 @@ PrefabInstance:
     - target: {fileID: 5829448884331686360, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
       propertyPath: m_Name
       value: BuildMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159724860061651288, guid: 515ee00ef8570903e8929523187bcfbb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
