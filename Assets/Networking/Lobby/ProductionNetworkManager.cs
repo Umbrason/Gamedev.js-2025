@@ -18,7 +18,7 @@ public class ProductionNetwork : INetworkChannel
     public PlayerID PlayerID { get; }
     public string Nickname { get; }
 
-    public const string BaseUrl = "https://jamapi.heggie.dev/";
+    public const string BaseUrl = "https://api-sylvanisspirits.heggie.dev/";
 
     public ProductionNetwork(PlayerID playerID, string roomCode, int serverPlayerID, string nickname)
     {

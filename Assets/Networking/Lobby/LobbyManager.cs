@@ -29,7 +29,7 @@ public class LobbyManager : Singleton<LobbyManager>
     [SerializeField] private TMP_InputField roomCodeAsCopyableIF;
     [SerializeField] private TMP_InputField inputJoinRoomCode;
 
-    public const string serverBaseURL = "https://jamapi.heggie.dev/";
+    public const string serverBaseURL = "https://api-sylvanisspirits.heggie.dev/";
 
     private string username;
     private string currentRoomCode;
