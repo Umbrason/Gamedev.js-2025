@@ -19,11 +19,12 @@ public class SecretTaskDisplay : MonoBehaviour
         }
     }
 
-    void Refresh()
+    public void Refresh()
     {
         if (SecretTask == null) return;
         Description.text = SecretTask.Description;
-        Checkbox.enabled = SecretTask.Evaluate(Game.ClientPlayerData);
+        //CHECKBOX IS UGLY
+        //Checkbox.enabled = SecretTask.Evaluate(Game.ClientPlayerData);
     }
 
     IEnumerator Start()

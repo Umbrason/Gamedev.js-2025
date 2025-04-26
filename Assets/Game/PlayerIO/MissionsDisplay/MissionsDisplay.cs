@@ -9,6 +9,9 @@ public class MissionsDisplay : MonoBehaviour
     [SerializeField] private SharedGoalsDisplay balancedGoalDisplay;
     [SerializeField] private SharedGoalsDisplay selfishGoalDisplay;
     [SerializeField] private SecretTaskDisplay secretTaskDisplay;
+
+    public SecretTaskDisplay SecretTaskDisplay { get => secretTaskDisplay; }
+
     public event Action<SharedGoalID> OnClickMission;
 
     public SharedGoalDisplay ButtonOf(SharedGoalID goalID)
