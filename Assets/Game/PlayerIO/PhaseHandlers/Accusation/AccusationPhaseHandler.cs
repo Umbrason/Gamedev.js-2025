@@ -11,13 +11,17 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
 
     public override void OnPhaseEntered()
     {
-        alredyMadeAnAccusation = false;
         accusationPickerDialogue.gameObject.SetActive(true);
         accusationPickerDialogue.OnAccusationMade += OnAccusationMade;
         accusationVoteDialogue.OnVote += OnVoteForAccusation;
         Phase.OnAccusationVoteStarted += OnAccusationVoteStarted;
 
         SoundAndMusicController.Instance.PlaySFX(SFXType._04_PopUpOpens, Game.ClientID);
+
+        if (alredyMadeAnAccusation)
+        {
+            OnAccusationMade(null);
+        }
     }
 
     public override void OnPhaseExited()
@@ -45,14 +49,19 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
         Phase.Vote(vote);
     }
 
-    void OnAccusationMade(PlayerID[] Accusation)
+    void OnAccusationMade(PlayerID[] Accusation)//skip button also calls this with null
     {
-        if (!alredyMadeAnAccusation)
+        accusationPickerDialogue.gameObject.SetActive(false);
+        accusationPickerDialogue.DisableAccusationOpprtunity();
+
+        if (!alredyMadeAnAccusation && Accusation != null)
         {
-            accusationPickerDialogue.gameObject.SetActive(false);
             Phase.Accuse(Accusation);
             alredyMadeAnAccusation = true;
-            accusationPickerDialogue.DisableAccusationOpprtunity();
+        }
+        else
+        {
+            Phase.Accuse(null);
         }
     }
 }
