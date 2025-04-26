@@ -71,16 +71,22 @@ public class InitGamePhase : IGamePhase
         Game.BalancedFactionGoals = BalanceFactionGoals;
         #endregion
 
+
+
         #region Roles
         var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
-        for (int i = 0; i < NetworkUtils.playerCount; i++) Game.PlayerData[(PlayerID)i] = new();
+        for (int i = 0; i < NetworkUtils.playerCount; i++)
+        {
+            Game.PlayerData[(PlayerID)i] = new();
 
-        foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
-        foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
+            Player player = GameNetworkManager.Instance.Players.FirstOrDefault(p => p.player_gameID == i);
+            if (player != null)
+            {
+                Game.PlayerData[(PlayerID)i].Nickname = player.player_name;
+            }
+        }
         #endregion
-
-
 
         #region Factions
         var faction = 0;
@@ -114,22 +120,6 @@ public class InitGamePhase : IGamePhase
         yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomInts(RandomEvilGoalHeader, ref RandomEvilGoalResults));
 
         SelfishFactionGoals.Add(GameSettings.GenerateSelfishGoal(Game, RandomEvilGoalResults.CombineRandomInts(), 5));
-
-
-        #region Roles
-        var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
-        Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
-        for (int i = 0; i < NetworkUtils.playerCount; i++)
-        {
-            Game.PlayerData[(PlayerID)i] = new();
-
-            Player player = GameNetworkManager.Instance.Players.FirstOrDefault(p => p.player_gameID == i);
-            if (player != null)
-            {
-                Game.PlayerData[(PlayerID)i].Nickname = player.player_name;
-            }
-        }
-
 
         Game.SelfishFactionGoals = SelfishFactionGoals;
         #endregion
