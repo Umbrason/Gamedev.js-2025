@@ -1,4 +1,4 @@
-//#define JakobTest
+#define JakobTest
 //#define NetworkDebug
 
 using UnityEngine;
