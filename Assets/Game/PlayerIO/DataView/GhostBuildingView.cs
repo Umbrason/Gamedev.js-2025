@@ -25,7 +25,7 @@ public class GhostBuildingView : EnumView<Building>
 
     private void Update()
     {
-        OnShow.Invoke(data != null && Game != null);
+        OnShow.Invoke(data != null && data != Building.None && Game != null);
 
         if (data == null) return;
         if(Game == null) return;
