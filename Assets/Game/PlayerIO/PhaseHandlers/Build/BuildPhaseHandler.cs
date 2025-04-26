@@ -15,6 +15,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     private const string VisitingHeader = "Visiting";
     private PlayerID currentTargetPlayer = PlayerID.None;               // who we are spectating! Also reflected in viewer.TargetPlayer
     private bool visiting = false;
+    private bool isInPledgePhase;
 
     public override void OnPhaseEntered()
     {
@@ -76,8 +77,13 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
     void Update()
     {
-        if (Phase != null && Phase.TimeRemaining < 15f && !pledgeScreen.Showing)
+        if (Phase != null && Phase.TimeRemaining < .25f && !isInPledgePhase)
+        {
+            Phase.BuildPhaseDurationSeconds = 15f;
+            Phase.startTime = Time.unscaledTime;
             ShowPledgeScreenAllGoals(false);
+            isInPledgePhase = true;
+        }
     }
 
     public void ShowPledgeScreenAllGoals(bool canHide = true)
