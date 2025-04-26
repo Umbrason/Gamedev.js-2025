@@ -10,7 +10,7 @@ public class RandomAnimationOffset : MonoBehaviour
         var noise = Mathf.PerlinNoise(pos.Q * -7.621341f, pos.R * 3.419764f);
         var info = Anim.GetCurrentAnimatorClipInfo(0)[0];
         var skipTime = noise * info.clip.averageDuration;
-        Debug.Log(skipTime);
+        //Debug.Log(skipTime);
         Anim.Update(skipTime);
     }
 }

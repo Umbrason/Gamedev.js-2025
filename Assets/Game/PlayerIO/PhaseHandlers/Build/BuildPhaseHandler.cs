@@ -19,13 +19,13 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
     public override void OnPhaseEntered()
     {
         Game.NetworkChannel.StartListening(VisitingHeader, OnOtherPlayerVisitingStatusChanged);
-        SetTargetPlayer(Game.ClientID);
+        SetTargetPlayer(Game.ClientID, false);
         buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
         buildingMenu.OnPlaceBuilding += Phase.PlaceBuilding;
         buildingMenu.gameObject.SetActive(true);
         VisitButtons.Refresh();
         VisitButtons.gameObject.SetActive(true);
-        VisitButtons.OnClick += SetTargetPlayer;
+        VisitButtons.OnClick += (playerID) => SetTargetPlayer(playerID);
         missionsDisplay.OnClickMission += (missionID) => ShowPledgeScreen(new() { missionID });
         missionsDisplay.Show();
         Phase.OnHarvestResource += OnHarvest;
@@ -67,7 +67,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         buildingMenu.CanBuildBuilding = null;
         buildingMenu.OnPlaceBuilding -= Phase.PlaceBuilding;
         buildingMenu.gameObject.SetActive(false);
-        VisitButtons.OnClick -= SetTargetPlayer;
+        VisitButtons.OnClick += (playerID) => SetTargetPlayer(playerID);
         missionsDisplay.Hide();
         pledgeScreen.Hide();
         Phase.OnHarvestResource -= OnHarvest;
@@ -106,7 +106,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
 
     #region Visiting
-    public void SetTargetPlayer(PlayerID newTargetPlayer)
+    public void SetTargetPlayer(PlayerID newTargetPlayer, bool playSFX = true)
     {
         if (currentTargetPlayer == newTargetPlayer) return;
         visiting = newTargetPlayer != Game.ClientID && newTargetPlayer != PlayerID.None;
@@ -116,14 +116,17 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
         playerDisplayProvider.IslandOwner = Game.PlayerData.GetValueOrDefault(newTargetPlayer)?.Faction ?? PlayerFaction.None;
 
-        switch (playerDisplayProvider.IslandOwner)
+        if (playSFX)
         {
-            case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._27_LookAtBumbiIsland, Game.ClientID); break;
-            case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._30_LookAtGumbiIsland, Game.ClientID); break;
-            case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._28_LookAtLykiIsland, Game.ClientID); break;
-            case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._29_LookAtPigynIsland, Game.ClientID); break;
-            case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._32_LookAtPomPomIsland, Game.ClientID); break;
-            case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._31_LookAtSeltasIsland, Game.ClientID); break;
+            switch (playerDisplayProvider.IslandOwner)
+            {
+                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._27_LookAtBumbiIsland, Game.ClientID); break;
+                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._30_LookAtGumbiIsland, Game.ClientID); break;
+                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._28_LookAtLykiIsland, Game.ClientID); break;
+                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._29_LookAtPigynIsland, Game.ClientID); break;
+                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._32_LookAtPomPomIsland, Game.ClientID); break;
+                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._31_LookAtSeltasIsland, Game.ClientID); break;
+            }
         }
 
         #region send notification to other player when visiting them
