@@ -347,6 +347,7 @@ MonoBehaviour:
   game: {fileID: 0}
   SkipButton: {fileID: 6451484389290662479}
   AccuseButton: {fileID: 29276428101481420}
+  dilaogText: {fileID: 3150100503915337901}
   playerIDToggle: {fileID: -5474090985511200273, guid: 5b49381819ebf1305923fb1793627a69, type: 3}
   playerButtonContainer: {fileID: 2416064711968391392}
 --- !u!1 &1723727862149333471

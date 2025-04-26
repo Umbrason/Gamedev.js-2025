@@ -7,6 +7,8 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
 
     [SerializeField] private AccusationVoteDialogue accusationVoteDialogue;
 
+    private bool alredyMadeAnAccusation;
+
     public override void OnPhaseEntered()
     {
         accusationPickerDialogue.gameObject.SetActive(true);
@@ -44,7 +46,12 @@ public class AccusationPhaseHandler : GamePhaseHandler<AccusationPhase>
 
     void OnAccusationMade(PlayerID[] Accusation)
     {
-        accusationPickerDialogue.gameObject.SetActive(false);
-        Phase.Accuse(Accusation);
+        if (!alredyMadeAnAccusation)
+        {
+            accusationPickerDialogue.gameObject.SetActive(false);
+            Phase.Accuse(Accusation);
+            alredyMadeAnAccusation = true;
+            accusationPickerDialogue.DisableAccusationOpprtunity();
+        }
     }
 }
