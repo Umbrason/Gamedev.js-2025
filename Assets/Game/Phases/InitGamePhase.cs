@@ -79,7 +79,6 @@ public class InitGamePhase : IGamePhase
         {
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
             yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomEvilGoalHeader, ref RandomEvilGoalResults));
-            //Game.NetworkChannel.DistributedRandomDecision( RandomEvilGoalHeader, ref RandomEvilGoalResults);
             var EvilGoalIndex = Mathf.FloorToInt(GameSettings.SelfishGoals.Count * (RandomEvilGoalResults.Values.Sum() % 1f));
             for (int j = 0; j < GameSettings.SelfishGoals.Count; j++)
             {
@@ -125,7 +124,7 @@ public class InitGamePhase : IGamePhase
 
         #region Player Island
         FactionData factionData = null;
-        foreach (FactionData data in GameSettings.Factions)
+        foreach (FactionData data in GameSettings.staticFactions)
         {
             if (data.Faction != clientFaction) continue;
             factionData = data;

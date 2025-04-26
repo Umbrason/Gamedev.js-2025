@@ -28,7 +28,7 @@ public class GoalResourcePledgeScreen : MonoBehaviour
             var instance = Instantiate(ResourcePledgeInputTemplate, container);
             instance.OnPledgeResources += OnPledgeResource;
             instance.Game = game;
-            foreach (var (resource, amount) in currentPledge?.goalPledges?.GetValueOrDefault(id) ?? new())
+            foreach (var (resource, amount) in currentPledge?.goalPledges?.GetValueOrDefault(id) ?? new Dictionary<Resource, int>())
                 instance.CurrentPledge[resource] = amount;
             instance.SharedGoalID = id;
             instance.SharedGoal = goal;

@@ -64,7 +64,7 @@ public class ResourcePledgeInput : MonoBehaviour
         {
             var cost = SharedGoal?.Required?.GetValueOrDefault(resource) ?? 0;
             var available = Game.ClientPlayerData.Resources.GetValueOrDefault(resource) + CurrentPledge.GetValueOrDefault(resource);
-            var required = cost - CurrentPledge.GetValueOrDefault(resource) - SharedGoal?.Collected?.GetValueOrDefault(resource) ?? 0;
+            var required = cost - SharedGoal?.Collected?.GetValueOrDefault(resource) ?? 0;
             instance.Max = Mathf.Min(available, required);
         }
     }
