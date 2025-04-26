@@ -313,7 +313,7 @@ public class LobbyManager : Singleton<LobbyManager>
         if (!gameLoaded)
         {
             gameLoaded = true;
-            Debug.Log(myPlayerID);
+            //Debug.Log(myPlayerID);
             GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID, playerList.players);
 
             AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
