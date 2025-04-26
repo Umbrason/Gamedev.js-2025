@@ -16,7 +16,7 @@ public class OfferingView : MonoBehaviour
             }
 
             int i = 0;
-            
+
             bool gaveSomething = false;
             foreach ((Resource res, int quantity) in value)
             {

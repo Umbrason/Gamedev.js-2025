@@ -1121,6 +1121,7 @@ MonoBehaviour:
   <Game>k__BackingField: {fileID: 0}
   BalancedFactionWin: {fileID: 785992285038146013}
   SelfishFactionWin: {fileID: 882841963557761777}
+  Canvas: {fileID: 1543147640021681427}
 --- !u!1 &4464395548851788986
 GameObject:
   m_ObjectHideFlags: 0

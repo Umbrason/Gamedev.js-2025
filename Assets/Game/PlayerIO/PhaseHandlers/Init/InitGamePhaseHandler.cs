@@ -20,6 +20,7 @@ public class InitGamePhaseHandler : GamePhaseHandler<InitGamePhase>
     public override void OnPhaseEntered()
     {
         FadeInCanvasGroup.gameObject.SetActive(true);
+
     }
     public override void OnPhaseExited()
     {
