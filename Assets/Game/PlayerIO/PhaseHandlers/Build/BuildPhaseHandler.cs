@@ -34,8 +34,8 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
         switch (Game.ClientPlayerData.Role)
         {
-            case PlayerRole.Balanced: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._19_RoundStart_GoodVersion, Game.ClientID); break;
-            case PlayerRole.Selfish: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._47_RoundStart_SusVersion, Game.ClientID); break;
+            case PlayerRole.Balanced: SoundAndMusicController.Instance.PlaySFX(SFXType._19_RoundStart_GoodVersion, Game.ClientID); break;
+            case PlayerRole.Selfish: SoundAndMusicController.Instance.PlaySFX(SFXType._47_RoundStart_SusVersion, Game.ClientID); break;
         }
     }
 
@@ -120,12 +120,12 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         {
             switch (playerDisplayProvider.IslandOwner)
             {
-                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._27_LookAtBumbiIsland, Game.ClientID); break;
-                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._30_LookAtGumbiIsland, Game.ClientID); break;
-                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._28_LookAtLykiIsland, Game.ClientID); break;
-                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._29_LookAtPigynIsland, Game.ClientID); break;
-                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._32_LookAtPomPomIsland, Game.ClientID); break;
-                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._31_LookAtSeltasIsland, Game.ClientID); break;
+                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SFXType._27_LookAtBumbiIsland, Game.ClientID); break;
+                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SFXType._30_LookAtGumbiIsland, Game.ClientID); break;
+                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SFXType._28_LookAtLykiIsland, Game.ClientID); break;
+                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SFXType._29_LookAtPigynIsland, Game.ClientID); break;
+                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SFXType._32_LookAtPomPomIsland, Game.ClientID); break;
+                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SFXType._31_LookAtSeltasIsland, Game.ClientID); break;
             }
         }
 
@@ -173,12 +173,12 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
             switch (faction)
             {
-                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._05_BumbiJoinsLobby, Game.ClientID); break;
-                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._11_GumbiJoinsLobby, Game.ClientID); break;
-                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._07_LykiJoinsLobby, Game.ClientID); break;
-                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._09_PigynJoinsLobby, Game.ClientID); break;
-                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._15_PomPomJoinsLobby, Game.ClientID); break;
-                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._13_SeltasJoinsLobby, Game.ClientID); break;
+                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SFXType._05_BumbiJoinsLobby, Game.ClientID); break;
+                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SFXType._11_GumbiJoinsLobby, Game.ClientID); break;
+                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SFXType._07_LykiJoinsLobby, Game.ClientID); break;
+                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SFXType._09_PigynJoinsLobby, Game.ClientID); break;
+                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SFXType._15_PomPomJoinsLobby, Game.ClientID); break;
+                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SFXType._13_SeltasJoinsLobby, Game.ClientID); break;
             }
         }
         else
@@ -188,12 +188,12 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
 
             switch (faction)
             {
-                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._06_BumbiLeavesLobby, Game.ClientID); break;
-                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._12_GumbiLeavesLobby, Game.ClientID); break;
-                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._08_LykiLeavesLobby, Game.ClientID); break;
-                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._10_PigynLeavesLobby, Game.ClientID); break;
-                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._16_PomPomLeavesLobby, Game.ClientID); break;
-                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._14_SeltasLeavesLobby, Game.ClientID); break;
+                case PlayerFaction.Bumbi: SoundAndMusicController.Instance.PlaySFX(SFXType._06_BumbiLeavesLobby, Game.ClientID); break;
+                case PlayerFaction.Gumbi: SoundAndMusicController.Instance.PlaySFX(SFXType._12_GumbiLeavesLobby, Game.ClientID); break;
+                case PlayerFaction.Lyki: SoundAndMusicController.Instance.PlaySFX(SFXType._08_LykiLeavesLobby, Game.ClientID); break;
+                case PlayerFaction.Pigyn: SoundAndMusicController.Instance.PlaySFX(SFXType._10_PigynLeavesLobby, Game.ClientID); break;
+                case PlayerFaction.PomPom: SoundAndMusicController.Instance.PlaySFX(SFXType._16_PomPomLeavesLobby, Game.ClientID); break;
+                case PlayerFaction.Seltas: SoundAndMusicController.Instance.PlaySFX(SFXType._14_SeltasLeavesLobby, Game.ClientID); break;
             }
         }
     }

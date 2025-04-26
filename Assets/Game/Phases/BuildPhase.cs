@@ -144,7 +144,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
 
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._33_DropBuildingOnMap, Game.ClientID);
+        SoundAndMusicController.Instance.PlaySFX(SFXType._33_DropBuildingOnMap, Game.ClientID);
     }
 
     [PlayerAction]
