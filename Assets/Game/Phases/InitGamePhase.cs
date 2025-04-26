@@ -13,7 +13,6 @@ public class InitGamePhase : IGamePhase
     const string ShareIslandState = "ShareIslandState";
 
     const int BalanceFactionSubgoalCount = 1;
-    const int SelfishFactionSubgoalCount = 1;
     public GameInstance Game { private get; set; }
 
     public IEnumerator OnEnter()
@@ -70,9 +69,29 @@ public class InitGamePhase : IGamePhase
         Game.BalancedFactionGoals = BalanceFactionGoals;
         #endregion
 
+        #region Roles
+        var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
+        Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
+        for (int i = 0; i < NetworkUtils.playerCount; i++) Game.PlayerData[(PlayerID)i] = new();
+
+        foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
+        foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
+        #endregion
+
+
+
+        #region Factions
+        var faction = 0;
+        var playerIDsByFactionIndex = RandomFactionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
+        foreach (var player in playerIDsByFactionIndex) Game.PlayerData[player].Faction = (PlayerFaction)(++faction);
+        var clientFaction = Game.ClientPlayerData.Faction;
+        #endregion
+
         #region Decide SelfishFaction Goals
         var SelfishFactionGoals = new List<SharedGoal>();
         HashSet<int> pickedSelfishGoals = new();
+
+        /*
         for (int i = 0; i < SelfishFactionSubgoalCount; i++)
         {
             var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
@@ -87,24 +106,17 @@ public class InitGamePhase : IGamePhase
             }
             pickedSelfishGoals.Add(EvilGoalIndex);
             SelfishFactionGoals.Add(GameSettings.SelfishGoals[EvilGoalIndex]);
-        }
+        }*/
+
+        var RandomEvilGoalResults = (Dictionary<PlayerID, int>)null;
+        yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomInts(RandomEvilGoalHeader, ref RandomEvilGoalResults));
+
+        SelfishFactionGoals.Add(GameSettings.GenerateSelfishGoal(Game, RandomEvilGoalResults.CombineRandomInts(), 5));
+
+
+
+
         Game.SelfishFactionGoals = SelfishFactionGoals;
-        #endregion
-
-        #region Roles
-        var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
-        Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
-        for (int i = 0; i < NetworkUtils.playerCount; i++) Game.PlayerData[(PlayerID)i] = new();
-
-        foreach (var player in playerIDsByRolesIndex.Take(2)) Game.PlayerData[player].Role = PlayerRole.Selfish;
-        foreach (var player in playerIDsByRolesIndex.Skip(2)) Game.PlayerData[player].Role = PlayerRole.Balanced;
-        #endregion
-
-        #region Factions
-        var faction = 0;
-        var playerIDsByFactionIndex = RandomFactionIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
-        foreach (var player in playerIDsByFactionIndex) Game.PlayerData[player].Faction = (PlayerFaction)(++faction);
-        var clientFaction = Game.ClientPlayerData.Faction;
         #endregion
 
         #region Secret Individual Goal

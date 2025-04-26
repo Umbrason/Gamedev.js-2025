@@ -29,6 +29,12 @@ public static class ResourceExtention
     public static bool IsCombined(this Resource resource) => resource >= Resource.Compost;
 
 
+    public static HashSet<Resource> GetAll() => new(){ Resource.Dewdrops, Resource.Leaves, Resource.Pebbles, Resource.Mana, Resource.Wood, Resource.Fireflies, Resource.Compost, Resource.Ink, Resource.Mushrooms, Resource.Firebugs, Resource.Wisps, Resource.ManaStones };
+
+    public static HashSet<Resource> GetAllBasic() => new() { Resource.Dewdrops, Resource.Leaves, Resource.Pebbles, Resource.Mana, Resource.Wood, Resource.Fireflies };
+
+    public static HashSet<Resource> GetAllCombined() => new() { Resource.Compost, Resource.Ink, Resource.Mushrooms, Resource.Firebugs, Resource.Wisps, Resource.ManaStones };
+
     public static void Add(this Dictionary<Resource, int> resources, Dictionary<Resource, int> added)
     {
         foreach((Resource res, int quantity) in added)

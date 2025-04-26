@@ -30,6 +30,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
     public IEnumerator OnEnter()
     {
         Game.Turn++;
+        Debug.Log("Turn "+Game.Turn);
 
         HarvestResources();
         startTime = Time.unscaledTime;

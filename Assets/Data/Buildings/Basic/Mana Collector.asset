@@ -15,9 +15,10 @@ MonoBehaviour:
   Building: 4
   Cost:
     items:
-    - res: 1
+    - res: 5
       quantity: 1
     - res: 2
       quantity: 1
   OperationCost:
     items: []
+  Description: 

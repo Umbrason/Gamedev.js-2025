@@ -13,18 +13,12 @@ MonoBehaviour:
   m_Name: Gumbi
   m_EditorClassIdentifier: 
   faction: 4
-  mapGenerator: {fileID: 11400000, guid: 3e5e5936c0cf1c143aed21073c1efb8d, type: 2}
+  mapGenerator: {fileID: 11400000, guid: 0ae1ecb099197e2458a3df6b4555ba0c, type: 2}
   startingResources:
-  - resource: 1
-    quantity: 2
-  - resource: 2
-    quantity: 2
-  - resource: 3
-    quantity: 2
-  - resource: 4
-    quantity: 5
   - resource: 5
-    quantity: 2
+    quantity: 3
   - resource: 6
-    quantity: 2
-  startingBuildings: 0400000004000000
+    quantity: 1
+  - resource: 3
+    quantity: 1
+  startingBuildings: 

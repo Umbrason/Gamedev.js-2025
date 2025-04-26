@@ -17,7 +17,8 @@ MonoBehaviour:
     items:
     - res: 4
       quantity: 1
-    - res: 5
+    - res: 1
       quantity: 1
   OperationCost:
     items: []
+  Description: 

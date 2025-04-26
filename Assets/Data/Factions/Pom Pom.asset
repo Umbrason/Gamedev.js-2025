@@ -15,16 +15,10 @@ MonoBehaviour:
   faction: 6
   mapGenerator: {fileID: 11400000, guid: 905eb69b4808c34479af6640a036c76b, type: 2}
   startingResources:
-  - resource: 1
-    quantity: 2
-  - resource: 2
-    quantity: 2
-  - resource: 3
-    quantity: 2
-  - resource: 4
-    quantity: 2
-  - resource: 5
-    quantity: 2
   - resource: 6
-    quantity: 5
-  startingBuildings: 0600000006000000
+    quantity: 3
+  - resource: 5
+    quantity: 1
+  - resource: 1
+    quantity: 1
+  startingBuildings: 
