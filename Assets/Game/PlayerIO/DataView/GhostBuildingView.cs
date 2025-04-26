@@ -16,6 +16,8 @@ public class GhostBuildingView : EnumView<Building>
         if (!_instance) return;
         var srs = _instance.GetComponentsInChildren<SpriteRenderer>();
         foreach (var sr in srs) sr.material = GhostMaterial;
+
+
     }
 
     private void Start()
@@ -25,9 +27,10 @@ public class GhostBuildingView : EnumView<Building>
 
     private void Update()
     {
-        OnShow.Invoke(data != null && Game != null);
 
-        if (data == null) return;
+        OnShow.Invoke(data != null && data != Building.None && Game != null);
+
+        if (data == null || data == Building.None) return;
         if(Game == null) return;
 
         float yield = BuildingExtensions.ExpectedYield((Building)data, Game.ClientPlayerData.Island, HexOrientation.Active * transform.position);
