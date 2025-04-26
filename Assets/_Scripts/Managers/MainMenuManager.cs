@@ -21,8 +21,8 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        SoundAndMusicController.Instance.PlayMusic(SoundAndMusicController.Instance.MusicClips.mainMenuLoopable, PlayerID.None);
-        SoundAndMusicController.Instance.PlayAmbience(null, PlayerID.None);
+        SoundAndMusicController.Instance.PlayMusic(MusicType.mainMenuLoopable, PlayerID.None);
+        SoundAndMusicController.Instance.PlayAmbience(MusicType.none, PlayerID.None);
     }
 
     public void BtnPlay()

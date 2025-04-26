@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static LobbyManager;
 
 public class InitGamePhase : IGamePhase
 {
@@ -114,6 +116,19 @@ public class InitGamePhase : IGamePhase
         SelfishFactionGoals.Add(GameSettings.GenerateSelfishGoal(Game, RandomEvilGoalResults.CombineRandomInts(), 5));
 
 
+        #region Roles
+        var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
+        Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
+        for (int i = 0; i < NetworkUtils.playerCount; i++)
+        {
+            Game.PlayerData[(PlayerID)i] = new();
+
+            Player player = GameNetworkManager.Instance.Players.FirstOrDefault(p => p.player_gameID == i);
+            if (player != null)
+            {
+                Game.PlayerData[(PlayerID)i].Nickname = player.player_name;
+            }
+        }
 
 
         Game.SelfishFactionGoals = SelfishFactionGoals;

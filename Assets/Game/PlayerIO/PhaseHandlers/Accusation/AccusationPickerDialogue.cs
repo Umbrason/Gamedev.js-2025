@@ -9,10 +9,15 @@ public class AccusationPickerDialogue : MonoBehaviour
     [SerializeField] private Button SkipButton;
     [SerializeField] private Button AccuseButton;
 
+    [SerializeField]
+    private TMPro.TMP_Text dilaogText;
+
     [SerializeField] private PlayerIDToggle playerIDToggle;
     private readonly Dictionary<PlayerID, PlayerIDToggle> playerIDToggles = new();
     [SerializeField] private Transform playerButtonContainer;
     private readonly List<PlayerID> accusation = new();
+
+    private bool alredyMadeAnAccusation;
 
     public event Action<PlayerID[]> OnAccusationMade;
     void Awake()
@@ -73,6 +78,14 @@ public class AccusationPickerDialogue : MonoBehaviour
             accusation.Remove(player);
             playerIDToggles[player].SetIsOnNoNotify(false);
         }
-        AccuseButton.interactable = accusation.Count == 2;
+        if(!alredyMadeAnAccusation)
+            AccuseButton.interactable = accusation.Count == 2 && !alredyMadeAnAccusation;
+    }
+
+    public void DisableAccusationOpprtunity()
+    {
+        dilaogText.text = "Accuse two players of being evil?\n<size=75%>You have already accused a player in this game</size>";
+        AccuseButton.interactable = false;
+        alredyMadeAnAccusation = true;
     }
 }

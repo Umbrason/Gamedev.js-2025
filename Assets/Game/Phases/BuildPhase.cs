@@ -12,7 +12,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         set;
     }
     const string FinishedBuildPhaseSignal = "FinishedBuildPhase";
-    const float BuildPhaseDurationSeconds = 60;
+    public float BuildPhaseDurationSeconds = 45f;
     public float startTime { get; set; }
     private bool skipping; //should never be un-set since then this client could get stuck in this phase while the rest move on
     private PledgeSummaryPhase nextPhase;
@@ -145,7 +145,7 @@ public class BuildPhase : IGamePhase, ITimedPhase
         Game.NetworkChannel.BroadcastMessage(UpdateIslandHeader, Game.ClientPlayerData.Island);
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
 
-        SoundAndMusicController.Instance.PlaySFX(SoundAndMusicController.Instance.SfxClips._33_DropBuildingOnMap, Game.ClientID);
+        SoundAndMusicController.Instance.PlaySFX(SFXType._33_DropBuildingOnMap, Game.ClientID);
     }
 
     [PlayerAction]
