@@ -78,4 +78,18 @@ public static class BuildingExtensions
 
         return averageYield > -999f;//hex found
     }
+
+    public static string Name(this Building building)
+    {
+        return System.Text.RegularExpressions.Regex.Replace(building.ToString(), @"([a-z])([A-Z])", "$1~$2").Replace("~", " ");
+    }
+
+    public static string Description(this Building building)
+    {
+        if ((int)building > 6)
+        {
+            return $"Converts 1 {string.Join(" and ", building.OperationCosts().Keys.Select(r => r.ToString()))} to {building.ResourceYieldType()}";
+        }
+        return $"Collects {building.ResourceYieldType()} with a chance of 1/3 per free neighbouring {building.ResourceYieldType()} tile";
+    }
 }

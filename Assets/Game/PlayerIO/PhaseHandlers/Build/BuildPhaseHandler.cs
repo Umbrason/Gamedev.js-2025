@@ -23,6 +23,7 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         SetTargetPlayer(Game.ClientID, false);
         buildingMenu.CanBuildBuilding = (building) => !visiting && Phase.CanAffordBuilding(building);
         buildingMenu.OnPlaceBuilding += Phase.PlaceBuilding;
+        buildingMenu.OnPlaceBuilding += RefreshSecretTaskDisplay;
         buildingMenu.gameObject.SetActive(true);
         VisitButtons.Refresh();
         VisitButtons.gameObject.SetActive(true);
@@ -37,6 +38,15 @@ public class BuildPhaseHandler : GamePhaseHandler<BuildPhase>
         {
             case PlayerRole.Balanced: SoundAndMusicController.Instance.PlaySFX(SFXType._19_RoundStart_GoodVersion, Game.ClientID); break;
             case PlayerRole.Selfish: SoundAndMusicController.Instance.PlaySFX(SFXType._47_RoundStart_SusVersion, Game.ClientID); break;
+        }
+    }
+
+    private void RefreshSecretTaskDisplay(HexPosition position, Building building)
+    {
+        if (Game.ClientPlayerData.SecretGoal.Evaluate(Game.ClientPlayerData))
+        {
+            Game.ClientPlayerData.SecretGoal.Description = "Secret Task completed\n\nResource production doubled";
+            missionsDisplay.SecretTaskDisplay.Refresh();
         }
     }
 

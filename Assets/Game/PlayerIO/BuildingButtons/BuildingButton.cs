@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
+
     public bool Active
     {
         get => active;
@@ -21,15 +22,14 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
         {
             m_Building = value;
             image.sprite = buildingIcons[value];
-            tooltip.OfferedResources = value.ConstructionCosts();
+            tooltip.Building = value;
             tooltip.gameObject.SetActive(false);//setting tooltip.OfferedResources activate it
         }
     }
 
     [SerializeField] private BuildingSpriteLib buildingIcons;
     [SerializeField] private Image image;
-    [SerializeField] private OfferingView tooltip;
-    [SerializeField] private BuildingOverview buildingOverview;
+    [SerializeField] private BuildingTooltip tooltip;
     [SerializeField] private Color cantBuild;
 
     public event Action<Building> OnStartDrag;
@@ -69,7 +69,6 @@ public class BuildingButton : MonoBehaviour, IDragHandler, IEndDragHandler, IPoi
     public void OnPointerEnter(PointerEventData eventData)
     {
         tooltip.gameObject.SetActive(true);
-        buildingOverview?.ChangeBuilding(Building, buildingIcons[Building]);
     }
 
     public void OnPointerExit(PointerEventData eventData)
