@@ -6,7 +6,7 @@ public abstract class GamePhaseHandler<T> : MonoBehaviour where T : IGamePhase
     protected T Phase { get; private set; }
 
 
-    void Awake()
+    protected virtual void Awake()
     {
         Game.OnPhaseChanged += OnGamePhaseChanged;
         OnGamePhaseChanged(Game.CurrentPhase);

@@ -7,7 +7,7 @@ public class PledgeSummaryPhase : IGamePhase, ITimedPhase
 {
     public GameInstance Game { private get; set; }
 
-    public Dictionary<PlayerID, Dictionary<Resource, int>> OfferedResources;
+    public IReadOnlyDictionary<PlayerID, Dictionary<Resource, int>> OfferedResources;
 
     public float TimeRemaining => startTime - Time.unscaledTime + Duration;
     public float Duration => 10f;

@@ -34,10 +34,14 @@ public class SharedGoal
         {
             var missingAmount = required - Collected.GetValueOrDefault(resource);
             var payed = Mathf.Min(source.GetValueOrDefault(resource), missingAmount);
-            if(receipt != null)
+            if (receipt != null)
             {
-                if (!receipt.ContainsKey(resource)) receipt[resource] = payed;
-                else receipt[resource] += payed;
+                if (!receipt.ContainsKey(resource))
+                {
+                    receipt[resource] = payed;
+                }
+                else
+                    receipt[resource] += payed;
             }
             if (!Collected.ContainsKey(resource)) Collected[resource] = payed;
             else Collected[resource] += payed;

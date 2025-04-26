@@ -24,7 +24,6 @@ public class ResourceItem : MonoBehaviour
         get => amount;
         set
         {
-            if (value == amount) return;
             amount = value;
             text.text = $"{amount}";
         }

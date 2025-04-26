@@ -4,23 +4,23 @@ using UnityEngine;
 
 public enum Resource
 {
-    None,
+    None = 0,
 
     //Basic
-    Dewdrops,
-    Leaves,
-    Pebbles,
-    Mana,
-    Wood,
-    Fireflies,
+    Dewdrops = 1,
+    Leaves = 2,
+    Pebbles = 3,
+    Mana = 4,
+    Wood = 5,
+    Fireflies = 6,
 
     //Refined
-    Compost,
-    Ink,
-    Mushrooms,
-    Firebugs,
-    Wisps,
-    ManaStones,
+    Compost = 7,
+    Ink = 8,
+    Mushrooms = 9,
+    Firebugs = 10,
+    Wisps = 11,
+    ManaStones = 12,
 }
 
 public static class ResourceExtention
@@ -37,7 +37,7 @@ public static class ResourceExtention
 
     public static void Add(this Dictionary<Resource, int> resources, Dictionary<Resource, int> added)
     {
-        foreach((Resource res, int quantity) in added)
+        foreach ((Resource res, int quantity) in added)
         {
             resources[res] = resources.GetValueOrDefault(res) + added[res];
         }

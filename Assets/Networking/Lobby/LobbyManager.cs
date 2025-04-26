@@ -313,7 +313,14 @@ public class LobbyManager : Singleton<LobbyManager>
         if (!gameLoaded)
         {
             gameLoaded = true;
-            //Debug.Log(myPlayerID);
+
+            for (int i = 0; i < playerList.players.Count; i++)
+            {
+                playerList.players[i].player_gameID = i;
+            }
+
+            myPlayerID = (PlayerID)playerList.players.First(p => p.player_id == playerId).player_gameID;
+
             GameNetworkManager.Instance.Initialize(username, currentRoomCode, playerId, isHost, myPlayerID, playerList.players);
 
             AsyncOperation ao = SceneManager.LoadSceneAsync("PlayerGame", LoadSceneMode.Additive);
@@ -329,6 +336,7 @@ public class LobbyManager : Singleton<LobbyManager>
 
         SoundAndMusicController.Instance.EnsureSingleAudioListener();
     }
+
 
     [System.Serializable]
     public class RoomJoinResponse

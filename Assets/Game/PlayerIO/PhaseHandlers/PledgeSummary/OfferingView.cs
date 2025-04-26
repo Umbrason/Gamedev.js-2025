@@ -1,44 +1,41 @@
 using DataView;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class OfferingView : MonoBehaviour
 {
-    [SerializeField] ResourceItem[] resourcesItems;
+    [SerializeField] ResourceItem resourcesItemTemplate;
+    [SerializeField] Transform Container;
+    private readonly List<ResourceItem> resourcesItemInstances = new();
+    [SerializeField] PlayerIDButton playerIDButton;
+    [SerializeField] GameObject NothingContributed;
+
+    public PlayerFaction Faction
+    {
+        set => playerIDButton.Faction = value;
+    }
+    public string Nickname
+    {
+        set => playerIDButton.Nickname = value;
+    }
+
     public Dictionary<Resource, int> OfferedResources
     {
         set
         {
-            if(value == null)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
-            int i = 0;
-
-            bool gaveSomething = false;
+            foreach (var i in resourcesItemInstances) Destroy(i.gameObject);
+            resourcesItemInstances.Clear();
+            var isNothing = value == null || value?.Values?.Sum() == 0;
+            NothingContributed.SetActive(isNothing);
+            if (isNothing) return;
             foreach ((Resource res, int quantity) in value)
             {
-                if (quantity <= 0) continue;
-                if (i >= resourcesItems.Length)
-                {
-                    Debug.LogError("Not enough ResourceItem in PledgeView");
-                    break;
-                }
-
-                gaveSomething = true;
-                ResourceItem item = resourcesItems[i++];
-                item.Resource = res;
-                item.Amount = quantity;
-                item.gameObject.SetActive(true);
-            }
-
-            gameObject.SetActive(gaveSomething);
-
-            while (i < resourcesItems.Length)
-            {
-                resourcesItems[i++].gameObject.SetActive(false);
+                if (quantity == 0) continue;
+                var instance = Instantiate(resourcesItemTemplate, Container);
+                instance.Resource = res;
+                instance.Amount = quantity;
+                resourcesItemInstances.Add(instance);
             }
         }
     }

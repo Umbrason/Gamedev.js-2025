@@ -74,26 +74,25 @@ public class BuildPhase : IGamePhase, ITimedPhase
         yield return new WaitUntil(() => NetworkUtils.DistributedRandomDecision(Game.NetworkChannel, RandomPledgeOrderDecissionHeader, ref pledgeWithdrawalOrderPrio));
         var pledgeWithdrawalOrder = pledgeWithdrawalOrderPrio.OrderBy(pair => pair.Value).Select(pair => pair.Key);
 
-        Dictionary<PlayerID, Dictionary<Resource, int>> ResourcesOfferedToBalancedGoal = new();
-
+        Dictionary<PlayerID, Dictionary<Resource, int>> Receipts = new();
         foreach (var playerID in pledgeWithdrawalOrder)
         {
             if (PledgedResources[playerID] == null) continue;
             var pledges = PledgedResources[playerID].goalPledges;
             foreach (var (goalID, resources) in pledges)
             {
-                if (!ResourcesOfferedToBalancedGoal.ContainsKey(playerID)) ResourcesOfferedToBalancedGoal[playerID] = new();
+                var resourcesCopy = resources.Copy();
+                if (!Receipts.ContainsKey(playerID)) Receipts[playerID] = new();
 
-                var receipt = goalID.TargetRole == PlayerRole.Balanced ? ResourcesOfferedToBalancedGoal[playerID] : null;
+                var receipt = goalID.TargetRole == PlayerRole.Balanced ? Receipts[playerID] : null;
 
-                goalID.GetGoal(Game).Collect(resources, receipt);
-
-                foreach (var (resource, amount) in resources.ToArray()) //add back remainder
+                goalID.GetGoal(Game).Collect(resourcesCopy, receipt);
+                foreach (var (resource, amount) in resourcesCopy.ToArray()) //add back remainder
                     Game.PlayerData[playerID][resource] += amount;
             }
         }
 
-        nextPhase.OfferedResources = ResourcesOfferedToBalancedGoal;
+        nextPhase.OfferedResources = Receipts;
 
         yield return new WaitUntil(() => Game.NetworkChannel.WaitForAllPlayersSignal(EndBuildPhase));
     }
@@ -163,11 +162,11 @@ public class BuildPhase : IGamePhase, ITimedPhase
         if (targetGoalID.TargetRole > Game.ClientPlayerData.Role) return; //either has no role or is balanced and tried to pledge to selfish goal.
 
         if (!clientPledgedResources.goalPledges.ContainsKey(targetGoalID))
-            clientPledgedResources.goalPledges.Add(targetGoalID, new());
+            ((Dictionary<SharedGoalID, IReadOnlyDictionary<Resource, int>>)clientPledgedResources.goalPledges).Add(targetGoalID, new Dictionary<Resource, int>());
         var goal = targetGoalID.GetGoal(Game);
         if (amount > 0)
         {
-            var missingAmount = goal.Required.GetValueOrDefault(resource) - goal.Collected.GetValueOrDefault(resource);
+            var missingAmount = goal.Required.GetValueOrDefault(resource) - goal.Collected.GetValueOrDefault(resource) - clientPledgedResources.goalPledges[targetGoalID].GetValueOrDefault(resource);
             amount = Mathf.Min(missingAmount, amount);
         }
         else if (clientPledgedResources.goalPledges.ContainsKey(targetGoalID))
@@ -179,9 +178,9 @@ public class BuildPhase : IGamePhase, ITimedPhase
         OnPledgeResource?.Invoke(targetGoalID, resource, amount);
         Game.ClientPlayerData[resource] -= amount;
         if (!clientPledgedResources.goalPledges[targetGoalID].ContainsKey(resource))
-            clientPledgedResources.goalPledges[targetGoalID][resource] = amount;
+            ((Dictionary<Resource, int>)clientPledgedResources.goalPledges[targetGoalID])[resource] = amount;
         else
-            clientPledgedResources.goalPledges[targetGoalID][resource] += amount;
+            ((Dictionary<Resource, int>)clientPledgedResources.goalPledges[targetGoalID])[resource] += amount;
         Game.NetworkChannel.BroadcastMessage(UpdateResourcesHeader, Game.ClientPlayerData.Resources);
         Game.NetworkChannel.BroadcastMessage(ShareResourcePledge, PledgedResources[Game.ClientID]);
     }

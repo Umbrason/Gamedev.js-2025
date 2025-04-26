@@ -71,9 +71,6 @@ public class InitGamePhase : IGamePhase
         Game.BalancedFactionGoals = BalanceFactionGoals;
         #endregion
 
-
-
-
         #region Roles
         var playerIDsByRolesIndex = RandomRoleIndexResults.OrderBy(pair => pair.Value).Select(pair => pair.Key);
         Game.PlayerData = new Dictionary<PlayerID, PlayerData>();
@@ -104,23 +101,6 @@ public class InitGamePhase : IGamePhase
         var SelfishFactionGoals = new List<SharedGoal>();
         HashSet<int> pickedSelfishGoals = new();
 
-        /*
-        for (int i = 0; i < SelfishFactionSubgoalCount; i++)
-        {
-            var RandomEvilGoalResults = (Dictionary<PlayerID, float>)null;
-            yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomDecision(RandomEvilGoalHeader, ref RandomEvilGoalResults));
-            //Game.NetworkChannel.DistributedRandomDecision( RandomEvilGoalHeader, ref RandomEvilGoalResults);
-            var EvilGoalIndex = Mathf.FloorToInt(GameSettings.SelfishGoals.Count * (RandomEvilGoalResults.Values.Sum() % 1f));
-            for (int j = 0; j < GameSettings.SelfishGoals.Count; j++)
-            {
-                if (!pickedBalancedGoals.Contains(EvilGoalIndex)) break;
-                EvilGoalIndex++;
-                EvilGoalIndex %= GameSettings.SelfishGoals.Count;
-            }
-            pickedSelfishGoals.Add(EvilGoalIndex);
-            SelfishFactionGoals.Add(GameSettings.SelfishGoals[EvilGoalIndex]);
-        }*/
-
         var RandomEvilGoalResults = (Dictionary<PlayerID, int>)null;
         yield return new WaitUntil(() => Game.NetworkChannel.DistributedRandomInts(RandomEvilGoalHeader, ref RandomEvilGoalResults));
 
@@ -136,7 +116,7 @@ public class InitGamePhase : IGamePhase
 
         #region Player Island
         FactionData factionData = null;
-        foreach (FactionData data in GameSettings.Factions)
+        foreach (FactionData data in GameSettings.staticFactions)
         {
             if (data.Faction != clientFaction) continue;
             factionData = data;
