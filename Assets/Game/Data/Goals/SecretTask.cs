@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public abstract class SecretTask
 {
-    public abstract string Description { get; protected set; }
+    public abstract string Description { get; set; }
     public abstract bool Evaluate(PlayerData data);
     public override string ToString() => Description;
 }
@@ -10,7 +10,7 @@ public abstract class SecretTask
 public class BuildingAmount : SecretTask
 {
 
-    public override string Description { get; protected set; }
+    public override string Description { get; set; }
 
     private Dictionary<Building, int> requiredBuildings;
 
@@ -43,7 +43,7 @@ public class BuildingAmount : SecretTask
 
 public class RequestsFulfilled : SecretTask
 {
-    public override string Description { get; protected set; }
+    public override string Description { get; set; }
     private int amount;
 
 
