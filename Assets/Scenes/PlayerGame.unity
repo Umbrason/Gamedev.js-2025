@@ -867,10 +867,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameOverPhaseHandler
       objectReference: {fileID: 0}
+    - target: {fileID: 5430250309847691348, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430250309847691348, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430250309847691348, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430250309847691348, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430250309847691348, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5430250309847691348, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5444329680287886504, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
       propertyPath: <Game>k__BackingField
       value: 
       objectReference: {fileID: 633265560}
+    - target: {fileID: 8527669162318780181, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527669162318780181, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527669162318780181, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527669162318780181, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527669162318780181, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8527669162318780181, guid: 16f5a6269b0b70c5abce90bac58fadb6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
