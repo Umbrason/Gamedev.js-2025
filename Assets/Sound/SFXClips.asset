@@ -15,18 +15,18 @@ MonoBehaviour:
   _02_SharedGoalProgresses: {fileID: 0}
   _03_GeneralButtonClicks: {fileID: 8300000, guid: a437579665d934f5b84bb6b639cc2320, type: 3}
   _04_PopUpOpens: {fileID: 8300000, guid: c2e40adc11c134289b7f943c8c367f22, type: 3}
-  _05_BumbiJoinsLobby: {fileID: 0}
-  _06_BumbiLeavesLobby: {fileID: 0}
-  _07_LykiJoinsLobby: {fileID: 0}
-  _08_LykiLeavesLobby: {fileID: 0}
-  _09_PigynJoinsLobby: {fileID: 0}
-  _10_PigynLeavesLobby: {fileID: 0}
-  _11_GumbiJoinsLobby: {fileID: 0}
-  _12_GumbiLeavesLobby: {fileID: 0}
-  _13_SeltasJoinsLobby: {fileID: 0}
-  _14_SeltasLeavesLobby: {fileID: 0}
-  _15_PomPomJoinsLobby: {fileID: 0}
-  _16_PomPomLeavesLobby: {fileID: 0}
+  _05_BumbiJoinsLobby: {fileID: 8300000, guid: 92979cd811aa24223a8bd3e0e3b8e58b, type: 3}
+  _06_BumbiLeavesLobby: {fileID: 8300000, guid: 84178e089be554aa0a3ac4dadac715a8, type: 3}
+  _07_LykiJoinsLobby: {fileID: 8300000, guid: 75a9fb0423a414d4eae12fdfc6503e27, type: 3}
+  _08_LykiLeavesLobby: {fileID: 8300000, guid: f26c62680d97548f094c74bdaf3a0e76, type: 3}
+  _09_PigynJoinsLobby: {fileID: 8300000, guid: c85aa8b35e29b47eb994abafe9bc40ba, type: 3}
+  _10_PigynLeavesLobby: {fileID: 8300000, guid: a3294e192dfac4e2ba72b89a327e42ae, type: 3}
+  _11_GumbiJoinsLobby: {fileID: 8300000, guid: 684597035863840b1a2c07eee1927109, type: 3}
+  _12_GumbiLeavesLobby: {fileID: 8300000, guid: 3fb5d79d21a33486c81a93b8bc498562, type: 3}
+  _13_SeltasJoinsLobby: {fileID: 8300000, guid: d72af716a9683462cbc9fbb4470160ea, type: 3}
+  _14_SeltasLeavesLobby: {fileID: 8300000, guid: bf1ccf7efc19849f89a3e48dc48b44a7, type: 3}
+  _15_PomPomJoinsLobby: {fileID: 8300000, guid: 8a091f60c915f408a88db75e9cdc8f5b, type: 3}
+  _16_PomPomLeavesLobby: {fileID: 8300000, guid: eeb8d0da9efe741358b233b3a5e4feae, type: 3}
   _17_GoodWins_GoodVersion: {fileID: 8300000, guid: 89c0cbc189f8b412990b2bb95db45798, type: 3}
   _18_SusWins_GoodVersion: {fileID: 8300000, guid: 5c688cb4bd15844e6936b98aa1fbeb6e, type: 3}
   _19_RoundStart_GoodVersion: {fileID: 8300000, guid: 900e2438dbe4f45e2af4dac3ffa34544, type: 3}
@@ -37,12 +37,12 @@ MonoBehaviour:
   _24_SusVoteEnd_GoodVersion: {fileID: 0}
   _25_TimerTicking_GoodVersion: {fileID: 8300000, guid: cf3b2e682a91d462089d527c13bb7888, type: 3}
   _26_CreaturesWalkingAround: {fileID: 0}
-  _27_LookAtBumbiIsland: {fileID: 0}
-  _28_LookAtLykiIsland: {fileID: 0}
-  _29_LookAtPigynIsland: {fileID: 0}
-  _30_LookAtGumbiIsland: {fileID: 0}
-  _31_LookAtSeltasIsland: {fileID: 0}
-  _32_LookAtPomPomIsland: {fileID: 0}
+  _27_LookAtBumbiIsland: {fileID: 8300000, guid: f1d4c3bde940647e3bbe10e0c45bb593, type: 3}
+  _28_LookAtLykiIsland: {fileID: 8300000, guid: 95d0a20cc4a384dff923db04646a7417, type: 3}
+  _29_LookAtPigynIsland: {fileID: 8300000, guid: d836e8051c45348f58b9143cceb09030, type: 3}
+  _30_LookAtGumbiIsland: {fileID: 8300000, guid: a27d7b6b65df343a085fb2531362b6c9, type: 3}
+  _31_LookAtSeltasIsland: {fileID: 8300000, guid: 9006c28299a0844c89ce402765a33a46, type: 3}
+  _32_LookAtPomPomIsland: {fileID: 8300000, guid: 0e9124800f17a4925bb5d954260054b0, type: 3}
   _33_DropBuildingOnMap: {fileID: 8300000, guid: 90db77bb1c6b64a5b8a17ee1d57ad5a9, type: 3}
   _34_OpeningDropdown: {fileID: 0}
   _35_NumberTicker: {fileID: 8300000, guid: 5ef757e05dad84866a6dd1b6dd018e5e, type: 3}

@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: 1
-  playHoverSound: 0
+  playHoverSound: 1
   hoverSoundEffect: 39
 --- !u!1 &171419145
 GameObject:
@@ -987,7 +987,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: 1
-  playHoverSound: 0
+  playHoverSound: 1
   hoverSoundEffect: 39
 --- !u!1 &362610323
 GameObject:
@@ -7918,7 +7918,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: 1
-  playHoverSound: 0
+  playHoverSound: 1
   hoverSoundEffect: 39
 --- !u!224 &1386824556 stripped
 RectTransform:
@@ -9229,7 +9229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: 1
-  playHoverSound: 0
+  playHoverSound: 1
   hoverSoundEffect: 39
 --- !u!1 &2146854457
 GameObject:
@@ -9485,7 +9485,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundEffect: 1
-  playHoverSound: 0
+  playHoverSound: 1
   hoverSoundEffect: 39
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
