@@ -25,10 +25,10 @@ public static class BuildingExtensions
 {
     // TODO: define Resource values
     public static Dictionary<Resource, int> ConstructionCosts(this Building building)
-    => GameSettings.ConstructionCosts.GetValueOrDefault(building);
+    => new(GameSettings.ConstructionCosts.GetValueOrDefault(building));
 
     public static Dictionary<Resource, int> OperationCosts(this Building building)
-     => GameSettings.OperationCosts.GetValueOrDefault(building);
+     => new(GameSettings.OperationCosts.GetValueOrDefault(building));
 
     public static Resource ResourceYieldType(this Building building) => (Resource)building;
 
