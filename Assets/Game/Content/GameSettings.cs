@@ -15,8 +15,8 @@ public class GameSettings : ScriptableObject
 
     public static IReadOnlyList<SharedGoal> BalanceGoals { get; private set; }
     public static IReadOnlyList<SharedGoal> SelfishGoals { get; private set; }
-    public static Dictionary<Building, Dictionary<Resource, int>> ConstructionCosts { get; private set; }
-    public static Dictionary<Building, Dictionary<Resource, int>> OperationCosts { get; private set; }
+    public static IReadOnlyDictionary<Building, IReadOnlyDictionary<Resource, int>> ConstructionCosts { get; private set; }
+    public static IReadOnlyDictionary<Building, IReadOnlyDictionary<Resource, int>> OperationCosts { get; private set; }
     public static FactionData[] Factions => activeSettings?.factions;
 
     public void Use()
@@ -26,13 +26,16 @@ public class GameSettings : ScriptableObject
         BalanceGoals = GetSharedGoalList(balancedGoals);
         SelfishGoals = GetSharedGoalList(selfishGoals);//From scriptableObjects
 
-        ConstructionCosts = new();
-        OperationCosts = new();
+        Dictionary<Building, IReadOnlyDictionary<Resource, int>> constructionCosts = new();
+        Dictionary<Building, IReadOnlyDictionary<Resource, int>> operationCosts = new();
+
         foreach (BuildingData building in buildings)
         {
-            ConstructionCosts[building.Building] = building.Cost.Items;
-            OperationCosts[building.Building] = building.OperationCost.Items;
+            constructionCosts[building.Building] = building.Cost.Items;
+            operationCosts[building.Building] = building.OperationCost.Items;
         }
+        ConstructionCosts = constructionCosts;
+        OperationCosts = operationCosts;
     }
 
 
