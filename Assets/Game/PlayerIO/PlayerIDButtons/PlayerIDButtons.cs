@@ -24,9 +24,10 @@ public class PlayerIDButtons : MonoBehaviour
             instance.PlayerID = id;
             instance.Faction = game?.PlayerData?.GetValueOrDefault(id)?.Faction ?? PlayerFaction.None;
             instance.Nickname = game?.PlayerData?.GetValueOrDefault(id)?.Nickname ?? instance.Faction.ToString();
+            instance.IsTraitor = game?.PlayerData?.GetValueOrDefault(id).Role == PlayerRole.Selfish && game?.ClientPlayerData?.Role == PlayerRole.Selfish;
             buttonInstances.Add(instance);
         }
-        if(game.ClientID >= 0) buttonInstances[(int)game.ClientID].transform.SetSiblingIndex(0);
+        if (game.ClientID >= 0) buttonInstances[(int)game.ClientID].transform.SetSiblingIndex(0);
     }
     private void OnClickButton(PlayerID id) => OnClick?.Invoke(id);
 

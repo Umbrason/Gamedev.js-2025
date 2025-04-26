@@ -7,6 +7,7 @@ public class PlayerIDButton : MonoBehaviour
 {
     public PlayerID PlayerID { get; set; }
     PlayerFaction m_faction;
+    [SerializeField] private Image bg;
     [SerializeField] private PlayerFactionSpriteLib factionSprites;
     public PlayerFaction Faction
     {
@@ -15,7 +16,7 @@ public class PlayerIDButton : MonoBehaviour
         {
             if (m_faction == value) return;
             m_faction = value;
-            if(factionSprites != null) icon.sprite = factionSprites[value];
+            if (factionSprites != null) icon.sprite = factionSprites[value];
         }
     }
     private string m_Nickname;
@@ -29,6 +30,8 @@ public class PlayerIDButton : MonoBehaviour
             text.text = value;
         }
     }
+
+    public bool IsTraitor { set => bg.color = !value ? Color.black : Color.red; }
     [SerializeField] private Image icon;
     [SerializeField] private Button button;
     [SerializeField] private TMP_Text text;

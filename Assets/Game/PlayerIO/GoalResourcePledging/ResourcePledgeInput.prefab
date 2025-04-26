@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d927f9800e19e6d48a6408ecf146ccf4, type: 2}
-  m_sharedMaterial: {fileID: 1070098786463267744, guid: d927f9800e19e6d48a6408ecf146ccf4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 43c4a47f32a1d9946bb54b9da631a576, type: 2}
+  m_sharedMaterial: {fileID: 2059595003954093327, guid: 43c4a47f32a1d9946bb54b9da631a576, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -257,15 +257,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.22352941, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 1feb498bb13c70344b3db213f90c89f2, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -353,15 +353,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4056604, g: 0.05549134, b: 0.05549129, a: 1}
+  m_Color: {r: 0.4056604, g: 0.05549134, b: 0.05549129, a: 0.5019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 1feb49fbb13c70344b3db213f90c89f2, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -449,7 +449,6 @@ MonoBehaviour:
   BalancedTheme: {fileID: 4073477345072733028}
   EvilTheme: {fileID: 4082226646303859125}
   Title: {fileID: 7048569071261655389}
-  game: {fileID: 0}
 --- !u!114 &5556284963384397920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,9 +482,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 15
-    m_Right: 15
-    m_Top: 15
+    m_Left: 80
+    m_Right: 80
+    m_Top: 80
     m_Bottom: 15
   m_ChildAlignment: 1
   m_Spacing: 15
