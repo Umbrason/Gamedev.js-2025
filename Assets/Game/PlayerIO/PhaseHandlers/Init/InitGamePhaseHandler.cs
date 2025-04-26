@@ -17,6 +17,10 @@ public class InitGamePhaseHandler : GamePhaseHandler<InitGamePhase>
         }
         FadeInCanvasGroup.gameObject.SetActive(false);
     }
+    public override void OnPhaseEntered()
+    {
+        FadeInCanvasGroup.gameObject.SetActive(true);
+    }
     public override void OnPhaseExited()
     {
         StartCoroutine(FadeInRoutine());

@@ -4,24 +4,18 @@ using UnityEngine.SceneManagement;
 
 public class GameOverPhaseHandler : GamePhaseHandler<GameOverPhase>
 {
-    [SerializeField] private GameObject gameOverUI;
+    [SerializeField] private GameObject BalancedFactionWin;
+    [SerializeField] private GameObject SelfishFactionWin;
 
 
     public override void OnPhaseEntered()
     {
-        gameOverUI.SetActive(true);
-        // display winner team, maybe some stats later too
+        BalancedFactionWin.SetActive(Phase.WinnerRole == PlayerRole.Balanced);
+        SelfishFactionWin.SetActive(Phase.WinnerRole == PlayerRole.Selfish);
     }
-
-    public override void OnPhaseExited()
-    {
-        gameOverUI.SetActive(true);
-    }
-
 
     public void ReturnToMainMenu()
     {
-        // disconnect from server?
         SceneManager.LoadScene("Main Menu");
     }
 }
